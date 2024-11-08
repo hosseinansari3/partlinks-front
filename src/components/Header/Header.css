@@ -194,3 +194,87 @@
   top: 2px;
   margin-right: 5px;
 }
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .top-header-information {
+    text-align: center;
+  }
+  .top-header-optional {
+    text-align: center;
+  }
+  .middle-header-logo {
+    display: none;
+  }
+  .middle-header-optional {
+    text-align: center;
+  }
+  .middle-header-area {
+    border-bottom: 1px solid #eeeeee;
+  }
+  .middle-header-search {
+    margin-bottom: 20px;
+  }
+  .middle-header-optional li {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+  }
+  .middle-header-optional li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .top-header-information li {
+    font-size: 12px;
+    margin-right: 10px;
+  }
+  .middle-header-optional li {
+    font-size: 15px;
+    margin-right: 10px;
+  }
+  .middle-header-optional li i {
+    font-size: 20px;
+  }
+  .middle-header-optional li::before {
+    right: -8px !important;
+    top: 5px !important;
+  }
+  .middle-header-optional li .user-btn {
+    padding: 5px 15px;
+    font-size: 14px;
+  }
+  .middle-header-optional li .user-btn i {
+    font-size: 16px;
+    margin-right: 2px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .top-header-information {
+    text-align: center;
+  }
+  .top-header-optional {
+    text-align: center;
+  }
+  .middle-header-logo {
+    display: none;
+  }
+  .middle-header-optional {
+    text-align: center;
+  }
+  .middle-header-area {
+    border-bottom: 1px solid #eeeeee;
+  }
+  .middle-header-search {
+    margin-bottom: 20px;
+  }
+  .middle-header-optional li {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+  }
+  .middle-header-optional li:last-child {
+    margin-bottom: 0;
+  }
+}

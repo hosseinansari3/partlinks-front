@@ -1,7 +1,4 @@
 import React from "react";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import SearchIcon from "@mui/icons-material/Search";
 import "./Header.css";
 
 function Header() {

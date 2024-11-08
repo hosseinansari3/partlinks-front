@@ -21,86 +21,7 @@
   .section-title p {
     font-size: 15px;
   }
-  .top-header-information {
-    text-align: center;
-  }
-  .top-header-optional {
-    text-align: center;
-  }
-  .middle-header-logo {
-    display: none;
-  }
-  .middle-header-optional {
-    text-align: center;
-  }
-  .middle-header-area {
-    border-bottom: 1px solid #eeeeee;
-  }
-  .middle-header-search {
-    margin-bottom: 20px;
-  }
-  .middle-header-optional li {
-    margin-right: 15px;
-    margin-left: 15px;
-    margin-bottom: 15px;
-  }
-  .middle-header-optional li:last-child {
-    margin-bottom: 0;
-  }
-  .mean-container a.meanmenu-reveal {
-    padding: 0 0 0 0;
-  }
-  .mean-container a.meanmenu-reveal span {
-    display: block;
-    background: #000;
-    height: 4px;
-    margin-top: -5px;
-    border-radius: 3px;
-    position: relative;
-    top: 8px;
-  }
-  .mean-container .mean-bar {
-    background-color: unset;
-    border-bottom: none;
-  }
-  .mean-container .mean-nav {
-    margin-top: 40px;
-  }
-  .others-option-for-responsive .dot-menu {
-    top: -27px;
-  }
-  .others-option-for-responsive .container .container {
-    right: 20px;
-    max-width: 230px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 5px;
-    text-align: center;
-  }
-  .others-option-for-responsive .option-inner .others-options {
-    margin-left: 0;
-  }
-  .others-option-for-responsive .option-inner .others-options .option-item {
-    margin-bottom: 10px;
-    margin-right: 0;
-  }
-  .others-option-for-responsive
-    .option-inner
-    .others-options
-    .option-item:last-child {
-    margin-bottom: 0;
-  }
-  .others-option-for-responsive
-    .option-inner
-    .others-options
-    .option-item
-    .language-switcher
-    .dropdown-menu {
-    margin-top: 10px;
-  }
-  .others-option-for-responsive .option-inner .others-options.d-flex {
-    display: block !important;
-  }
+
   .main-slides-item {
     padding-top: 50px;
     padding-bottom: 50px;
@@ -481,86 +402,7 @@
     padding-top: 70px;
     padding-bottom: 70px;
   }
-  .top-header-information {
-    text-align: center;
-  }
-  .top-header-optional {
-    text-align: center;
-  }
-  .middle-header-logo {
-    display: none;
-  }
-  .middle-header-optional {
-    text-align: center;
-  }
-  .middle-header-area {
-    border-bottom: 1px solid #eeeeee;
-  }
-  .middle-header-search {
-    margin-bottom: 20px;
-  }
-  .middle-header-optional li {
-    margin-right: 15px;
-    margin-left: 15px;
-    margin-bottom: 15px;
-  }
-  .middle-header-optional li:last-child {
-    margin-bottom: 0;
-  }
-  .mean-container a.meanmenu-reveal {
-    padding: 0 0 0 0;
-  }
-  .mean-container a.meanmenu-reveal span {
-    display: block;
-    background: #000;
-    height: 4px;
-    margin-top: -5px;
-    border-radius: 3px;
-    position: relative;
-    top: 8px;
-  }
-  .mean-container .mean-bar {
-    background-color: unset;
-    border-bottom: none;
-  }
-  .mean-container .mean-nav {
-    margin-top: 40px;
-  }
-  .others-option-for-responsive .dot-menu {
-    top: -27px;
-  }
-  .others-option-for-responsive .container .container {
-    right: 20px;
-    max-width: 230px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 5px;
-    text-align: center;
-  }
-  .others-option-for-responsive .option-inner .others-options {
-    margin-left: 0;
-  }
-  .others-option-for-responsive .option-inner .others-options .option-item {
-    margin-bottom: 10px;
-    margin-right: 0;
-  }
-  .others-option-for-responsive
-    .option-inner
-    .others-options
-    .option-item:last-child {
-    margin-bottom: 0;
-  }
-  .others-option-for-responsive
-    .option-inner
-    .others-options
-    .option-item
-    .language-switcher
-    .dropdown-menu {
-    margin-top: 10px;
-  }
-  .others-option-for-responsive .option-inner .others-options.d-flex {
-    display: block !important;
-  }
+
   .main-slides-item {
     padding-top: 100px;
     padding-bottom: 100px;
@@ -704,35 +546,6 @@
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .top-header-information li {
-    font-size: 12px;
-    margin-right: 10px;
-  }
-  .middle-header-optional li {
-    font-size: 15px;
-    margin-right: 10px;
-  }
-  .middle-header-optional li i {
-    font-size: 20px;
-  }
-  .middle-header-optional li::before {
-    right: -8px !important;
-    top: 5px !important;
-  }
-  .middle-header-optional li .user-btn {
-    padding: 5px 15px;
-    font-size: 14px;
-  }
-  .middle-header-optional li .user-btn i {
-    font-size: 16px;
-    margin-right: 2px;
-  }
-  .main-navbar .navbar .navbar-category .category-title a {
-    width: 220px;
-  }
-  .main-navbar .navbar .navbar-category .navbar-category-dropdown {
-    width: 220px;
-  }
   .custom-row {
     padding: 45px 10px 25px;
   }

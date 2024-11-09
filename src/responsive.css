@@ -47,27 +47,7 @@
     padding: 10px 20px;
     font-size: 14px;
   }
-  .custom-row {
-    padding: 35px 15px 15px;
-  }
-  .custom-row .custom-item {
-    width: 100%;
-  }
-  .custom-row .custom-item .single-support {
-    padding-left: 0;
-    text-align: center;
-    margin-top: 20px;
-  }
-  .custom-row .custom-item .single-support::before {
-    display: none;
-  }
-  .custom-row .custom-item .single-support .icon {
-    position: relative;
-    top: unset;
-    -webkit-transform: unset;
-    transform: unset;
-    margin-bottom: 10px;
-  }
+
   .products-list-tab .tabs li {
     margin-right: 20px;
   }
@@ -428,15 +408,7 @@
     padding: 10px 20px;
     font-size: 14px;
   }
-  .custom-row {
-    padding: 35px 15px 15px;
-  }
-  .custom-row .custom-item {
-    width: 30%;
-  }
-  .custom-row .custom-item .single-support::before {
-    display: none;
-  }
+
   .products-list-tab .tabs li {
     margin-right: 20px;
   }
@@ -546,25 +518,6 @@
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .custom-row {
-    padding: 45px 10px 25px;
-  }
-  .custom-row .custom-item .single-support {
-    padding-left: 42px;
-  }
-  .custom-row .custom-item .single-support .icon i {
-    font-size: 35px;
-  }
-  .custom-row .custom-item .single-support::before {
-    right: -12px;
-  }
-  .custom-row .custom-item .single-support .support-content h3 {
-    font-size: 15px;
-    margin-bottom: 5px;
-  }
-  .custom-row .custom-item .single-support .support-content span {
-    font-size: 12px;
-  }
   .single-footer-widget .footer-social li i {
     height: 35px;
     width: 35px;

@@ -1,0 +1,62 @@
+/*================================================
+Work Area style.CSS
+=================================================*/
+.work-area {
+  background-color: #f5f4f4;
+}
+
+.single-work {
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  padding: 30px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.single-work .work-content {
+  position: relative;
+  padding-left: 80px;
+}
+
+.single-work .work-content .icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.single-work .work-content .icon i {
+  font-size: 65px;
+  color: #d31531;
+}
+
+.single-work .work-content h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.single-work .work-content p {
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.single-work:hover {
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+
+/*
+====================================
+responsive.css
+====================================
+*/
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .single-work .work-content h3 {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .single-work .work-content h3 {
+    font-size: 16px;
+  }
+}

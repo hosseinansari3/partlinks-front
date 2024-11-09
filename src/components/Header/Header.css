@@ -1,3 +1,6 @@
+/*================================================
+Top Header Area CSS
+=================================================*/
 .top-header-area {
   background-color: #000011;
   padding-top: 10px;
@@ -20,15 +23,15 @@
   padding-left: 20px;
 }
 
+.top-header-information li:last-child {
+  margin-right: 0;
+}
+
 .top-header-information li i {
   position: absolute;
   left: 0;
   top: 2px;
   color: #d31531;
-}
-
-.top-header-information li:last-child {
-  margin-right: 0;
 }
 
 .top-header-optional {
@@ -47,7 +50,7 @@
   position: relative;
 }
 
-.top-header-optional li:first-child:before {
+.top-header-optional li::before {
   content: "";
   position: absolute;
   right: -12px;
@@ -67,6 +70,131 @@
   margin-right: 0;
 }
 
+.top-header-optional li:last-child::before {
+  display: none;
+}
+
+.top-header-optional .language-switcher {
+  position: relative;
+}
+
+.top-header-optional .language-switcher .dropdown-toggle {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.top-header-optional .language-switcher .dropdown-toggle::after {
+  display: none;
+}
+
+.top-header-optional .language-switcher .dropdown-toggle span {
+  display: inline-block;
+  font-size: 15px;
+}
+
+.top-header-optional .language-switcher .dropdown-toggle span i {
+  position: relative;
+  font-size: 20px;
+  top: 4px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.top-header-optional .language-switcher .dropdown-toggle:hover {
+  color: #ff4545;
+}
+
+.top-header-optional .language-switcher .dropdown-toggle:hover span i {
+  color: #ff4545;
+}
+
+.top-header-optional .language-switcher .dropdown-menu {
+  padding: 15px;
+  float: unset;
+  border: none;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+  display: block;
+  margin-top: 10px !important;
+  opacity: 0;
+  visibility: visible;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  right: 0 !important;
+  left: auto !important;
+}
+
+.top-header-optional .language-switcher .dropdown-menu .dropdown-item {
+  padding: 0;
+  color: #09101f;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.top-header-optional .language-switcher .dropdown-menu .dropdown-item::before {
+  display: none;
+}
+
+.top-header-optional
+  .language-switcher
+  .dropdown-menu
+  .dropdown-item:last-child {
+  margin-bottom: 0;
+}
+
+.top-header-optional .language-switcher .dropdown-menu .dropdown-item img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
+
+.top-header-optional .language-switcher .dropdown-menu .dropdown-item span {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.top-header-optional
+  .language-switcher
+  .dropdown-menu
+  .dropdown-item
+  span:hover {
+  color: #d31531;
+}
+
+.top-header-optional .language-switcher .dropdown-menu .dropdown-item:hover,
+.top-header-optional .language-switcher .dropdown-menu .dropdown-item:focus {
+  background-color: transparent !important;
+}
+
+.top-header-optional .language-switcher .dropdown-menu .dropdown-item:active,
+.top-header-optional .language-switcher .dropdown-menu .dropdown-item.active {
+  color: #09101f;
+  background-color: transparent;
+}
+
+.top-header-optional .language-switcher .dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+/*================================================
+Middle Header Area CSS
+=================================================*/
 .middle-header-area {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -81,8 +209,8 @@
   margin-bottom: 0;
 }
 
-.middle-header-search form .search-field:focus {
-  border-color: #d31531;
+.middle-header-search form .screen-reader-text {
+  display: none;
 }
 
 .middle-header-search form .search-field {
@@ -96,6 +224,10 @@
   -webkit-transition: 0.5s;
   transition: 0.5s;
   font-size: 14px;
+}
+
+.middle-header-search form .search-field:focus {
+  border-color: #d31531;
 }
 
 .middle-header-search form button {
@@ -123,6 +255,12 @@
   transform: translateY(-50%);
 }
 
+.middle-header-search form button:hover,
+.middle-header-search form button:focus {
+  background-color: #ff4545;
+  color: #ffffff;
+}
+
 .middle-header-optional {
   padding-left: 0;
   margin-bottom: 0;
@@ -139,7 +277,7 @@
   position: relative;
 }
 
-.middle-header-optional li:first-child::before {
+.middle-header-optional li::before {
   content: "";
   position: absolute;
   right: -15px;
@@ -151,6 +289,14 @@
 
 .middle-header-optional li:last-child {
   margin-right: 0;
+}
+
+.middle-header-optional li:last-child::before {
+  display: none;
+}
+
+.middle-header-optional li:nth-child(2)::before {
+  display: none;
 }
 
 .middle-header-optional li i {
@@ -186,6 +332,10 @@
   transition: 0.5s;
   font-size: 15px;
   font-weight: 500;
+}
+
+.middle-header-optional li .user-btn:hover {
+  background-color: #ff4545;
 }
 
 .middle-header-optional li .user-btn i {

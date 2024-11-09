@@ -10,11 +10,11 @@ function Header() {
             <div className="col-lg-6 col-md-12">
               <ul className="top-header-information">
                 <li>
-                  <i class="bx bxs-location-plus"></i>565, Nyman Tower
-                  Melbourne, Australia
+                  <i class="flaticon-pin"></i>565, Nyman Tower Melbourne,
+                  Australia
                 </li>
                 <li>
-                  <i class="bx bx-time"></i>
+                  <i class="flaticon-clock"></i>
                   Monday 8:00 AM - 12:00 PM
                 </li>
               </ul>

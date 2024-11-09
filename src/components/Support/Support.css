@@ -1,0 +1,140 @@
+/*================================================
+Support Area CSS   style.css
+=================================================*/
+.support-area {
+  padding-top: 50px;
+}
+
+.support-area.bg-color {
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
+  box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
+  padding-bottom: 30px;
+}
+
+.support-area.bg-color .custom-row {
+  padding: 0;
+  border: none;
+}
+
+.custom-row {
+  overflow: hidden;
+  padding: 45px 30px 25px;
+  border: 1px solid #e1e1e1;
+}
+
+.custom-row .custom-item {
+  width: 20%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+}
+
+.custom-row .custom-item .single-support {
+  position: relative;
+  padding-left: 65px;
+  margin-bottom: 20px;
+}
+
+.custom-row .custom-item .single-support::before {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: 0;
+  width: 1px;
+  height: 55px;
+  background-color: #d31531;
+}
+
+.custom-row .custom-item .single-support .icon {
+  position: absolute;
+  left: 0;
+  top: 70%;
+  -webkit-transform: translateY(-70%);
+  transform: translateY(-70%);
+}
+
+.custom-row .custom-item .single-support .icon i {
+  font-size: 45px;
+  color: #d31531;
+  line-height: 0;
+}
+
+.custom-row .custom-item .single-support .support-content h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.custom-row .custom-item .single-support .support-content span {
+  font-size: 16px;
+  color: #363636;
+  font-weight: 500;
+}
+
+.custom-row .custom-item:last-child .single-support::before {
+  display: none;
+}
+
+/*
+======================================
+responsive.css
+======================================
+*/
+@media only screen and (max-width: 767px) {
+  .custom-row {
+    padding: 35px 15px 15px;
+  }
+  .custom-row .custom-item {
+    width: 100%;
+  }
+  .custom-row .custom-item .single-support {
+    padding-left: 0;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .custom-row .custom-item .single-support::before {
+    display: none;
+  }
+  .custom-row .custom-item .single-support .icon {
+    position: relative;
+    top: unset;
+    -webkit-transform: unset;
+    transform: unset;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .custom-row {
+    padding: 35px 15px 15px;
+  }
+  .custom-row .custom-item {
+    width: 30%;
+  }
+  .custom-row .custom-item .single-support::before {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .custom-row {
+    padding: 45px 10px 25px;
+  }
+  .custom-row .custom-item .single-support {
+    padding-left: 42px;
+  }
+  .custom-row .custom-item .single-support .icon i {
+    font-size: 35px;
+  }
+  .custom-row .custom-item .single-support::before {
+    right: -12px;
+  }
+  .custom-row .custom-item .single-support .support-content h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+  .custom-row .custom-item .single-support .support-content span {
+    font-size: 12px;
+  }
+}

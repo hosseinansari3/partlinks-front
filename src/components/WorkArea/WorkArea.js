@@ -3,9 +3,9 @@ import "./WorkArea.css";
 
 function WorkArea() {
   return (
-    <section class="work-area pt-100 pb-70">
-      <div class="container">
-        <div class="section-title">
+    <section className="work-area pt-100 pb-70">
+      <div className="container">
+        <div className="section-title">
           <h2>How It Works</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
@@ -13,12 +13,12 @@ function WorkArea() {
           </p>
         </div>
 
-        <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-6">
-            <div class="single-work">
-              <div class="work-content">
-                <div class="icon">
-                  <i class="flaticon-car-wheel"></i>
+        <div className="row justify-content-center">
+          <div className="col-lg-4 col-md-6">
+            <div className="single-work">
+              <div className="work-content">
+                <div className="icon">
+                  <i className="flaticon-car-wheel"></i>
                 </div>
 
                 <h3>Find Your Tires Among Our Widset Collection</h3>
@@ -30,11 +30,11 @@ function WorkArea() {
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6">
-            <div class="single-work">
-              <div class="work-content">
-                <div class="icon">
-                  <i class="flaticon-appointment"></i>
+          <div className="col-lg-4 col-md-6">
+            <div className="single-work">
+              <div className="work-content">
+                <div className="icon">
+                  <i className="flaticon-appointment"></i>
                 </div>
 
                 <h3>Collect Your Product From The Shop In Short Time</h3>
@@ -46,11 +46,11 @@ function WorkArea() {
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6">
-            <div class="single-work">
-              <div class="work-content">
-                <div class="icon">
-                  <i class="flaticon-delivery-truck"></i>
+          <div className="col-lg-4 col-md-6">
+            <div className="single-work">
+              <div className="work-content">
+                <div className="icon">
+                  <i className="flaticon-delivery-truck"></i>
                 </div>
 
                 <h3>Get Your Tire Delivered and Get Installed</h3>

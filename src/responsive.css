@@ -76,32 +76,6 @@
   .coming-soon-title .coming-soon-content #timer div span {
     font-size: 14px;
   }
-  .newsletter-content {
-    max-width: 100%;
-  }
-  .newsletter-content span {
-    font-size: 15px;
-  }
-  .newsletter-content h3 {
-    font-size: 25px;
-  }
-  .newsletter-content p {
-    font-size: 15px;
-  }
-  .newsletter-content .newsletter-form button {
-    position: relative;
-    right: 0;
-    top: 0;
-    margin-top: 15px;
-  }
-  .newsletter-image {
-    text-align: center;
-    margin-top: 30px;
-  }
-  .newsletter-area .container-fluid {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
   .trending-products-box {
     height: 450px;
   }
@@ -122,12 +96,7 @@
   .trending-products-title h3 {
     font-size: 22px;
   }
-  .categories-box .categories-title h2 {
-    font-size: 25px;
-  }
-  .categories-box .categories-row .categories-item {
-    width: 100%;
-  }
+
   .single-blog .blog-content {
     padding: 20px;
   }
@@ -418,32 +387,6 @@
   .coming-soon-title {
     margin: auto;
   }
-  .newsletter-content {
-    max-width: 100%;
-  }
-  .newsletter-content span {
-    font-size: 15px;
-  }
-  .newsletter-content h3 {
-    font-size: 25px;
-  }
-  .newsletter-content p {
-    font-size: 15px;
-  }
-  .newsletter-content .newsletter-form button {
-    position: relative;
-    right: 0;
-    top: 0;
-    margin-top: 15px;
-  }
-  .newsletter-image {
-    text-align: center;
-    margin-top: 30px;
-  }
-  .newsletter-area .container-fluid {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
   .trending-products-box {
     height: 350px;
   }
@@ -452,12 +395,7 @@
     margin-bottom: 25px;
     text-align: center;
   }
-  .categories-box .categories-title h2 {
-    font-size: 25px;
-  }
-  .categories-box .categories-row .categories-item {
-    width: 30%;
-  }
+
   .single-blog .blog-content {
     padding: 20px;
   }
@@ -547,15 +485,6 @@
   .coming-soon-area.item-two .container-fluid {
     padding-left: 15px;
     padding-right: 15px;
-  }
-  .newsletter-content {
-    max-width: 460px;
-  }
-}
-
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {
-  .newsletter-content {
-    max-width: 550px;
   }
 }
 

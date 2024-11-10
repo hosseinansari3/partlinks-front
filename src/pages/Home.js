@@ -1,6 +1,5 @@
 import React from "react";
-import Header from "../components/Header/Header";
-import Navbar from "../components/Navbar/Navbar";
+
 import MainBanner from "../components/MainBanner/MainBanner";
 import Support from "../components/Support/Support";
 import WorkArea from "../components/WorkArea/WorkArea";
@@ -13,8 +12,6 @@ import NewsLetter from "../components/NewsLetter/NewsLetter";
 function Home() {
   return (
     <div>
-      <Header />
-      <Navbar />
       <MainBanner />
       <Support />
       <WorkArea />

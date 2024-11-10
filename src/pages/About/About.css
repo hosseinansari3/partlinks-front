@@ -1,0 +1,230 @@
+/*================================================
+Page Banner CSS
+=================================================*/
+.page-banner-area {
+  position: relative;
+  z-index: 1;
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/page-banner/page-banner-1.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 120px;
+  padding-bottom: 120px;
+  background-attachment: fixed;
+}
+
+.page-banner-area::before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background-color: #000000;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.page-banner-content {
+  text-align: center;
+}
+
+.page-banner-content h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 45px;
+  line-height: 1;
+}
+
+.page-banner-content ul {
+  text-align: center;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.page-banner-content ul li {
+  display: inline-block;
+  list-style-type: none;
+  margin-left: 15px;
+  font-weight: 600;
+  color: #d31531;
+  position: relative;
+}
+
+.page-banner-content ul li::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 6px;
+  height: 12px;
+  width: 1px;
+  background: #d31531;
+}
+
+.page-banner-content ul li:first-child {
+  margin-left: 0;
+}
+
+.page-banner-content ul li:first-child::before {
+  display: none;
+}
+
+.page-banner-content ul li a {
+  display: block;
+  color: #ffffff;
+}
+
+/*================================================
+  Story Area CSS
+  =================================================*/
+.story-image {
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/story.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.story-image::before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background-color: #000000;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.story-image .video-btn {
+  text-align: center;
+}
+
+.story-image .video-btn i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 80px;
+  color: #d31531;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.story-image .video-btn i:hover {
+  color: #ff4545;
+}
+
+.story-content {
+  padding: 15px 0;
+}
+
+.story-content h3 {
+  font-size: 30px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+/*================================================
+  Mission Area CSS
+  =================================================*/
+.mission-content {
+  padding: 15px 0;
+}
+
+.mission-content h3 {
+  font-size: 30px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.mission-content p {
+  margin-bottom: 0;
+}
+
+.mission-content .mission-list {
+  padding-left: 0;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.mission-content .mission-list li {
+  color: #6e727f;
+  font-size: 16px;
+  margin-bottom: 15px;
+  list-style-type: none;
+}
+
+.mission-content .mission-list li:last-child {
+  margin-bottom: 0;
+}
+
+.mission-content .mission-list li i {
+  margin-right: 5px;
+  color: #d31531;
+}
+
+.mission-image {
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/mission.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+/*================================================
+  Vision Area CSS
+  =================================================*/
+.vision-content {
+  padding: 15px 0;
+}
+
+.vision-content h3 {
+  font-size: 30px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.vision-content p {
+  margin-bottom: 0;
+}
+
+.vision-content .vision-list {
+  padding-left: 0;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.vision-content .vision-list li {
+  color: #6e727f;
+  font-size: 16px;
+  margin-bottom: 15px;
+  list-style-type: none;
+}
+
+.vision-content .vision-list li:last-child {
+  margin-bottom: 0;
+}
+
+.vision-content .vision-list li i {
+  margin-right: 5px;
+  color: #d31531;
+}
+
+.vision-image {
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/vision.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}

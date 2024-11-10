@@ -1,0 +1,190 @@
+/*================================================
+Newsletter Area style.CSS
+=================================================*/
+.newsletter-area {
+  background-image: url(../../../public/assets/img/newsletter/newsletter-bg.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.newsletter-area .container-fluid {
+  padding-right: 0;
+  overflow: hidden;
+}
+
+.newsletter-area.item-two {
+  background-image: url(../../../public/assets/img/newsletter/newsletter-bg-2.jpg);
+}
+
+.newsletter-area.item-two .newsletter-content {
+  max-width: 585px;
+  margin-left: unset;
+}
+
+.newsletter-content {
+  max-width: 640px;
+  margin-left: auto;
+}
+
+.newsletter-content span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.newsletter-content h3 {
+  font-size: 35px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.newsletter-content p {
+  margin-bottom: 0;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.newsletter-content .newsletter-form {
+  position: relative;
+  margin-top: 30px;
+}
+
+.newsletter-content .newsletter-form .input-newsletter {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  height: 60px;
+  padding-left: 25px;
+  border-radius: 0;
+  outline: 0;
+  color: #ffffff;
+}
+
+.newsletter-content
+  .newsletter-form
+  .input-newsletter::-webkit-input-placeholder {
+  color: #ffffff;
+}
+
+.newsletter-content .newsletter-form .input-newsletter:-ms-input-placeholder {
+  color: #ffffff;
+}
+
+.newsletter-content .newsletter-form .input-newsletter::-ms-input-placeholder {
+  color: #ffffff;
+}
+
+.newsletter-content .newsletter-form .input-newsletter::placeholder {
+  color: #ffffff;
+}
+
+.newsletter-content .newsletter-form button {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  background-color: #d31531;
+  color: #ffffff;
+  border: none;
+  height: 52px;
+  padding: 0 30px;
+  border-radius: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  line-height: 50px;
+  text-transform: capitalize;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.newsletter-content .newsletter-form button:hover {
+  background-color: #ff4545;
+  color: #ffffff;
+}
+
+.newsletter-content .newsletter-form #validator-newsletter {
+  color: red;
+  position: relative;
+  top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/*
+===============================
+responsive.css
+================================
+*/
+
+@media only screen and (max-width: 767px) {
+  .newsletter-content {
+    max-width: 100%;
+  }
+  .newsletter-content span {
+    font-size: 15px;
+  }
+  .newsletter-content h3 {
+    font-size: 25px;
+  }
+  .newsletter-content p {
+    font-size: 15px;
+  }
+  .newsletter-content .newsletter-form button {
+    position: relative;
+    right: 0;
+    top: 0;
+    margin-top: 15px;
+  }
+  .newsletter-image {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .newsletter-area .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .newsletter-content {
+    max-width: 100%;
+  }
+  .newsletter-content span {
+    font-size: 15px;
+  }
+  .newsletter-content h3 {
+    font-size: 25px;
+  }
+  .newsletter-content p {
+    font-size: 15px;
+  }
+  .newsletter-content .newsletter-form button {
+    position: relative;
+    right: 0;
+    top: 0;
+    margin-top: 15px;
+  }
+  .newsletter-image {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .newsletter-area .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .newsletter-content {
+    max-width: 460px;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+  .newsletter-content {
+    max-width: 550px;
+  }
+}

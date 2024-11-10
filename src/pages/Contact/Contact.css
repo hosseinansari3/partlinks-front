@@ -1,0 +1,230 @@
+/*================================================
+Page Banner CSS
+=================================================*/
+.page-banner-area {
+  position: relative;
+  z-index: 1;
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/page-banner/page-banner-3.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 120px;
+  padding-bottom: 120px;
+  background-attachment: fixed;
+}
+
+.page-banner-area::before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background-color: #000000;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.page-banner-area.item-bg2 {
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/page-banner/page-banner-3.jpg);
+}
+
+.page-banner-content {
+  text-align: center;
+}
+
+.page-banner-content h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 45px;
+  line-height: 1;
+}
+
+.page-banner-content ul {
+  text-align: center;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.page-banner-content ul li {
+  display: inline-block;
+  list-style-type: none;
+  margin-left: 15px;
+  font-weight: 600;
+  color: #d31531;
+  position: relative;
+}
+
+.page-banner-content ul li::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 6px;
+  height: 12px;
+  width: 1px;
+  background: #d31531;
+}
+
+.page-banner-content ul li:first-child {
+  margin-left: 0;
+}
+
+.page-banner-content ul li:first-child::before {
+  display: none;
+}
+
+.page-banner-content ul li a {
+  display: block;
+  color: #ffffff;
+}
+
+/*================================================
+Contact Info Area CSS
+=================================================*/
+.contact-info-box {
+  text-align: center;
+  border-radius: 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.contact-info-box .icon {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  background: #f5f5f5;
+  border-radius: 50%;
+  font-size: 35px;
+  color: #ff4545;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.contact-info-box .icon i {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 0;
+}
+
+.contact-info-box h3 {
+  margin-bottom: 12px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  font-size: 20px;
+}
+
+.contact-info-box p {
+  margin-bottom: 2px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.contact-info-box p a {
+  display: inline-block;
+  color: #6e727f;
+}
+
+.contact-info-box p a:hover {
+  color: #d31531;
+}
+
+.contact-info-box p:last-child {
+  margin-bottom: 0;
+}
+
+.contact-info-box:hover {
+  -webkit-transform: translateY(-10px);
+  transform: translateY(-10px);
+}
+
+/*================================================
+  Contact Area CSS
+  =================================================*/
+.contact-form {
+  border-radius: 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  padding: 30px;
+  max-width: 1050px;
+  margin: auto;
+}
+
+.contact-form .form-group {
+  margin-bottom: 20px;
+}
+
+.contact-form .form-group .form-control {
+  display: block;
+  width: 100%;
+  height: 60px;
+  outline: 0;
+  background-color: #f1f1f1;
+  border: 1px solid #f1f1f1;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 0 12px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.contact-form .form-group .form-control:focus {
+  outline: 0;
+  background-color: #ffffff;
+  border-color: #ff4545;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.contact-form .form-group textarea.form-control {
+  height: auto;
+  padding: 8px 12px;
+  line-height: 1.5rem;
+}
+
+.contact-form .form-group .help-block.with-errors ul {
+  color: red;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+.contact-form .form-group .help-block.with-errors ul li {
+  font-size: 14px;
+}
+
+.contact-form .form-group label {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.contact-form #msgSubmit {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.contact-form #msgSubmit.text-danger,
+.contact-form #msgSubmit.text-success {
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.contact-form .default-btn {
+  margin-top: 10px;
+  border: none;
+}

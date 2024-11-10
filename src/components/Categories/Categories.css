@@ -1,0 +1,75 @@
+/*================================================
+Categories Area CSS
+=================================================*/
+.categories-box {
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
+  box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
+  padding: 30px 30px 10px;
+}
+
+.categories-box .categories-title {
+  margin-bottom: 15px;
+}
+
+.categories-box .categories-title h2 {
+  font-size: 30px;
+  margin-bottom: 0;
+}
+
+.categories-box .categories-row {
+  overflow: hidden;
+}
+
+.categories-box .categories-row .categories-item {
+  width: 20%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.categories-box .categories-row .categories-item .single-categories {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.categories-box
+  .categories-row
+  .categories-item
+  .single-categories
+  .categories-image {
+  margin-bottom: 10px;
+}
+
+.categories-box
+  .categories-row
+  .categories-item
+  .single-categories
+  .categories-content
+  h3 {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+/*
+============================
+responsive
+===============================
+*/
+@media only screen and (max-width: 767px) {
+  .categories-box .categories-title h2 {
+    font-size: 25px;
+  }
+  .categories-box .categories-row .categories-item {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .categories-box .categories-title h2 {
+    font-size: 25px;
+  }
+  .categories-box .categories-row .categories-item {
+    width: 30%;
+  }
+}

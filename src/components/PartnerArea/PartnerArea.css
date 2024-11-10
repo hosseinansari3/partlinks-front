@@ -1,0 +1,9 @@
+/*================================================
+Partner Area style.CSS
+=================================================*/
+.partner-item img {
+  width: auto !important;
+  margin: auto;
+  border: 1px solid #adacac;
+  padding: 30px;
+}

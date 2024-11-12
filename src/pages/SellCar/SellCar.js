@@ -162,7 +162,11 @@ function SellCar() {
     <div className="step-car2">
       <div className="row mb-2">
         <div className="col-6 mb-3">
-          <InputLabel htmlFor="make">
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            htmlFor="make"
+          >
             <span>Make</span>
           </InputLabel>
           <Controller
@@ -203,7 +207,11 @@ function SellCar() {
           />
         </div>
         <div className="col-6 mb-3">
-          <InputLabel htmlFor="model">
+          <InputLabel
+            required
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            htmlFor="model"
+          >
             <span>Model</span>
           </InputLabel>
           <Controller
@@ -245,7 +253,11 @@ function SellCar() {
           />
         </div>
         <div className="col-6 mb-3">
-          <InputLabel htmlFor="year">
+          <InputLabel
+            required
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            htmlFor="year"
+          >
             <span>Year</span>
           </InputLabel>
           <Controller
@@ -286,7 +298,13 @@ function SellCar() {
           />
         </div>
         <div className="col-6 mb-3">
-          <InputLabel id="body-type">Body Type</InputLabel>
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            id="body-type"
+          >
+            Body Type
+          </InputLabel>
           <Select
             {...register("bodyType", { required: step == STEPS.STEP_CAR_1 })}
             fullWidth
@@ -307,7 +325,13 @@ function SellCar() {
           </Select>
         </div>
         <div className="col-6 mb-3">
-          <InputLabel id="transmission">Transmission</InputLabel>
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            id="transmission"
+          >
+            Transmission
+          </InputLabel>
           <Select
             {...register("transmission", {
               required: step == STEPS.STEP_CAR_1,
@@ -330,7 +354,13 @@ function SellCar() {
           </Select>
         </div>
         <div className="col-6 mb-3">
-          <InputLabel id="fuel">Fuel</InputLabel>
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            id="fuel"
+          >
+            Fuel
+          </InputLabel>
           <Select
             {...register("fuel", { required: step == STEPS.STEP_CAR_1 })}
             fullWidth
@@ -351,7 +381,11 @@ function SellCar() {
           </Select>
         </div>
         <div className="col-6 mb-3">
-          <InputLabel htmlFor="cylinders">
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            htmlFor="cylinders"
+          >
             <span>cylinders</span>
           </InputLabel>
           <BootstrapInput
@@ -361,7 +395,11 @@ function SellCar() {
           />
         </div>
         <div className="col-6 mb-3">
-          <InputLabel htmlFor="series">
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            htmlFor="series"
+          >
             <span>series</span>
           </InputLabel>
           <BootstrapInput
@@ -371,7 +409,11 @@ function SellCar() {
           />
         </div>
         <div className="col-6 mb-3">
-          <InputLabel htmlFor="color">
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            htmlFor="color"
+          >
             <span>color</span>
           </InputLabel>
           <BootstrapInput
@@ -393,7 +435,11 @@ function SellCar() {
       </div>
       <div className="row mb-2 mx-auto">
         <div className="col-6 mb-3">
-          <InputLabel htmlFor="kilometres">
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            htmlFor="kilometres"
+          >
             <span>Kilometres</span>
           </InputLabel>
           <BootstrapInput
@@ -403,7 +449,13 @@ function SellCar() {
           />
         </div>
         <div className="col-6 mb-3">
-          <InputLabel id="number-of-keys">Number Of Keys</InputLabel>
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            id="number-of-keys"
+          >
+            Number Of Keys
+          </InputLabel>
           <Select
             {...register("numberOfKeys", { required: step == STEPS.STEP_USER })}
             fullWidth
@@ -424,7 +476,13 @@ function SellCar() {
           </Select>
         </div>
         <div className="col-6 mb-3">
-          <InputLabel id="owners-manual">Owners Manual</InputLabel>
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            id="owners-manual"
+          >
+            Owners Manual
+          </InputLabel>
           <Select
             {...register("ownersManual", { required: step == STEPS.STEP_USER })}
             fullWidth
@@ -445,7 +503,13 @@ function SellCar() {
           </Select>
         </div>
         <div className="col-6 mb-3">
-          <InputLabel id="service-history">Service History</InputLabel>
+          <InputLabel
+            sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+            required
+            id="service-history"
+          >
+            Service History
+          </InputLabel>
           <Select
             {...register("serviceHistory", {
               required: step == STEPS.STEP_USER,
@@ -537,8 +601,8 @@ function SellCar() {
             {...register("mobile", { required: step == STEPS.STEP_USER })}
             type="number"
             fullWidth
-            placeholder="Enter Plate Number"
-            id="plate-number"
+            placeholder="Mobile"
+            id="mobile"
           />
         </div>
         <div className="col-12">

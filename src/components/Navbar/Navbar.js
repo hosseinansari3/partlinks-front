@@ -84,14 +84,14 @@ function Navbar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a href="#" className="nav-link">
-                    Home
-                  </a>
+                  <Link to="about" className="nav-link">
+                    About Us
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a href="#" className="nav-link">
-                    Home
-                  </a>
+                  <Link to="contact" className="nav-link">
+                    Contact
+                  </Link>
                 </li>
               </ul>
               <div className="others-option d-flex align-items-center">

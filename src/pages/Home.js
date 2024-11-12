@@ -20,7 +20,6 @@ function Home() {
       <PartnerArea />
       <Categories />
       <NewsLetter />
-      Home
     </div>
   );
 }

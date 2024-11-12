@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer toastClassName="custom-toast" />
       <Header />
       <Navbar />
       <Routes>

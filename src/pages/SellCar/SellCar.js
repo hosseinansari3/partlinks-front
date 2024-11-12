@@ -461,9 +461,9 @@ function SellCar() {
   };
 
   return (
-    <div>
+    <div className="bg-light">
       <div className="container w-100 mw-900px m-auto mt-10">
-        <div className="row flex-wrap-reverse flex-md-wrap mb-10">
+        <div className="row flex-wrap-reverse flex-md-wrap mb-5">
           <div className="col-12 col-sm-12 col-md-6 mt-5 my-slider">
             <div className="card">
               <div class="card-header">
@@ -564,6 +564,15 @@ function SellCar() {
                 </div>
               </div>
             </div>
+            <div class="row mt-3">
+              <div class="col-12 text-center">
+                <img
+                  class="w-100 mw-300px"
+                  src="https://partlinks.com.au/files/upload/sellCar/sell-car-3.png"
+                  alt="sell car"
+                />
+              </div>
+            </div>
           </div>
           <div className="col-12 col-sm-12 col-md-6 text-center mt-5">
             <img
@@ -571,6 +580,152 @@ function SellCar() {
               src="https://partlinks.com.au/files/upload/sellCar/sell-car-1.png"
               alt="sell car"
             />
+          </div>
+        </div>
+      </div>
+      <div class="bg-white">
+        <div class="container w-100 mw-900px m-auto pt-5 pb-5">
+          <div class="row">
+            <div class="col-12 text-center">
+              <img
+                class="w-100 mw-500px"
+                src="https://partlinks.com.au/files/upload/sellCar/sell-car-banner.png"
+                alt="sell-car-banner"
+              />
+            </div>
+            <div class="col-12 text-center mt-5">
+              <h1>Simplified process of selling a used car</h1>
+            </div>
+            <div class="col-12 d-flex flex-column flex-start m-auto mt-5 mw-600px m-auto">
+              <div class="d-flex flex-start mt-5">
+                <img
+                  class="w-60px h-60px"
+                  src="https://partlinks.com.au/files/upload/sellCar/sell-car-icon-1.png"
+                  alt="sell-car-icon-1"
+                />
+                <div class="d-flex flex-column">
+                  <b>List and Forget</b>
+                  <span>
+                    List your car in 2 minutes and forget the rest, we will do
+                    the running around
+                  </span>
+                  <span>
+                    From negotiation tactics to effective marketing strategies,
+                    we've got you covered.
+                  </span>
+                </div>
+              </div>
+              <div class="d-flex flex-start mt-5">
+                <img
+                  class="w-60px h-60px"
+                  src="https://partlinks.com.au/files/upload/sellCar/sell-car-icon-2.png"
+                  alt="sell-car-icon-1"
+                />
+                <div class="d-flex flex-column">
+                  <b>No more dealing with endless enquiries </b>
+                  <span>
+                    We know just how time-consuming it is to sell a used car,
+                    let us deal with the selling and say goodbye to phone calls,
+                    text messages, responding to emails and endless inspections.
+                  </span>
+                </div>
+              </div>
+              <div class="d-flex flex-start mt-5">
+                <img
+                  class="w-60px h-60px"
+                  src="https://partlinks.com.au/files/upload/sellCar/sell-car-icon-3.png"
+                  alt="sell-car-icon-1"
+                />
+                <div class="d-flex flex-column">
+                  <b>Collect your payment </b>
+                  <span>
+                    Once we are done with the negotiations, you will receive a
+                    tailor made list of offers for you to choose a buyer and
+                    finalise the sale.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-light">
+        <div class="container w-100 mw-900px m-auto mt-5 mb-5">
+          <div class="row">
+            <div class="col-12 text-center">
+              <h1>Approved conditions</h1>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                  <img
+                    class="w-100 mw-150px bg-white"
+                    src="https://partlinks.com.au/files/upload/sellCar/car-1.png"
+                    alt="car-1"
+                  />
+                </div>
+                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                  <img
+                    class="w-100 mw-150px bg-white"
+                    src="https://partlinks.com.au/files/upload/sellCar/car-2.png"
+                    alt="car-2"
+                  />
+                </div>
+                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                  <img
+                    class="w-100 mw-150px bg-white"
+                    src="https://partlinks.com.au/files/upload/sellCar/car-3.png"
+                    alt="car-3"
+                  />
+                </div>
+                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                  <img
+                    class="w-100 mw-150px bg-white"
+                    src="https://partlinks.com.au/files/upload/sellCar/car-4.png"
+                    alt="car-4"
+                  />
+                </div>
+                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                  <img
+                    class="w-100 mw-150px bg-white"
+                    src="https://partlinks.com.au/files/upload/sellCar/car-5.png"
+                    alt="car-5"
+                  />
+                </div>
+                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                  <img
+                    class="w-100 mw-150px bg-white"
+                    src="https://partlinks.com.au/files/upload/sellCar/car-4.png"
+                    alt="car-4"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white">
+        <div class="container w-100 mw-900px m-auto pt-5 pb-5">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 text-center">
+              <img
+                class="w-100 mw-200px mw-sm-300px"
+                src="https://partlinks.com.au/files/upload/sellCar/sell-car-2.png"
+                alt="sell-car-2"
+              />
+            </div>
+            <div class="col-12 col-sm-12 col-md-8 p-10 p-sm-5">
+              <h1>Automatic SCAM protection</h1>
+              <h6 class="">
+                In the used car market, protecting yourself against scammers is
+                paramount. We understand the risks involved in selling your car
+                and have implemented stringent measures to safeguard your
+                interests. By partnering with us, you gain access to a network
+                of genuine, approved Buyers vetted by our team. With PartLinks,
+                you can sell your car with confidence, knowing that your
+                transaction is in safe hands.
+              </h6>
+            </div>
           </div>
         </div>
       </div>

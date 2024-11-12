@@ -1,6 +1,12 @@
 import React, { useCallback, useState } from "react";
 import TextField from "@mui/material/TextField";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Rating,
+  Select,
+} from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import { useForm } from "react-hook-form";
@@ -67,6 +73,154 @@ function SellCar() {
   const [step, setStep] = useState(STEPS.STEP_CAR);
 
   const state = watch("state", "");
+
+  const stepUser = (
+    <div className="step-user row mb-2">
+      <div className="row mb-4 mx-auto">
+        <div className="col-12">
+          <h3>Car Details</h3>
+        </div>
+      </div>
+      <div className="row mb-2 mx-auto">
+        <div className="col-6 mb-3">
+          <InputLabel htmlFor="kilometres">
+            <span>Kilometres</span>
+          </InputLabel>
+          <BootstrapInput fullWidth id="kilometres" />
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel id="number-of-keys">Number Of Keys</InputLabel>
+          <Select
+            fullWidth
+            input={<BootstrapInput />}
+            labelId="number-of-keys"
+            id="number-of-keys"
+            //inputProps={{ "aria-label": "Without label" }}
+            //defaultValue={0}
+            displayEmpty
+            value={""}
+          >
+            <MenuItem hidden value="">
+              <span className="text-secondary">Select...</span>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel id="owners-manual">Owners Manual</InputLabel>
+          <Select
+            fullWidth
+            input={<BootstrapInput />}
+            labelId="owners-manual"
+            id="owners-manual"
+            //inputProps={{ "aria-label": "Without label" }}
+            //defaultValue={0}
+            displayEmpty
+            value={""}
+          >
+            <MenuItem hidden value="">
+              <span className="text-secondary">Select...</span>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel id="service-history">Service History</InputLabel>
+          <Select
+            fullWidth
+            input={<BootstrapInput />}
+            labelId="service-history"
+            id="service-history"
+            //inputProps={{ "aria-label": "Without label" }}
+            //defaultValue={0}
+            displayEmpty
+            value={""}
+          >
+            <MenuItem hidden value="">
+              <span className="text-secondary">Select...</span>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </div>
+      </div>
+      <div className="row mb-2 mt-5 mx-auto">
+        <div class="col-12 mb-2">
+          <h6>Rate the condition of the</h6>
+        </div>
+        <div className="col-12 mb-2 d-flex flex-column flex-start">
+          <span>Interior</span>
+          <Rating
+            sx={{ padding: "6px" }}
+            name="simple-controlled"
+            //value={value}
+            //onChange={(event, newValue) => {
+            //setValue(newValue);
+            //}}
+          />
+        </div>
+        <div className="col-12 mb-2 d-flex flex-column flex-start">
+          <span>Exterior</span>
+          <Rating
+            sx={{ padding: "6px" }}
+            name="simple-controlled"
+            //value={value}
+            //onChange={(event, newValue) => {
+            //setValue(newValue);
+            //}}
+          />
+        </div>{" "}
+        <div className="col-12 mb-2 d-flex flex-column flex-start">
+          <span>Tyers</span>
+          <Rating
+            sx={{ padding: "6px" }}
+            name="simple-controlled"
+            //value={value}
+            //onChange={(event, newValue) => {
+            //setValue(newValue);
+            //}}
+          />
+        </div>
+      </div>
+      <div className="row mb-2 mx-auto">
+        <div className="col-12 mb-2">
+          <div class="mb-2">
+            <img
+              class="me-1"
+              width="20px"
+              src="https://partlinks.com.au/panel/media/flags/australia.svg"
+              alt="australia"
+            />
+            <span class="fw-bold p-2" style={{ width: "40px" }}>
+              +61
+            </span>
+            <input type="hidden" name="country" value="61" />
+          </div>
+          <BootstrapInput
+            type="number"
+            fullWidth
+            placeholder="Enter Plate Number"
+            id="plate-number"
+          />
+        </div>
+        <div className="col-12">
+          <div className="row mb-2">
+            <InputLabel htmlFor="description">
+              <span class="">Description</span>
+              <small class="ms-2 text-muted">(Optional)</small>
+            </InputLabel>
+
+            <TextField id="description" multiline />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   const cardContent =
     step == STEPS.STEP_CAR ? (
@@ -287,7 +441,9 @@ function SellCar() {
           </div>
         </div>
       </div>
-    ) : null;
+    ) : (
+      stepUser
+    );
 
   const onBack = useCallback(() => {
     setStep((value) => value - 1);

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import {
   FormControl,
@@ -9,8 +9,10 @@ import {
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import Autocomplete from "@mui/material/Autocomplete";
+import "./SellCar.css";
+import { toast } from "react-toastify";
 
 const STEPS = {
   STEP_CAR: 0,
@@ -64,6 +66,7 @@ function SellCar() {
   const {
     register,
     handleSubmit,
+    control,
     watch,
     setError,
     clearErrors,
@@ -72,7 +75,314 @@ function SellCar() {
 
   const [step, setStep] = useState(STEPS.STEP_CAR);
 
+  const plateNumber = watch("plateNumber", "");
   const state = watch("state", "");
+  const vinNumber = watch("vinNumber", "");
+  const make = watch("make");
+  const model = watch("model", "");
+  const year = watch("year", "");
+  const bodyType = watch("bodyType", "");
+  const transmission = watch("transmission", "");
+  const fuel = watch("fuel", "");
+  const cylinders = watch("cylinders", "");
+  const series = watch("series", "");
+  const color = watch("color", "");
+  const Kilometres = watch("Kilometres", "");
+  const numberOfKeys = watch("numberOfKeys", "");
+  const ownersManual = watch("ownersManual", "");
+  const serviceHistory = watch("serviceHistory", "");
+  const interiorRate = watch("interiorRate");
+  const exteriorRate = watch("exteriorRate");
+  const tyresRate = watch("tyresRate");
+  const mobile = watch("mobile", "");
+  const description = watch("TyresRate", "");
+
+  useEffect(() => {
+    console.log("interiorRate", interiorRate);
+  }, [interiorRate]);
+
+  const stepCar1 = (
+    <div className="step-car">
+      <div className="row">
+        <div className="col-12">
+          <div className="row mb-2">
+            <div className="col-6">
+              <InputLabel htmlFor="plate-number">Plate Number</InputLabel>
+              <BootstrapInput
+                {...register("plateNumber", { required: vinNumber == "" })}
+                fullWidth
+                placeholder="Enter Plate Number"
+                id="plate-number"
+              />
+            </div>
+            <div className="col-6">
+              <InputLabel id="state">State</InputLabel>
+              <Select
+                {...register("state", { required: plateNumber != "" })}
+                fullWidth
+                input={<BootstrapInput />}
+                labelId="state"
+                id="state"
+                //inputProps={{ "aria-label": "Without label" }}
+                //defaultValue={0}
+                displayEmpty
+                value={state}
+              >
+                <MenuItem hidden value="">
+                  <span className="custom-placeholder">Select State</span>
+                </MenuItem>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </div>
+          </div>
+          <div class="d-flex flex-column mb-2">
+            <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
+              <b>OR</b>
+            </label>
+          </div>
+          <div className="d-flex flex-column mb-5">
+            <InputLabel htmlFor="vin-number">VIN</InputLabel>
+            <BootstrapInput
+              {...register("vinNumber", {
+                required: plateNumber == "",
+              })}
+              fullWidth
+              placeholder="Enter vin number"
+              id="vin-number"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const stepCar2 = (
+    <div className="step-car2">
+      <div className="row mb-2">
+        <div className="col-6 mb-3">
+          <InputLabel htmlFor="make">
+            <span>Make</span>
+          </InputLabel>
+          <Controller
+            name="make"
+            control={control}
+            defaultValue={null}
+            render={({ field, fieldState }) => (
+              <Autocomplete
+                {...field}
+                options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
+                sx={{
+                  "label + &": {
+                    marginTop: "8px",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    padding: "3px 12px", // Set your desired padding here
+                  },
+                }}
+                disablePortal
+                onChange={(_, value) => field.onChange(value)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder="Select a make..."
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        "& .MuiAutocomplete-input": {
+                          padding: "10px 12px", // Set your desired padding here
+                        },
+                      },
+                    }}
+                  />
+                )}
+              />
+            )}
+            rules={{ required: step == STEPS.STEP_CAR_1 }} // Add validation rules if needed
+          />
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel htmlFor="model">
+            <span>Model</span>
+          </InputLabel>
+          <Controller
+            name="model"
+            control={control}
+            defaultValue={null}
+            render={({ field, fieldState }) => (
+              <Autocomplete
+                {...field}
+                disabled={make == null}
+                options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
+                sx={{
+                  "label + &": {
+                    marginTop: "8px",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    padding: "3px 12px", // Set your desired padding here
+                  },
+                }}
+                disablePortal
+                onChange={(_, value) => field.onChange(value)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder="Select a make..."
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        "& .MuiAutocomplete-input": {
+                          padding: "10px 12px", // Set your desired padding here
+                        },
+                      },
+                    }}
+                  />
+                )}
+              />
+            )}
+            rules={{ required: step == STEPS.STEP_CAR_1 }} // Add validation rules if needed
+          />
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel htmlFor="year">
+            <span>Year</span>
+          </InputLabel>
+          <Controller
+            name="year"
+            control={control}
+            defaultValue={null}
+            render={({ field, fieldState }) => (
+              <Autocomplete
+                {...field}
+                options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
+                sx={{
+                  "label + &": {
+                    marginTop: "8px",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    padding: "3px 12px", // Set your desired padding here
+                  },
+                }}
+                disablePortal
+                onChange={(_, value) => field.onChange(value)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder="Select a make..."
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        "& .MuiAutocomplete-input": {
+                          padding: "10px 12px", // Set your desired padding here
+                        },
+                      },
+                    }}
+                  />
+                )}
+              />
+            )}
+            rules={{ required: step == STEPS.STEP_CAR_1 }} // Add validation rules if needed
+          />
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel id="body-type">Body Type</InputLabel>
+          <Select
+            {...register("bodyType", { required: step == STEPS.STEP_CAR_1 })}
+            fullWidth
+            input={<BootstrapInput />}
+            labelId="body-type"
+            id="body-type"
+            //inputProps={{ "aria-label": "Without label" }}
+            //defaultValue={0}
+            displayEmpty
+            value={bodyType}
+          >
+            <MenuItem hidden value="">
+              Select Body Type
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel id="transmission">Transmission</InputLabel>
+          <Select
+            {...register("transmission", {
+              required: step == STEPS.STEP_CAR_1,
+            })}
+            fullWidth
+            input={<BootstrapInput />}
+            labelId="transmission"
+            id="transmission"
+            //inputProps={{ "aria-label": "Without label" }}
+            //defaultValue={0}
+            displayEmpty
+            value={transmission}
+          >
+            <MenuItem hidden value="">
+              Select Transmission
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel id="fuel">Fuel</InputLabel>
+          <Select
+            {...register("fuel", { required: step == STEPS.STEP_CAR_1 })}
+            fullWidth
+            input={<BootstrapInput />}
+            labelId="fuel"
+            id="fuel"
+            //inputProps={{ "aria-label": "Without label" }}
+            //defaultValue={0}
+            displayEmpty
+            value={fuel}
+          >
+            <MenuItem hidden value="">
+              Select Fuel
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel htmlFor="cylinders">
+            <span>cylinders</span>
+          </InputLabel>
+          <BootstrapInput
+            {...register("cylinders", { required: step == STEPS.STEP_CAR_1 })}
+            fullWidth
+            id="cylinders"
+          />
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel htmlFor="series">
+            <span>series</span>
+          </InputLabel>
+          <BootstrapInput
+            {...register("series", { required: step == STEPS.STEP_CAR_1 })}
+            fullWidth
+            id="series"
+          />
+        </div>
+        <div className="col-6 mb-3">
+          <InputLabel htmlFor="color">
+            <span>color</span>
+          </InputLabel>
+          <BootstrapInput
+            {...register("color", { required: step == STEPS.STEP_CAR_1 })}
+            fullWidth
+            id="plate-number"
+          />
+        </div>
+      </div>
+    </div>
+  );
 
   const stepUser = (
     <div className="step-user row mb-2">
@@ -86,11 +396,16 @@ function SellCar() {
           <InputLabel htmlFor="kilometres">
             <span>Kilometres</span>
           </InputLabel>
-          <BootstrapInput fullWidth id="kilometres" />
+          <BootstrapInput
+            {...register("kilometres", { required: step == STEPS.STEP_USER })}
+            fullWidth
+            id="kilometres"
+          />
         </div>
         <div className="col-6 mb-3">
           <InputLabel id="number-of-keys">Number Of Keys</InputLabel>
           <Select
+            {...register("numberOfKeys", { required: step == STEPS.STEP_USER })}
             fullWidth
             input={<BootstrapInput />}
             labelId="number-of-keys"
@@ -98,7 +413,7 @@ function SellCar() {
             //inputProps={{ "aria-label": "Without label" }}
             //defaultValue={0}
             displayEmpty
-            value={""}
+            value={numberOfKeys}
           >
             <MenuItem hidden value="">
               <span className="text-secondary">Select...</span>
@@ -111,6 +426,7 @@ function SellCar() {
         <div className="col-6 mb-3">
           <InputLabel id="owners-manual">Owners Manual</InputLabel>
           <Select
+            {...register("ownersManual", { required: step == STEPS.STEP_USER })}
             fullWidth
             input={<BootstrapInput />}
             labelId="owners-manual"
@@ -118,7 +434,7 @@ function SellCar() {
             //inputProps={{ "aria-label": "Without label" }}
             //defaultValue={0}
             displayEmpty
-            value={""}
+            value={ownersManual}
           >
             <MenuItem hidden value="">
               <span className="text-secondary">Select...</span>
@@ -131,6 +447,9 @@ function SellCar() {
         <div className="col-6 mb-3">
           <InputLabel id="service-history">Service History</InputLabel>
           <Select
+            {...register("serviceHistory", {
+              required: step == STEPS.STEP_USER,
+            })}
             fullWidth
             input={<BootstrapInput />}
             labelId="service-history"
@@ -155,35 +474,48 @@ function SellCar() {
         </div>
         <div className="col-12 mb-2 d-flex flex-column flex-start">
           <span>Interior</span>
-          <Rating
-            sx={{ padding: "6px" }}
-            name="simple-controlled"
-            //value={value}
-            //onChange={(event, newValue) => {
-            //setValue(newValue);
-            //}}
+
+          <Controller
+            name="interiorRate"
+            control={control}
+            rules={{ required: step == STEPS.STEP_USER }} // Optional: Add validation rules
+            render={({ field, fieldState }) => (
+              <Rating
+                sx={{ padding: "6px" }}
+                {...field}
+                onChange={(_, value) => field.onChange(value)} // Update value on change
+              />
+            )}
           />
         </div>
         <div className="col-12 mb-2 d-flex flex-column flex-start">
           <span>Exterior</span>
-          <Rating
-            sx={{ padding: "6px" }}
-            name="simple-controlled"
-            //value={value}
-            //onChange={(event, newValue) => {
-            //setValue(newValue);
-            //}}
+          <Controller
+            name="exteriorRate"
+            control={control}
+            rules={{ required: step == STEPS.STEP_USER }} // Optional: Add validation rules
+            render={({ field, fieldState }) => (
+              <Rating
+                sx={{ padding: "6px" }}
+                {...field}
+                onChange={(_, value) => field.onChange(value)} // Update value on change
+              />
+            )}
           />
-        </div>{" "}
+        </div>
         <div className="col-12 mb-2 d-flex flex-column flex-start">
           <span>Tyers</span>
-          <Rating
-            sx={{ padding: "6px" }}
-            name="simple-controlled"
-            //value={value}
-            //onChange={(event, newValue) => {
-            //setValue(newValue);
-            //}}
+          <Controller
+            name="tyersRate"
+            control={control}
+            rules={{ required: step == STEPS.STEP_USER }} // Optional: Add validation rules
+            render={({ field, fieldState }) => (
+              <Rating
+                sx={{ padding: "6px" }}
+                {...field}
+                onChange={(_, value) => field.onChange(value)} // Update value on change
+              />
+            )}
           />
         </div>
       </div>
@@ -202,6 +534,7 @@ function SellCar() {
             <input type="hidden" name="country" value="61" />
           </div>
           <BootstrapInput
+            {...register("mobile", { required: step == STEPS.STEP_USER })}
             type="number"
             fullWidth
             placeholder="Enter Plate Number"
@@ -223,227 +556,11 @@ function SellCar() {
   );
 
   const cardContent =
-    step == STEPS.STEP_CAR ? (
-      <div className="step-car">
-        <div className="row">
-          <div className="col-12">
-            <div className="row mb-2">
-              <div className="col-6">
-                <InputLabel htmlFor="plate-number">Plate Number</InputLabel>
-                <BootstrapInput
-                  fullWidth
-                  placeholder="Enter Plate Number"
-                  id="plate-number"
-                />
-              </div>
-              <div className="col-6">
-                <InputLabel id="demo-simple-select-label">State</InputLabel>
-                <Select
-                  {...register("state", { required: true })}
-                  fullWidth
-                  input={<BootstrapInput />}
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  //inputProps={{ "aria-label": "Without label" }}
-                  //defaultValue={0}
-                  displayEmpty
-                  value={state}
-                >
-                  <MenuItem hidden value="">
-                    Select State
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </div>
-            </div>
-            <div class="d-flex flex-column mb-2">
-              <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                <b>OR</b>
-              </label>
-            </div>
-            <div className="d-flex flex-column mb-5">
-              <InputLabel htmlFor="vin-number">VIN</InputLabel>
-              <BootstrapInput
-                fullWidth
-                placeholder="Enter vin number"
-                id="vin-number"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    ) : step == STEPS.STEP_CAR_1 ? (
-      <div className="step-car2">
-        <div className="row mb-2">
-          <div className="col-6 mb-3">
-            <InputLabel htmlFor="make">
-              <span>Make</span>
-            </InputLabel>
-            <Autocomplete
-              sx={{
-                "label + &": {
-                  marginTop: "8px",
-                },
-                "& .MuiOutlinedInput-root": {
-                  padding: "3px 12px", // Set your desired padding here
-                },
-              }}
-              disablePortal
-              options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  placeholder="Select a make..."
-                  InputProps={{
-                    ...params.InputProps,
-                    sx: {
-                      "& .MuiAutocomplete-input": {
-                        padding: "10px 12px", // Set your desired padding here
-                      },
-                    },
-                  }}
-                />
-              )}
-            />
-          </div>
-          <div className="col-6 mb-3">
-            <InputLabel htmlFor="model">
-              <span>Model</span>
-            </InputLabel>
-            <Autocomplete
-              sx={{
-                "label + &": {
-                  marginTop: "8px",
-                },
-                "& .MuiOutlinedInput-root": {
-                  padding: "3px 12px", // Set your desired padding here
-                },
-              }}
-              id="model"
-              disablePortal
-              options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  placeholder="Select a model..."
-                  sx={{
-                    "& .MuiOutlinedInput-root .MuiAutocomplete-input": {
-                      padding: "10px 12px", // Set your desired padding here
-                    },
-                  }}
-                />
-              )}
-            />
-          </div>
-          <div className="col-6 mb-3">
-            <InputLabel htmlFor="year">
-              <span>Year</span>
-            </InputLabel>
-            <Autocomplete
-              sx={{
-                "label + &": {
-                  marginTop: "8px",
-                },
-                "& .MuiOutlinedInput-root": {
-                  padding: "3px 12px", // Set your desired padding here
-                },
-              }}
-              id="year"
-              disablePortal
-              options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
-              renderInput={(params) => (
-                <TextField {...params} placeholder="Select Year" />
-              )}
-            />
-          </div>
-          <div className="col-6 mb-3">
-            <InputLabel id="body-type">Body Type</InputLabel>
-            <Select
-              {...register("state", { required: true })}
-              fullWidth
-              input={<BootstrapInput />}
-              labelId="body-type"
-              id="body-type"
-              //inputProps={{ "aria-label": "Without label" }}
-              //defaultValue={0}
-              displayEmpty
-              value={state}
-            >
-              <MenuItem hidden value="">
-                Select Body Type
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </div>
-          <div className="col-6 mb-3">
-            <InputLabel id="transmission">Transmission</InputLabel>
-            <Select
-              {...register("state", { required: true })}
-              fullWidth
-              input={<BootstrapInput />}
-              labelId="transmission"
-              id="transmission"
-              //inputProps={{ "aria-label": "Without label" }}
-              //defaultValue={0}
-              displayEmpty
-              value={state}
-            >
-              <MenuItem hidden value="">
-                Select Transmission
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </div>
-          <div className="col-6 mb-3">
-            <InputLabel id="fuel">Fuel</InputLabel>
-            <Select
-              {...register("state", { required: true })}
-              fullWidth
-              input={<BootstrapInput />}
-              labelId="fuel"
-              id="fuel"
-              //inputProps={{ "aria-label": "Without label" }}
-              //defaultValue={0}
-              displayEmpty
-              value={state}
-            >
-              <MenuItem hidden value="">
-                Select Fuel
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </div>
-          <div className="col-6 mb-3">
-            <InputLabel htmlFor="cylinders">
-              <span>cylinders</span>
-            </InputLabel>
-            <BootstrapInput fullWidth id="cylinders" />
-          </div>
-          <div className="col-6 mb-3">
-            <InputLabel htmlFor="series">
-              <span>series</span>
-            </InputLabel>
-            <BootstrapInput fullWidth id="series" />
-          </div>
-          <div className="col-6 mb-3">
-            <InputLabel htmlFor="color">
-              <span>color</span>
-            </InputLabel>
-            <BootstrapInput fullWidth id="plate-number" />
-          </div>
-        </div>
-      </div>
-    ) : (
-      stepUser
-    );
+    step == STEPS.STEP_CAR
+      ? stepCar1
+      : step == STEPS.STEP_CAR_1
+      ? stepCar2
+      : stepUser;
 
   const onBack = useCallback(() => {
     setStep((value) => value - 1);
@@ -453,8 +570,31 @@ function SellCar() {
     setStep((value) => value + 1);
   }, []);
 
+  const onError = (e) => {
+    let plateNumberErr = false;
+    let vinNumberErr = false;
+
+    for (let field in errors) {
+      if (field == "plateNumber") {
+        plateNumberErr = true;
+      } else if (field == "vinNumber") {
+        vinNumberErr = true;
+      } else {
+        toast.error(`${field} is required`);
+      }
+
+      if (plateNumberErr && vinNumberErr) {
+        toast.error("please Enter plate number or car vin");
+      }
+    }
+
+    //console.log("Errors", errors);
+  };
+
   const onSubmit = (e) => {
     console.log("Onsubmit", step);
+    console.log("Errors", errors);
+
     if (step !== STEPS.STEP_USER) {
       return onNext();
     }
@@ -477,7 +617,7 @@ function SellCar() {
               </div>
               <div className="card-body">
                 <div className="mt-5">
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                  <form onSubmit={handleSubmit(onSubmit, onError)}>
                     <div className="mt-2 mb-2">
                       {cardContent}
                       <div

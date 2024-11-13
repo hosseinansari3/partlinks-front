@@ -9,20 +9,23 @@ import Contact from "./pages/Contact/Contact";
 import SellCar from "./pages/SellCar/SellCar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
     <div>
       <ToastContainer toastClassName="custom-toast" />
-      <Header />
-      <Navbar />
+      {window.location.pathname !== "/login" ? <Header /> : null}
+      {window.location.pathname !== "/login" ? <Navbar /> : null}
+
       <Routes>
         <Route exact index path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route path="sell-car" element={<SellCar />} />
+        <Route path="login" element={<Login />} />
       </Routes>
-      <Footer />
+      {window.location.pathname !== "/login" ? <Footer /> : null}
     </div>
   );
 }

@@ -6,7 +6,7 @@ const calculatePasswordStrength = (password) => {
   let score = 0;
 
   // Score based on length
-  if (password.length >= 8) score += 1;
+  if (password?.length >= 8) score += 1;
 
   // Score based on character variety
   if (/[a-z]/.test(password)) score += 1;
@@ -18,9 +18,13 @@ const calculatePasswordStrength = (password) => {
   return score;
 };
 
-const PasswordStrength = () => {
-  const [password, setPassword] = useState("");
-  const strength = calculatePasswordStrength(password);
+const PasswordStrength = ({
+  value,
+  onChange,
+  setStregthScore: setStrengthScore,
+}) => {
+  const strength = calculatePasswordStrength(value);
+  setStrengthScore(strength);
 
   // Strength meter color and text
   const strengthText = [
@@ -38,18 +42,14 @@ const PasswordStrength = () => {
     "#4caf50",
   ];
 
-  const handleChange = (e) => {
-    setPassword(e.target.value);
-  };
-
   return (
     <Box sx={{ margin: "auto", textAlign: "center" }}>
       <TextInput
         type="password"
         placeholder="Password"
         fullWidth
-        value={password}
-        onChange={handleChange}
+        value={value}
+        onChange={onChange}
         sx={{ marginBottom: 2 }}
       />
 

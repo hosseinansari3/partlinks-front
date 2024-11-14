@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import BusinessRegister from "./pages/Register/Business/BusinessRegister";
+import PrivateRegister from "./pages/Register/Private/PrivateRegister";
+import VendorRegister from "./pages/Register/Vendor/VendorRegister";
 
 function App() {
   return (
@@ -37,6 +39,11 @@ function App() {
           path="auth/member/business/register"
           element={<BusinessRegister />}
         />
+        <Route
+          path="auth/member/private/register"
+          element={<PrivateRegister />}
+        />
+        <Route path="auth/vendor/register" element={<VendorRegister />} />
       </Routes>
       {window.location.pathname !== "/login" &&
       !window.location.pathname.includes("/auth") ? (

@@ -11,17 +11,18 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import BusinessRegister from "./pages/Register/Business/BusinessRegister";
 
 function App() {
   return (
     <div>
       <ToastContainer toastClassName="custom-toast" />
       {window.location.pathname !== "/login" &&
-      window.location.pathname !== "/auth/register" ? (
+      !window.location.pathname.includes("/auth") ? (
         <Header />
       ) : null}
       {window.location.pathname !== "/login" &&
-      window.location.pathname !== "/auth/register" ? (
+      !window.location.pathname.includes("/auth") ? (
         <Navbar />
       ) : null}
 
@@ -32,9 +33,13 @@ function App() {
         <Route path="sell-car" element={<SellCar />} />
         <Route path="login" element={<Login />} />
         <Route path="auth/register" element={<Register />} />
+        <Route
+          path="auth/member/business/register"
+          element={<BusinessRegister />}
+        />
       </Routes>
       {window.location.pathname !== "/login" &&
-      window.location.pathname !== "/auth/register" ? (
+      !window.location.pathname.includes("/auth") ? (
         <Footer />
       ) : null}
     </div>

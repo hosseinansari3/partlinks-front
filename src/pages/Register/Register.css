@@ -35,6 +35,19 @@
   background-color: #fff8dd !important;
 }
 
+.btn-check:active + .btn.btn-light-warning,
+.btn-check:checked + .btn.btn-light-warning,
+.btn.btn-light-warning.active,
+.btn.btn-light-warning.show,
+.btn.btn-light-warning:active:not(.btn-active),
+.btn.btn-light-warning:focus:not(.btn-active),
+.btn.btn-light-warning:hover:not(.btn-active),
+.show > .btn.btn-light-warning {
+  color: #ffffff;
+  border-color: #ff6600;
+  background-color: #ff6600 !important;
+}
+
 .btn.btn-light-warning {
   color: #ff6600;
   border-color: #fff8dd;

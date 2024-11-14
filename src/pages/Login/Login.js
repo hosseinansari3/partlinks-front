@@ -1,7 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Login.css";
+import TextInput from "../../components/Common/TextInput";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 function Login() {
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange", // Validate on each keystroke
+  });
+
+  const userName = watch("userName");
+  const password = watch("password");
+
+  useEffect(() => {
+    console.log("number", userName);
+  }, [userName]);
+
+  const onError = (e) => {
+    if (errors) {
+      toast.error("Please complete required items and try again.");
+      console.log("errors", errors);
+    }
+  };
+
+  const onSubmit = (e) => {
+    console.log("Onsubmit");
+  };
+
   return (
     <div className="d-flex flex-column flex-root bg-dark ">
       <div className="d-flex flex-column flex-column-fluid flex-lg-row">
@@ -22,10 +55,7 @@ function Login() {
             <div className="card-body p-4 p-lg-5">
               <form
                 className="form w-100 fv-plugins-bootstrap5 fv-plugins-framework"
-                novalidate="novalidate"
-                id="kt_sign_in_form"
-                action="https://partlinks.com.au/login"
-                method="post"
+                onSubmit={handleSubmit(onSubmit, onError)}
               >
                 <input
                   type="hidden"
@@ -47,7 +77,14 @@ function Login() {
                 </div>
 
                 <div className="fv-row mb-3 fv-plugins-icon-container">
-                  <div id="mobile" className="mb-2 d-none">
+                  <div
+                    id="mobile"
+                    className={`${
+                      !isNaN(userName) && !isNaN(parseFloat(userName))
+                        ? "d-block"
+                        : "d-none"
+                    } mb-2`}
+                  >
                     <img
                       className=""
                       width="20px"
@@ -56,8 +93,16 @@ function Login() {
                     />
                     <span className="fw-bold p-2 text-warning">+61</span>
                   </div>
-                  <div id="email" className="mb-2 d-none">
-                    <span className="fa fa-envelope me-2"></span>
+                  <div
+                    id="email"
+                    className={`${
+                      (!isNaN(userName) && !isNaN(parseFloat(userName))) ||
+                      userName == ""
+                        ? "d-none"
+                        : "d-block"
+                    } mb-2`}
+                  >
+                    <i class="bx bx-envelope"></i>
                     <span
                       className="fw-bold p-2 text-warning"
                       style={{ width: "40px" }}
@@ -65,30 +110,34 @@ function Login() {
                       Email Address
                     </span>
                   </div>
-                  <input
-                    onkeyup="showUsernameType()"
-                    onchange="showUsernameType()"
-                    id="username"
-                    type="text"
+                  <TextInput
+                    {...register("userName", { required: true })}
+                    fullWidth
                     placeholder="enter email or phone number"
-                    name="username"
-                    autocomplete="off"
-                    autofocus=""
-                    value=""
-                    className="form-control bg-transparent "
                   />
-                  <div className="fv-plugins-message-container invalid-feedback"></div>
+                  <div
+                    className={`${
+                      errors?.userName && "d-block"
+                    } fv-plugins-message-container invalid-feedback`}
+                  >
+                    Email or Phone number address is required
+                  </div>
                 </div>
                 <div className="fv-row mb-3 fv-plugins-icon-container">
-                  <input
+                  <TextInput
+                    {...register("password", { required: true })}
+                    fullWidth
                     type="password"
-                    placeholder="Password"
-                    name="password"
-                    autocomplete="off"
-                    className="form-control bg-transparent "
+                    placeholder="password"
                   />
 
-                  <div className="fv-plugins-message-container invalid-feedback"></div>
+                  <div
+                    className={`${
+                      errors?.password && "d-block"
+                    } fv-plugins-message-container invalid-feedback`}
+                  >
+                    password is required
+                  </div>
                 </div>
 
                 <div className="fv-row mb-8">

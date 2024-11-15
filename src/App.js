@@ -14,6 +14,8 @@ import Register from "./pages/Register/Register";
 import BusinessRegister from "./pages/Register/Business/BusinessRegister";
 import PrivateRegister from "./pages/Register/Private/PrivateRegister";
 import VendorRegister from "./pages/Register/Vendor/VendorRegister";
+import BusinessComplete from "./pages/Register/Business/BusinessComplete";
+import PrivateComplete from "./pages/Register/Private/PrivateComplete";
 
 function App() {
   return (
@@ -44,6 +46,15 @@ function App() {
           element={<PrivateRegister />}
         />
         <Route path="auth/vendor/register" element={<VendorRegister />} />
+
+        <Route
+          path="auth/member/business/complete"
+          element={<BusinessComplete />}
+        />
+        <Route
+          path="auth/member/private/complete"
+          element={<PrivateComplete />}
+        />
       </Routes>
       {window.location.pathname !== "/login" &&
       !window.location.pathname.includes("/auth") ? (

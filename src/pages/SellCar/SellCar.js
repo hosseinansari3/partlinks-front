@@ -480,7 +480,7 @@ function SellCar() {
             //inputProps={{ "aria-label": "Without label" }}
             //defaultValue={0}
             displayEmpty
-            value={""}
+            value={serviceHistory}
           >
             <MenuItem hidden value="">
               <span className="text-secondary">Select...</span>

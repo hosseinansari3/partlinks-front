@@ -2,7 +2,7 @@
 Newsletter Area style.CSS
 =================================================*/
 .newsletter-area {
-  background-image: url(../../../public/assets/img/newsletter/newsletter-bg.jpg);
+  background-image: url(../../../../public/assets/img/newsletter/newsletter-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -14,7 +14,7 @@ Newsletter Area style.CSS
 }
 
 .newsletter-area.item-two {
-  background-image: url(../../../public/assets/img/newsletter/newsletter-bg-2.jpg);
+  background-image: url(../../../../public/assets/img/newsletter/newsletter-bg-2.jpg);
 }
 
 .newsletter-area.item-two .newsletter-content {

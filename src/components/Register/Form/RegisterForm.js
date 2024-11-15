@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import "./RegisterForm.css";
-import PasswordStrength from "../Common/PasswordStrength";
-import TextInput from "../Common/TextInput";
+import PasswordStrength from "../../Common/PasswordStrength";
+import TextInput from "../../Common/TextInput";
 import { toast } from "react-toastify";
 
 function RegisterForm({ accountType }) {

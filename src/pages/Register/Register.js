@@ -6,7 +6,7 @@ function Register() {
     <div className="d-flex flex-column flex-lg-row flex-column-fluid stepper stepper-pills stepper-column stepper-multistep">
       <div className="d-flex flex-column flex-lg-row-auto w-lg-250px w-xl-350px ">
         <div
-          className="d-flex flex-column position-lg-fixed top-0 bottom-0 w-lg-250px w-xl-350px scroll-y bgi-size-cover bgi-position-center"
+          className="d-flex flex-column position-lg-fixed top-0 bottom-0 w-lg-250px w-xl-350px overflow-y-scroll bgi-size-cover bgi-position-center"
           style={{
             backgroundImage:
               "url('https://partlinks.com.au/panel/media/misc/auth-bg.png')",

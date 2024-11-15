@@ -7,6 +7,7 @@ import {
   Rating,
   Select,
 } from "@mui/material";
+import TextInput from "../../components/Common/TextInput";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import { Controller, useForm } from "react-hook-form";
@@ -19,48 +20,6 @@ const STEPS = {
   STEP_CAR_1: 1,
   STEP_USER: 2,
 };
-
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
-  "label + &": {
-    marginTop: theme.spacing(1),
-  },
-  "& .MuiInputBase-input": {
-    borderRadius: 4,
-    position: "relative",
-    backgroundColor: "white",
-    border: "1px solid",
-    borderColor: "#E0E3E7",
-    fontSize: 16,
-    width: "100%",
-    padding: "10px 12px",
-    transition: theme.transitions.create([
-      "border-color",
-      "background-color",
-      "box-shadow",
-    ]),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    "&:focus": {
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main,
-    },
-    ...theme.applyStyles("dark", {
-      backgroundColor: "#1A2027",
-      borderColor: "#2D3843",
-    }),
-  },
-}));
 
 function SellCar() {
   const {
@@ -108,7 +67,7 @@ function SellCar() {
           <div className="row mb-2">
             <div className="col-6">
               <InputLabel htmlFor="plate-number">Plate Number</InputLabel>
-              <BootstrapInput
+              <TextInput
                 {...register("plateNumber", { required: vinNumber == "" })}
                 fullWidth
                 placeholder="Enter Plate Number"
@@ -120,7 +79,7 @@ function SellCar() {
               <Select
                 {...register("state", { required: plateNumber != "" })}
                 fullWidth
-                input={<BootstrapInput />}
+                input={<TextInput />}
                 labelId="state"
                 id="state"
                 //inputProps={{ "aria-label": "Without label" }}
@@ -144,7 +103,7 @@ function SellCar() {
           </div>
           <div className="d-flex flex-column mb-5">
             <InputLabel htmlFor="vin-number">VIN</InputLabel>
-            <BootstrapInput
+            <TextInput
               {...register("vinNumber", {
                 required: plateNumber == "",
               })}
@@ -308,7 +267,7 @@ function SellCar() {
           <Select
             {...register("bodyType", { required: step == STEPS.STEP_CAR_1 })}
             fullWidth
-            input={<BootstrapInput />}
+            input={<TextInput />}
             labelId="body-type"
             id="body-type"
             //inputProps={{ "aria-label": "Without label" }}
@@ -337,7 +296,7 @@ function SellCar() {
               required: step == STEPS.STEP_CAR_1,
             })}
             fullWidth
-            input={<BootstrapInput />}
+            input={<TextInput />}
             labelId="transmission"
             id="transmission"
             //inputProps={{ "aria-label": "Without label" }}
@@ -364,7 +323,7 @@ function SellCar() {
           <Select
             {...register("fuel", { required: step == STEPS.STEP_CAR_1 })}
             fullWidth
-            input={<BootstrapInput />}
+            input={<TextInput />}
             labelId="fuel"
             id="fuel"
             //inputProps={{ "aria-label": "Without label" }}
@@ -388,7 +347,7 @@ function SellCar() {
           >
             <span>cylinders</span>
           </InputLabel>
-          <BootstrapInput
+          <TextInput
             {...register("cylinders", { required: step == STEPS.STEP_CAR_1 })}
             fullWidth
             id="cylinders"
@@ -402,7 +361,7 @@ function SellCar() {
           >
             <span>series</span>
           </InputLabel>
-          <BootstrapInput
+          <TextInput
             {...register("series", { required: step == STEPS.STEP_CAR_1 })}
             fullWidth
             id="series"
@@ -416,7 +375,7 @@ function SellCar() {
           >
             <span>color</span>
           </InputLabel>
-          <BootstrapInput
+          <TextInput
             {...register("color", { required: step == STEPS.STEP_CAR_1 })}
             fullWidth
             id="plate-number"
@@ -442,7 +401,7 @@ function SellCar() {
           >
             <span>Kilometres</span>
           </InputLabel>
-          <BootstrapInput
+          <TextInput
             {...register("kilometres", { required: step == STEPS.STEP_USER })}
             fullWidth
             id="kilometres"
@@ -459,7 +418,7 @@ function SellCar() {
           <Select
             {...register("numberOfKeys", { required: step == STEPS.STEP_USER })}
             fullWidth
-            input={<BootstrapInput />}
+            input={<TextInput />}
             labelId="number-of-keys"
             id="number-of-keys"
             //inputProps={{ "aria-label": "Without label" }}
@@ -486,7 +445,7 @@ function SellCar() {
           <Select
             {...register("ownersManual", { required: step == STEPS.STEP_USER })}
             fullWidth
-            input={<BootstrapInput />}
+            input={<TextInput />}
             labelId="owners-manual"
             id="owners-manual"
             //inputProps={{ "aria-label": "Without label" }}
@@ -515,7 +474,7 @@ function SellCar() {
               required: step == STEPS.STEP_USER,
             })}
             fullWidth
-            input={<BootstrapInput />}
+            input={<TextInput />}
             labelId="service-history"
             id="service-history"
             //inputProps={{ "aria-label": "Without label" }}
@@ -597,7 +556,7 @@ function SellCar() {
             </span>
             <input type="hidden" name="country" value="61" />
           </div>
-          <BootstrapInput
+          <TextInput
             {...register("mobile", { required: step == STEPS.STEP_USER })}
             type="number"
             fullWidth

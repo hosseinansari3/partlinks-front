@@ -18,7 +18,7 @@ function NewProducts() {
               <div className="top-products-image">
                 <a href="products-details.html">
                   <img
-                    src="https://theme.partlinks.com.au/assets/img/top-products/top-products-1.jpg"
+                    src="https://templates.hibootstrap.com/maxon/default/assets/img/top-products/top-products-1.jpg"
                     alt="image"
                   />
                 </a>
@@ -68,7 +68,7 @@ function NewProducts() {
               <div className="top-products-image">
                 <a href="products-details.html">
                   <img
-                    src="https://theme.partlinks.com.au/assets/img/top-products/top-products-2.jpg"
+                    src="https://templates.hibootstrap.com/maxon/default/assets/img/top-products/top-products-2.jpg"
                     alt="image"
                   />
                 </a>
@@ -118,7 +118,7 @@ function NewProducts() {
               <div className="top-products-image">
                 <a href="products-details.html">
                   <img
-                    src="https://theme.partlinks.com.au/assets/img/top-products/top-products-3.jpg"
+                    src="https://templates.hibootstrap.com/maxon/default/assets/img/top-products/top-products-3.jpg"
                     alt="image"
                   />
                 </a>
@@ -168,7 +168,7 @@ function NewProducts() {
               <div className="top-products-image">
                 <a href="products-details.html">
                   <img
-                    src="https://theme.partlinks.com.au/assets/img/top-products/top-products-7.jpg"
+                    src="https://templates.hibootstrap.com/maxon/default/assets/img/top-products/top-products-4.jpg"
                     alt="image"
                   />
                 </a>
@@ -218,7 +218,7 @@ function NewProducts() {
               <div className="top-products-image">
                 <a href="products-details.html">
                   <img
-                    src="https://theme.partlinks.com.au/assets/img/top-products/top-products-8.jpg"
+                    src="https://templates.hibootstrap.com/maxon/default/assets/img/top-products/top-products-8.jpg"
                     alt="image"
                   />
                 </a>
@@ -268,7 +268,7 @@ function NewProducts() {
               <div className="top-products-image">
                 <a href="products-details.html">
                   <img
-                    src="https://theme.partlinks.com.au/assets/img/top-products/top-products-10.jpg"
+                    src="https://templates.hibootstrap.com/maxon/default/assets/img/top-products/top-products-10.jpg"
                     alt="image"
                   />
                 </a>

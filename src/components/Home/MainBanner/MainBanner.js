@@ -55,8 +55,8 @@ const options = {
   smartSpeed: 100,
   autoplay: false,
   navText: [
-    "<i class='bx bx-chevrons-left'></i>",
-    "<i class='bx bx-chevrons-right'></i>",
+    "<i className='bx bx-chevrons-left'></i>",
+    "<i className='bx bx-chevrons-right'></i>",
   ],
 };
 
@@ -66,19 +66,19 @@ function MainBanner() {
       <OwlCarousel className="hero-slides owl-theme" {...options}>
         <div className="hero-banner">
           <img
-            src="https://theme.partlinks.com.au/assets/img/main-banner1.jpg"
+            src="https://templates.hibootstrap.com/maxon/default/assets/img/main-banner1.jpg"
             alt="Slide 1"
           />
         </div>
         <div className="hero-banner">
           <img
-            src="https://theme.partlinks.com.au/assets/img/main-banner1.jpg"
+            src="https://templates.hibootstrap.com/maxon/default/assets/img/main-banner2.jpg"
             alt="Slide 2"
           />
         </div>
         <div className="hero-banner">
           <img
-            src="https://theme.partlinks.com.au/assets/img/main-banner1.jpg"
+            src="https://templates.hibootstrap.com/maxon/default/assets/img/main-banner3.jpg"
             alt="Slide 3"
           />
         </div>

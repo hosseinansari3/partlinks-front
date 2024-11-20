@@ -1,10 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 import TextInput from "../../components/Common/TextInput";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { InputLabel } from "@mui/material";
+import OtpInput from "../../components/Common/OtpInput";
+import { useNavigate } from "react-router-dom";
+
+const steps = {
+  STEP_PHONE: "STEP_PHONE",
+  STEP_PASSWORD: "STEP_PASSWORD",
+  STEP_OTP: "SPET_OTP",
+  STEP_REGISTER: "STEP_REGISTER",
+};
 
 function Login() {
+  const navigate = useNavigate();
+
+  const [responseData, setResponseData] = useState();
+  const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(steps.STEP_PHONE);
+  const [otpNumber, setOtpNumber] = useState(null); // State to store OTP as a number
+
+  useEffect(() => {
+    console.log("OTP", otpNumber);
+  }, [otpNumber]);
+
+  useEffect(() => {
+    console.log("step", step);
+  }, [step]);
+
   const {
     register,
     handleSubmit,
@@ -31,9 +57,160 @@ function Login() {
     }
   };
 
-  const onSubmit = (e) => {
-    console.log("Onsubmit");
+  const onCheckOTP = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        "https://partlinks.com.au/api/v1/member/auth/check_otp",
+        { phone_number: userName, otp: otpNumber }
+      );
+      console.log(response);
+      setResponseData(response.data);
+      if (response?.data?.result?.match) {
+        navigate("/auth/register", {
+          state: { token: response?.data?.result?.auth_info?.token },
+        });
+      }
+
+      setLoading(false);
+
+      response?.data?.error && toast.error(response?.data?.error?.message);
+    } catch (error) {
+      setLoading(false);
+
+      console.log(error);
+    }
   };
+
+  const onSubmit = async (e) => {
+    if (step == steps.STEP_PHONE) {
+      try {
+        setLoading(true);
+        const response = await axios.post(
+          "https://partlinks.com.au/api/v1/member/auth/check_phone_number",
+          { phone_number: userName }
+        );
+        console.log(response);
+        setResponseData(response.data);
+        if (response?.data?.result?.exists) {
+          setStep(steps.STEP_PASSWORD);
+        } else if (
+          !response?.data?.result?.exists &&
+          response?.data?.result !== null
+        ) {
+          setStep(steps.STEP_OTP);
+          const response = await axios.post(
+            "https://partlinks.com.au/api/v1/member/auth/resend_otp",
+            { phone_number: userName }
+          );
+          toast("a code sent to your phone");
+        }
+
+        setLoading(false);
+
+        response?.data?.error && toast.error(response?.data?.error?.message);
+      } catch (error) {
+        setLoading(false);
+
+        console.log(error);
+      }
+    }
+
+    if (step == steps.STEP_OTP) {
+      onCheckOTP();
+    }
+  };
+
+  const stepPassword = (
+    <div className={` mb-3 fv-plugins-icon-container`}>
+      <InputLabel
+        sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+        required
+        id="owners-manual"
+      >
+        Enter your password
+      </InputLabel>
+      <TextInput
+        {...register("password", {
+          required: responseData?.result?.exist,
+        })}
+        fullWidth
+        type="password"
+        placeholder="password"
+      />
+
+      <div
+        className={`${
+          errors?.password && "d-block"
+        } fv-plugins-message-container invalid-feedback`}
+      >
+        password is required
+      </div>
+    </div>
+  );
+
+  const stepPhone = (
+    <div
+      className={` ${
+        responseData?.result?.exists ? "d-none" : "d-block"
+      } mb-3 fv-plugins-icon-container`}
+    >
+      <div
+        id="mobile"
+        className={`${
+          !isNaN(userName) && !isNaN(parseFloat(userName))
+            ? "d-block"
+            : "d-none"
+        } mb-2`}
+      >
+        <img
+          className=""
+          width="20px"
+          src="https://partlinks.com.au/panel/media/flags/australia.svg"
+          alt="australia"
+        />
+        <span className="fw-bold p-2 text-warning">+61</span>
+      </div>
+      <div
+        id="email"
+        className={`${
+          (!isNaN(userName) && !isNaN(parseFloat(userName))) || userName == ""
+            ? "d-none"
+            : "d-block"
+        } mb-2`}
+      >
+        <i class="bx bx-envelope"></i>
+        <span className="fw-bold p-2 text-warning" style={{ width: "40px" }}>
+          Email Address
+        </span>
+      </div>
+      <TextInput
+        {...register("userName", { required: true })}
+        fullWidth
+        placeholder="enter email or phone number"
+      />
+      <div
+        className={`${
+          errors?.userName && "d-block"
+        } fv-plugins-message-container invalid-feedback`}
+      >
+        Email or Phone number address is required
+      </div>
+    </div>
+  );
+
+  const stepOTP = (
+    <OtpInput length={6} onComplete={onCheckOTP} setOtpNumber={setOtpNumber} />
+  );
+
+  const formContent =
+    step == steps.STEP_PHONE
+      ? stepPhone
+      : step == steps.STEP_PASSWORD
+      ? stepPassword
+      : step == steps.STEP_OTP
+      ? stepOTP
+      : null;
 
   return (
     <div className="d-flex flex-column flex-root bg-dark ">
@@ -76,69 +253,7 @@ function Login() {
                   </span>
                 </div>
 
-                <div className="fv-row mb-3 fv-plugins-icon-container">
-                  <div
-                    id="mobile"
-                    className={`${
-                      !isNaN(userName) && !isNaN(parseFloat(userName))
-                        ? "d-block"
-                        : "d-none"
-                    } mb-2`}
-                  >
-                    <img
-                      className=""
-                      width="20px"
-                      src="https://partlinks.com.au/panel/media/flags/australia.svg"
-                      alt="australia"
-                    />
-                    <span className="fw-bold p-2 text-warning">+61</span>
-                  </div>
-                  <div
-                    id="email"
-                    className={`${
-                      (!isNaN(userName) && !isNaN(parseFloat(userName))) ||
-                      userName == ""
-                        ? "d-none"
-                        : "d-block"
-                    } mb-2`}
-                  >
-                    <i class="bx bx-envelope"></i>
-                    <span
-                      className="fw-bold p-2 text-warning"
-                      style={{ width: "40px" }}
-                    >
-                      Email Address
-                    </span>
-                  </div>
-                  <TextInput
-                    {...register("userName", { required: true })}
-                    fullWidth
-                    placeholder="enter email or phone number"
-                  />
-                  <div
-                    className={`${
-                      errors?.userName && "d-block"
-                    } fv-plugins-message-container invalid-feedback`}
-                  >
-                    Email or Phone number address is required
-                  </div>
-                </div>
-                <div className="fv-row mb-3 fv-plugins-icon-container">
-                  <TextInput
-                    {...register("password", { required: true })}
-                    fullWidth
-                    type="password"
-                    placeholder="password"
-                  />
-
-                  <div
-                    className={`${
-                      errors?.password && "d-block"
-                    } fv-plugins-message-container invalid-feedback`}
-                  >
-                    password is required
-                  </div>
-                </div>
+                {formContent}
 
                 <div className="fv-row mb-8">
                   <label className="form-check form-check-inline">
@@ -170,9 +285,19 @@ function Login() {
                     id="kt_sign_in_submit"
                     className="btn btn-primary"
                   >
-                    <span className="indicator-label">Sign In</span>
+                    <span
+                      className={`${
+                        loading ? "d-none" : "d-block"
+                      } indicator-label`}
+                    >
+                      Sign In
+                    </span>
 
-                    <span className="indicator-progress d-none">
+                    <span
+                      className={`${
+                        loading ? "d-block" : "d-none"
+                      } indicator-progress`}
+                    >
                       Please wait...
                       <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>

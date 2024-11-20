@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About/About";
@@ -18,6 +18,8 @@ import BusinessComplete from "./pages/Register/Business/BusinessComplete";
 import PrivateComplete from "./pages/Register/Private/PrivateComplete";
 
 function App() {
+  const location = useLocation();
+
   return (
     <div>
       <ToastContainer toastClassName="custom-toast" />
@@ -25,8 +27,8 @@ function App() {
       !window.location.pathname.includes("/auth") ? (
         <Header />
       ) : null}
-      {window.location.pathname !== "/login" &&
-      !window.location.pathname.includes("/auth") ? (
+      {location.pathname !== "/login" &&
+      !location.pathname.includes("/auth") ? (
         <Navbar />
       ) : null}
 
@@ -56,8 +58,8 @@ function App() {
           element={<PrivateComplete />}
         />
       </Routes>
-      {window.location.pathname !== "/login" &&
-      !window.location.pathname.includes("/auth") ? (
+      {location.pathname !== "/login" &&
+      !location.pathname.includes("/auth") ? (
         <Footer />
       ) : null}
     </div>

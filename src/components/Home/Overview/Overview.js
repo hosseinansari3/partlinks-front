@@ -9,7 +9,7 @@ function Overview() {
             <div className="col-lg-6 col-sm-6">
               <div className="overview-image">
                 <img
-                  src="https://theme.partlinks.com.au/assets/img/overview/overview-1.jpg"
+                  src="https://templates.hibootstrap.com/maxon/default/assets/img/overview/overview-1.jpg"
                   alt="image"
                 />
               </div>
@@ -18,7 +18,7 @@ function Overview() {
             <div className="col-lg-6 col-sm-6">
               <div className="overview-image">
                 <img
-                  src="https://theme.partlinks.com.au/assets/img/overview/overview-2.jpg"
+                  src="https://templates.hibootstrap.com/maxon/default/assets/img/overview/overview-2.jpg"
                   alt="image"
                 />
               </div>

@@ -7,7 +7,7 @@
 .separator {
   display: block;
   height: 0;
-  border-bottom: 1px solid var(--kt-border-color);
+  border-bottom: 1px solid #eff2f5;
 }
 
 .separator-content {

@@ -33,9 +33,9 @@ const options = {
 
 function PartnerArea() {
   return (
-    <div class="partner-area pb-100">
-      <div class="container">
-        <div class="section-title">
+    <div className="partner-area pb-100">
+      <div className="container">
+        <div className="section-title">
           <h2>Choose Parts By Brand</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
@@ -44,27 +44,27 @@ function PartnerArea() {
         </div>
 
         <OwlCarousel className="hero-slides owl-theme" {...options}>
-          <div class="partner-item">
+          <div className="partner-item">
             <img
-              src="https://theme.partlinks.com.au/assets/img/partner/partner-2.png"
+              src="https://templates.hibootstrap.com/maxon/default/assets/img/partner/partner-1.png"
               alt="image"
             />
           </div>
-          <div class="partner-item">
+          <div className="partner-item">
             <img
-              src="https://theme.partlinks.com.au/assets/img/partner/partner-2.png"
+              src="https://templates.hibootstrap.com/maxon/default/assets/img/partner/partner-2.png"
               alt="image"
             />
           </div>
-          <div class="partner-item">
+          <div className="partner-item">
             <img
-              src="https://theme.partlinks.com.au/assets/img/partner/partner-2.png"
+              src="https://templates.hibootstrap.com/maxon/default/assets/img/partner/partner-3.png"
               alt="image"
             />
           </div>
-          <div class="partner-item">
+          <div className="partner-item">
             <img
-              src="https://theme.partlinks.com.au/assets/img/partner/partner-2.png"
+              src="https://templates.hibootstrap.com/maxon/default/assets/img/partner/partner-4.png"
               alt="image"
             />
           </div>

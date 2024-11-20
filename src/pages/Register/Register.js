@@ -1,7 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Register.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Register() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+  const [selectedType, setSelectedType] = useState();
+  console.log("locationState", location.state);
+
+  const sendAccountType = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        "https://partlinks.com.au/api/v1/member/register/account_info",
+        { business_type: selectedType },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${location.state.token}`,
+          },
+        }
+      );
+      console.log(response);
+
+      if (response?.data?.done) {
+        if (selectedType == "private") {
+          navigate("/auth/member/private/register", {
+            state: { token: location?.state?.token },
+          });
+        }
+        if (selectedType == "business") {
+          navigate("/auth/member/business/register", {
+            state: { token: location?.state?.token },
+          });
+        }
+      }
+
+      setLoading(false);
+
+      response?.data?.error && toast.error(response?.data?.error?.message);
+    } catch (error) {
+      setLoading(false);
+
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    console.log("selected", selectedType);
+    if (selectedType) {
+      sendAccountType();
+    }
+  }, [selectedType]);
+
   return (
     <div className="d-flex flex-column flex-lg-row flex-column-fluid stepper stepper-pills stepper-column stepper-multistep">
       <div className="d-flex flex-column flex-lg-row-auto w-lg-250px w-xl-350px ">
@@ -68,13 +121,14 @@ function Register() {
                         type="radio"
                         className="btn-check"
                         name="type"
-                        value="member/business"
-                        id="kt_create_account_form_type_member_business"
-                        onchange="register_show_form(this.value)"
+                        value="business"
+                        checked={selectedType == "business"}
+                        onChange={(e) => setSelectedType(e.target.value)}
+                        id="create_account_form_type_member_business"
                       />
                       <label
                         className="btn btn-active-light-warning p-4 d-flex align-items-center mb-4"
-                        for="kt_create_account_form_type_member_business"
+                        for="create_account_form_type_member_business"
                         style={{ border: "2px dashed" }}
                       >
                         <span className="svg-icon svg-icon-3x me-3">
@@ -112,13 +166,14 @@ function Register() {
                         type="radio"
                         className="btn-check"
                         name="type"
-                        value="member/private"
-                        id="kt_create_account_form_type_member_private"
-                        onchange="register_show_form(this.value)"
+                        value="private"
+                        checked={selectedType == "private"}
+                        onChange={(e) => setSelectedType(e.target.value)}
+                        id="create_account_form_type_member_private"
                       />
                       <label
                         className="btn btn-active-light-warning p-4 d-flex align-items-center mb-4"
-                        for="kt_create_account_form_type_member_private"
+                        for="create_account_form_type_member_private"
                         style={{ border: "2px dashed" }}
                       >
                         <span className="svg-icon svg-icon-3x me-3">
@@ -159,12 +214,13 @@ function Register() {
                         className="btn-check"
                         name="type"
                         value="vendor"
-                        id="kt_create_account_form_type_vendor"
-                        onchange="register_show_form(this.value)"
+                        checked={selectedType == "vendor"}
+                        onChange={(e) => setSelectedType(e.target.value)}
+                        id="create_account_form_type_vendor"
                       />
                       <label
                         className="btn btn-active-light-warning p-4 d-flex align-items-center mb-4"
-                        for="kt_create_account_form_type_vendor"
+                        for="create_account_form_type_vendor"
                         style={{ border: "2px dashed" }}
                       >
                         <span className="svg-icon svg-icon-3x me-3">

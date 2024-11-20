@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const [navOpen, setNavOpen] = useState(false);
+
+  const toggleNav = () => {
+    setNavOpen(!navOpen);
+  };
   return (
     <div className="navbar-area navbar-two">
       <div className="main-responsive-nav">
         <div className="container">
           <div className="main-responsive-menu mean-container">
             <div className="mean-bar">
-              <a href="#nav" className="meanmenu-reveal">
+              <a href="#nav" onClick={toggleNav} className="meanmenu-reveal">
                 <span>
                   <span>
                     <span></span>
@@ -17,7 +22,7 @@ function Navbar() {
                 </span>
               </a>
               <nav className="mean-nav">
-                <ul className="navbar-nav m-auto" style={{ display: "none" }}>
+                <ul className={`navbar-nav m-auto ${!navOpen && "d-none"}`}>
                   <li className="nav-item">
                     <a href="index.html" className="nav-link active">
                       Home

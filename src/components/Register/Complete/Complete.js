@@ -1,9 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./Complete.css";
 import { Autocomplete, InputLabel, TextField } from "@mui/material";
 import TextInput from "../../../components/Common/TextInput";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const STEPS = {
   STEP1: 1,
@@ -12,7 +14,22 @@ const STEPS = {
 };
 
 function Complete({ memberType }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  console.log("locationState_Complete", location.state);
+
+  const memberCategories = location?.state?.info?.member_categories;
+  const memberCategoriesTitles = memberCategories.map((item) => {
+    return { label: item.title, id: item.id };
+  });
+
+  console.log("memberCategoriesTitles", memberCategoriesTitles);
+
   const [step, setStep] = useState(STEPS.STEP1);
+  const [locResults, setLocResults] = useState();
+  const [locReference, setLocReference] = useState();
+  const [userData, setUserData] = useState();
 
   const {
     register,
@@ -20,6 +37,7 @@ function Complete({ memberType }) {
     control,
     watch,
     setError,
+    setValue,
     clearErrors,
     formState: { errors },
   } = useForm();
@@ -30,13 +48,17 @@ function Complete({ memberType }) {
   const category = watch("category");
   const address = watch("address");
 
+  useEffect(() => {
+    console.log("category", category);
+  }, [category]);
+
   const accountInfo = (
-    <div class="w-100">
-      <div class="pb-4 pb-lg-5">
-        <h2 class="fw-bold text-dark">Account Info</h2>
+    <div className="w-100">
+      <div className="pb-4 pb-lg-5">
+        <h2 className="fw-bold text-dark">Account Info</h2>
       </div>
 
-      <div class="mb-4 fv-row">
+      <div className="mb-4">
         <InputLabel
           required
           sx={{
@@ -54,7 +76,7 @@ function Complete({ memberType }) {
           id="companyName"
         />
       </div>
-      <div class="fv-row mb-4">
+      <div className="mb-4">
         <InputLabel
           required
           sx={{
@@ -72,7 +94,7 @@ function Complete({ memberType }) {
           id="companyAbnAcn"
         />
       </div>
-      <div class="fv-row mb-4">
+      <div className="mb-4">
         <InputLabel
           required
           sx={{
@@ -84,29 +106,28 @@ function Complete({ memberType }) {
         </InputLabel>
         <TextInput
           {...register("email", {
-            required: memberType == "business",
+            required: false,
           })}
           fullWidth
           id="email"
         />
       </div>
-      <div class="mb-0 fv-row">
-        <label class="d-flex align-items-center form-label mb-5 required">
+      <div className="mb-0 ">
+        <label className="d-flex align-items-center form-label mb-5 required">
           Business/company Category
           <i
-            class="fas fa-exclamation-circle ms-2 fs-7"
+            className="fas fa-exclamation-circle ms-2 fs-7"
             data-bs-toggle="tooltip"
             aria-label="This helps us verify your account information "
             data-bs-original-title="This helps us verify your account information "
-            data-kt-initialized="1"
           ></i>
         </label>
 
-        <div class="mb-0" id="account-types-member">
-          <div class="row mb-3 mt-3">
-            <div class="col-12 col-sm-6">
-              <div class="row mb-2">
-                <div class="col-lg-12 fv-row">
+        <div className="mb-0" id="account-types-member">
+          <div className="row mb-3 mt-3">
+            <div className="col-12 col-sm-6">
+              <div className="row mb-2">
+                <div className="col-lg-12 ">
                   <InputLabel
                     required
                     sx={{
@@ -123,7 +144,7 @@ function Complete({ memberType }) {
                     render={({ field, fieldState }) => (
                       <Autocomplete
                         {...field}
-                        options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
+                        options={memberCategoriesTitles}
                         sx={{
                           "label + &": {
                             marginTop: "8px",
@@ -162,19 +183,19 @@ function Complete({ memberType }) {
   );
 
   const addressDetails = (
-    <div class="w-100">
-      <div class="pb-10 pb-lg-15">
-        <h2 class="fw-bold text-dark">Address Details</h2>
+    <div className="w-100">
+      <div className="pb-10 pb-lg-15">
+        <h2 className="fw-bold text-dark">Address Details</h2>
       </div>
 
-      <div class="d-flex flex-column mb-7 fv-row">
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-lg-12">
+      <div className="d-flex flex-column mb-7 ">
+        <div className="row">
+          <div className="col-md-12 col-sm-12 col-lg-12">
             <input type="hidden" name="lat" id="lat" value="-33.8117998" />
             <input type="hidden" name="lng" id="lng" value="151.2017803" />
-            <div class="row mb-3">
-              <div class="col-sm-12 mb-3">
-                <div class="fv-row mb-0">
+            <div className="row mb-3">
+              <div className="col-sm-12 mb-3">
+                <div className="mb-0">
                   <InputLabel
                     required
                     sx={{
@@ -192,10 +213,33 @@ function Complete({ memberType }) {
                     name="address"
                     id="address"
                     placeholder=""
-                    class="form-control form-control-lg pac-target-input"
+                    className="form-control form-control-lg pac-target-input"
                     rows="3"
                     autocomplete="off"
                   ></textarea>
+                </div>
+                <div
+                  className={` ${
+                    locReference == null ? "d-block" : "d-none"
+                  } shadow`}
+                >
+                  <ul className="list-group">
+                    {locResults?.map((item) => {
+                      return (
+                        <li
+                          onClick={(e) => {
+                            setLocReference(item.reference);
+                            setValue("address", item.description);
+                            setLocResults(null);
+                            setLocReference(null);
+                          }}
+                          className="list-group-item"
+                        >
+                          {item?.description}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               </div>
             </div>
@@ -206,55 +250,55 @@ function Complete({ memberType }) {
   );
 
   const completed = (
-    <div class="w-100">
-      <div class="mb-5">
-        <h2 class="fw-bold text-dark">Your almost there!</h2>
-        <h5 class="text-dark">
+    <div className="w-100">
+      <div className="mb-5">
+        <h2 className="fw-bold text-dark">Your almost there!</h2>
+        <h5 className="text-dark">
           Make sure your information is correct before you continue.{" "}
         </h5>
       </div>
 
-      <div class="fs-6 text-gray-600 mb-5">
+      <div className="fs-6 text-gray-600 mb-5">
         If you need to change Your Information you can use the Previous button.
         To continue press Done.
       </div>
 
-      <div class="row mt-20">
-        <div class="col-12">
+      <div className="row mt-20">
+        <div className="col-12">
           <h2>Your Information</h2>
-          <hr class="bg-dark text-dark w-100 mw-200px w-md-200px w-lg-200px h-3px opacity-100" />
+          <hr className="bg-dark text-dark w-100 mw-200px w-md-200px w-lg-200px h-3px opacity-100" />
         </div>
       </div>
-      <div class="mb-10 fv-row row">
-        <div class="col-12">
-          <span class="form-label mb-3 ">Full Name:</span>
-          <b class="ms-2">Test1 n Test1 f</b>
+      <div className="mb-10 row">
+        <div className="col-12">
+          <span className="form-label mb-3 ">Full Name:</span>
+          <b className="ms-2">Test1 n Test1 f</b>
         </div>
-        <div class="col-12 ">
-          <span class="form-label mb-3 ">Mobile:</span>
-          <b class="ms-2">61444488890</b>
+        <div className="col-12 ">
+          <span className="form-label mb-3 ">Mobile:</span>
+          <b className="ms-2">61444488890</b>
         </div>
-        <div class="col-12 ">
-          <span class="form-label mb-3 ">Email:</span>
-          <b class="ms-2">hosseinansari6@gmail.com</b>
+        <div className="col-12 ">
+          <span className="form-label mb-3 ">Email:</span>
+          <b className="ms-2">hosseinansari6@gmail.com</b>
         </div>
         <br />
         <br />
-        <div class="col-12  ">
-          <span class="form-label mb-3 ">Business/Company Name:</span>
-          <b class="ms-2">sdfs</b>
+        <div className="col-12  ">
+          <span className="form-label mb-3 ">Business/Company Name:</span>
+          <b className="ms-2">sdfs</b>
         </div>
-        <div class="col-12 ">
-          <span class="form-label mb-3 ">ABN/ACN:</span>
-          <b class="ms-2">31665398381</b>
+        <div className="col-12 ">
+          <span className="form-label mb-3 ">ABN/ACN:</span>
+          <b className="ms-2">31665398381</b>
         </div>
-        <div class="col-12 ">
-          <span class="form-label mb-3 ">Selected Category:</span>
-          <b class="ms-2">Panel Beater</b>
+        <div className="col-12 ">
+          <span className="form-label mb-3 ">Selected Category:</span>
+          <b className="ms-2">Panel Beater</b>
         </div>
-        <div class="col-12">
-          <span class="form-label mb-3 ">Address:</span>
-          <b class="ms-2">4 Scott St, Willoughby NSW 2068, Australia</b>
+        <div className="col-12">
+          <span className="form-label mb-3 ">Address:</span>
+          <b className="ms-2">4 Scott St, Willoughby NSW 2068, Australia</b>
         </div>
       </div>
     </div>
@@ -290,13 +334,111 @@ function Complete({ memberType }) {
     }
   };
 
-  const onSubmit = (e) => {
-    console.log("Onsubmit", step);
+  const onSubmit = async (e) => {
+    if (step == STEPS.STEP1) {
+      try {
+        const response = await axios.post(
+          "https://partlinks.com.au/api/v1/member/register/business_info",
+          {
+            name: companyName,
+            abn_acn: companyAbnAcn,
+            category_id: category.id,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${location?.state?.token}`,
+            },
+          }
+        );
+        console.log(response);
 
-    if (step !== STEPS.STEP3) {
-      return onNext();
+        if (response?.data?.done) {
+          onNext();
+        }
+
+        response?.data?.error && toast.error(response?.data?.error?.message);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (step == STEPS.STEP2) {
+      try {
+        const response = await axios.post(
+          "https://partlinks.com.au/api/v1/member/register/address_info",
+          {
+            reference: locReference,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${location?.state?.token}`,
+            },
+          }
+        );
+        console.log(response);
+
+        if (response?.data?.done) {
+          onNext();
+          setUserData(response?.data?.result.user_data);
+        }
+
+        response?.data?.error && toast.error(response?.data?.error?.message);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+
+  const onSearch = async () => {
+    try {
+      const response = await axios.post(
+        "https://partlinks.com.au/api/v1/member/search_location",
+        {
+          location: address,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${location?.state?.token}`,
+          },
+        }
+      );
+      console.log(response);
+
+      if (response?.data?.done) {
+        setLocResults(response?.data?.result?.response);
+      }
+
+      response?.data?.error && toast.error(response?.data?.error?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("locReference", locReference);
+
+    if (locReference == null || locReference == undefined) {
+      onSearch();
+    } else {
+      setLocReference(null);
+    }
+  }, [address]);
+
+  useEffect(() => {
+    console.log("locResults", locResults);
+  }, [locResults]);
+
+  useEffect(() => {
+    console.log("locReference", locReference);
+  }, [locReference]);
+
+  useEffect(() => {
+    if (address == "") {
+      setLocResults(null);
+    }
+  }, [address]);
 
   return (
     <div className="d-flex flex-column flex-lg-row flex-column-fluid stepper stepper-pills stepper-column stepper-multistep">
@@ -317,70 +459,60 @@ function Complete({ memberType }) {
             </a>
           </div>
 
-          <div class="d-flex flex-row-fluid justify-content-center p-4">
-            <div class="stepper-nav">
+          <div className="d-flex flex-row-fluid justify-content-center p-4">
+            <div className="stepper-nav">
               <div
-                class={`stepper-item ${step == STEPS.STEP1 && "current"} ${
-                  memberType != "business" && "d-none"
-                } `}
+                className={`stepper-item ${step == STEPS.STEP1 && "current"} `}
                 data-kt-stepper-element="nav"
               >
-                <div class="stepper-wrapper">
-                  <div class="stepper-icon rounded-3">
-                    <i class="stepper-check fas fa-check"></i>
-                    <span class="stepper-number">1</span>
+                <div className="stepper-wrapper">
+                  <div className="stepper-icon rounded-3">
+                    <i className="stepper-check fas fa-check"></i>
+                    <span className="stepper-number">1</span>
                   </div>
 
-                  <div class="stepper-label">
-                    <h3 class="stepper-title fs-4">Account Info</h3>
-                    <div class="stepper-desc fw-normal">
+                  <div className="stepper-label">
+                    <h3 className="stepper-title fs-4">Account Info</h3>
+                    <div className="stepper-desc fw-normal">
                       Setup your account settings
                     </div>
                   </div>
                 </div>
 
-                <div class="stepper-line h-40px"></div>
+                <div className="stepper-line h-40px"></div>
               </div>
               <div
-                class={`stepper-item ${
-                  (step == STEPS.STEP2 &&
-                    memberType == "business" &&
-                    "current") ||
-                  (step == STEPS.STEP1 && memberType == "private" && "current")
-                } `}
+                className={`stepper-item ${step == STEPS.STEP2 && "current"} `}
               >
-                <div class="stepper-wrapper">
-                  <div class="stepper-icon">
-                    <i class="stepper-check fas fa-check"></i>
-                    <span class="stepper-number">2</span>
+                <div className="stepper-wrapper">
+                  <div className="stepper-icon">
+                    <i className="stepper-check fas fa-check"></i>
+                    <span className="stepper-number">2</span>
                   </div>
 
-                  <div class="stepper-label">
-                    <h3 class="stepper-title">Address Details</h3>
-                    <div class="stepper-desc fw-normal">Setup your address</div>
+                  <div className="stepper-label">
+                    <h3 className="stepper-title">Address Details</h3>
+                    <div className="stepper-desc fw-normal">
+                      Setup your address
+                    </div>
                   </div>
                 </div>
 
-                <div class="stepper-line h-40px"></div>
+                <div className="stepper-line h-40px"></div>
               </div>
               <div
-                class={`stepper-item ${
-                  (step == STEPS.STEP3 &&
-                    memberType == "business" &&
-                    "current") ||
-                  (step == STEPS.STEP2 && memberType == "private" && "current")
-                } `}
+                className={`stepper-item ${step == STEPS.STEP3 && "current"} `}
                 data-kt-stepper-element="nav"
               >
-                <div class="stepper-wrapper">
-                  <div class="stepper-icon">
-                    <i class="stepper-check fas fa-check"></i>
-                    <span class="stepper-number">3</span>
+                <div className="stepper-wrapper">
+                  <div className="stepper-icon">
+                    <i className="stepper-check fas fa-check"></i>
+                    <span className="stepper-number">3</span>
                   </div>
 
-                  <div class="stepper-label">
-                    <h3 class="stepper-title">Completed</h3>
-                    <div class="stepper-desc fw-normal">
+                  <div className="stepper-label">
+                    <h3 className="stepper-title">Completed</h3>
+                    <div className="stepper-desc fw-normal">
                       Your account is created
                     </div>
                   </div>
@@ -389,15 +521,27 @@ function Complete({ memberType }) {
             </div>
           </div>
 
-          <div class="aside-footer d-flex justify-content-center align-items.center flex-wrap px-2 py-4">
-            <div class="d-flex fw-normal">
-              <a href="https://partlinks.com.au" class="px-2" target="_blank">
+          <div className="aside-footer d-flex justify-content-center align-items.center flex-wrap px-2 py-4">
+            <div className="d-flex fw-normal">
+              <a
+                href="https://partlinks.com.au"
+                className="px-2"
+                target="_blank"
+              >
                 Terms
               </a>
-              <a href="https://partlinks.com.au" class="px-2" target="_blank">
+              <a
+                href="https://partlinks.com.au"
+                className="px-2"
+                target="_blank"
+              >
                 Plans
               </a>
-              <a href="https://partlinks.com.au" class="px-2" target="_blank">
+              <a
+                href="https://partlinks.com.au"
+                className="px-2"
+                target="_blank"
+              >
                 Contact Us
               </a>
             </div>
@@ -405,64 +549,54 @@ function Complete({ memberType }) {
         </div>
       </div>
       <div
-        class="d-flex flex-column flex-lg-row-fluid py-5"
+        className="d-flex flex-column flex-lg-row-fluid py-5"
         id="kt_create_account_form_stepper"
       >
-        <div class="d-flex justify-content-center align-items-center flex-column flex-column-fluid">
-          <div class="form-container p-4 mx-auto">
+        <div className="d-flex justify-content-center align-items-center flex-column flex-column-fluid">
+          <div className="form-container p-4 mx-auto">
             <form
-              class="my-auto pb-5"
+              className="my-auto pb-5"
               id="kt_create_account_form_step_1"
               onSubmit={handleSubmit(onSubmit, onError)}
             >
-              <div class="current">
-                {memberType == "business"
-                  ? formContentBusiness
-                  : memberType == "private"
-                  ? formContentPrivate
-                  : null}
-              </div>
+              <div className="current">{formContentBusiness}</div>
 
-              <div class="d-flex justify-content-between align-items-center pt-5">
-                <div class={`mr-2`}>
+              <div className="d-flex justify-content-between align-items-center pt-5">
+                <div className={`mr-2`}>
                   <button
                     type="button"
-                    class={`${
+                    className={`${
                       step == STEPS.STEP1 && "d-none"
                     } btn btn-sm btn-primary me-3`}
                     onClick={onBack}
                   >
-                    <span class="indicator-label">Previous</span>
-                    <span class="indicator-progress d-none">
+                    <span className="indicator-label">Previous</span>
+                    <span className="indicator-progress d-none">
                       Please wait...
-                      <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                      <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
                   </button>
                 </div>
                 <div>
                   <button
                     type="submit"
-                    class={` ${
-                      (step == STEPS.STEP3 && memberType == "business") ||
-                      (step == STEPS.STEP2 && memberType == "private")
-                        ? "btn-success"
-                        : "btn-primary"
+                    className={` ${
+                      step == STEPS.STEP3 ? "btn-success" : "btn-primary"
                     } btn btn-sm px-3`}
                   >
-                    <span class="indicator-label">
-                      {(step == STEPS.STEP3 && memberType == "business") ||
-                      (step == STEPS.STEP2 && memberType == "private") ? (
+                    <span className="indicator-label">
+                      {step == STEPS.STEP3 ? (
                         <div>
-                          <i class="bx bx-check"></i>
+                          <i className="bx bx-check"></i>
                           <span className="ms-1">Done</span>
                         </div>
                       ) : (
                         "Continue"
                       )}
                     </span>
-                    <span class="indicator-progress d-none">
+                    <span className="indicator-progress d-none">
                       Please wait...
-                      <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                      <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
                   </button>
                 </div>

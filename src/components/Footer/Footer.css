@@ -2,7 +2,7 @@
 Footer Area style.CSS
 =================================================*/
 .footer-area {
-  background-image: url(../../../public/assets/img/footer-bg.jpg);
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/footer-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -129,11 +129,11 @@ Footer Area style.CSS
 }
 
 .single-footer-widget .footer-post .item .thumb .fullimage.bg1 {
-  background-image: url(../../../public/assets/img/footer-post/footer-post-1.jpg);
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/footer-post/footer-post-1.jpg);
 }
 
 .single-footer-widget .footer-post .item .thumb .fullimage.bg2 {
-  background-image: url(../../../public/assets/img/footer-post/footer-post-2.jpg);
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/footer-post/footer-post-2.jpg);
 }
 
 .single-footer-widget .footer-post .item .info {

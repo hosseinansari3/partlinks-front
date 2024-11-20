@@ -1,5 +1,6 @@
 import React from "react";
 import "./Header.css";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -10,11 +11,11 @@ function Header() {
             <div className="col-lg-6 col-md-12">
               <ul className="top-header-information">
                 <li>
-                  <i class="flaticon-pin"></i>565, Nyman Tower Melbourne,
+                  <i className="flaticon-pin"></i>565, Nyman Tower Melbourne,
                   Australia
                 </li>
                 <li>
-                  <i class="flaticon-clock"></i>
+                  <i className="flaticon-clock"></i>
                   Monday 8:00 AM - 12:00 PM
                 </li>
               </ul>
@@ -55,7 +56,7 @@ function Header() {
               <ul className="middle-header-optional">
                 <li>
                   <a href="#">
-                    <i class="bx bx-heart">
+                    <i className="bx bx-heart">
                       <span>0</span>
                     </i>
                     Wishlist
@@ -63,17 +64,23 @@ function Header() {
                 </li>
                 <li>
                   <a href="#">
-                    <i class="bx bx-cart">
+                    <i className="bx bx-cart">
                       <span>0</span>
                     </i>
                     Add to Cart
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="user-btn">
-                    <i class="bx bx-log-in-circle"></i>
-                    Login / Register
-                  </a>
+                  <Link to="login" className="user-btn">
+                    <i className="bx bx-log-in-circle"></i>
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to="auth/register" className="user-btn">
+                    <i className="bx bx-log-in-circle"></i>
+                    Register
+                  </Link>
                 </li>
               </ul>
             </div>

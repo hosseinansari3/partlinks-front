@@ -4,8 +4,15 @@ import "./RegisterForm.css";
 import PasswordStrength from "../../Common/PasswordStrength";
 import TextInput from "../../Common/TextInput";
 import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function RegisterForm({ accountType }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  console.log("locationState", location.state);
+
   const {
     register,
     handleSubmit,
@@ -18,16 +25,16 @@ function RegisterForm({ accountType }) {
     mode: "onChange", // Validate on each keystroke
   });
 
+  const [loading, setLoading] = useState(false);
   const [passwordStrengthScore, setPasswordStrengthScore] = useState();
 
   const firstName = watch("firstName");
   const lastName = watch("lastName");
-  const mobile = watch("mobile");
   const password = watch("password");
   const repeatPassword = watch("repeatPassword");
   const termsAndConditions = watch("termsAndConditions");
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (
       !/^(4|04)(\s?[0-9]{2}\s?)([0-9]{3}\s?[0-9]{3}|[0-9]{2}\s?[0-9]{2}\s?[0-9]{2})$/.test(
         mobile
@@ -43,6 +50,8 @@ function RegisterForm({ accountType }) {
       clearErrors("mobileNotValid");
     }
   }, [mobile]);
+
+  */
 
   useEffect(() => {
     if (passwordStrengthScore < 5 && password !== "") {
@@ -74,8 +83,53 @@ function RegisterForm({ accountType }) {
     }
   };
 
-  const onSubmit = (e) => {
-    console.log("Onsubmit");
+  const onSubmit = async (e) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        "https://partlinks.com.au/api/v1/member/register/base_info",
+        {
+          name: firstName,
+          family: lastName,
+          password: password,
+          password_confirmation: repeatPassword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${location?.state?.token}`,
+          },
+        }
+      );
+      console.log(response);
+
+      if (response?.data?.done) {
+        if (response?.data?.result?.business_type == "private") {
+          navigate("/auth/member/private/complete", {
+            state: {
+              info: response?.data?.result,
+              token: location?.state?.token,
+            },
+          });
+        }
+        if (response?.data?.result?.business_type == "business") {
+          navigate("/auth/member/business/complete", {
+            state: {
+              info: response?.data?.result,
+              token: location?.state?.token,
+            },
+          });
+        }
+      }
+
+      setLoading(false);
+
+      response?.data?.error && toast.error(response?.data?.error?.message);
+    } catch (error) {
+      setLoading(false);
+
+      console.log(error);
+    }
   };
 
   return (
@@ -152,43 +206,6 @@ function RegisterForm({ accountType }) {
                   </div>
                 </div>
 
-                <div className="fv-row mb-4 fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid">
-                  <div className="col-12">
-                    <div className="mb-2">
-                      <img
-                        className="me-1"
-                        width="20px"
-                        src="https://partlinks.com.au/panel/media/flags/australia.svg"
-                        alt=""
-                      />
-                      <span className="fw-bold p-2" style={{ width: "40px" }}>
-                        +61
-                      </span>
-                      <input type="hidden" name="country" value="61" />
-                    </div>
-                    <TextInput
-                      {...register("mobile", { required: true })}
-                      type="number"
-                      fullWidth
-                      placeholder="Mobile"
-                    />
-
-                    <div
-                      className={` ${
-                        errors?.mobile && "d-block"
-                      } fv-plugins-message-container invalid-feedback`}
-                    >
-                      Mobile is required
-                    </div>
-                    <div
-                      className={` ${
-                        errors?.mobileNotValid && "d-block"
-                      } fv-plugins-message-container invalid-feedback`}
-                    >
-                      {errors?.mobileNotValid?.message}
-                    </div>
-                  </div>
-                </div>
                 <div
                   className="fv-row mb-4 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid"
                   data-kt-password-meter="true"
@@ -298,8 +315,18 @@ function RegisterForm({ accountType }) {
                     id="kt_sign_up_submit"
                     className="btn btn-primary"
                   >
-                    <span className="indicator-label">Sign up</span>
-                    <span className="indicator-progress d-none">
+                    <span
+                      className={`${
+                        loading ? "d-none" : "d-block"
+                      } indicator-label`}
+                    >
+                      Sign up
+                    </span>
+                    <span
+                      className={`${
+                        loading ? "d-block" : "d-none"
+                      } indicator-progress`}
+                    >
                       Please wait...
                       <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>

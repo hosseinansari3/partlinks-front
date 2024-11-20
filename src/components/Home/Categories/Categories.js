@@ -16,7 +16,7 @@ function Categories() {
                 <div className="categories-image">
                   <a href="products-details.html">
                     <img
-                      src="	https://theme.partlinks.com.au/assets/img/categories/categories-1.jpg"
+                      src="https://templates.hibootstrap.com/maxon/default/assets/img/categories/categories-1.jpg"
                       alt="image"
                     />
                   </a>
@@ -35,7 +35,7 @@ function Categories() {
                 <div className="categories-image">
                   <a href="products-details.html">
                     <img
-                      src="	https://theme.partlinks.com.au/assets/img/categories/categories-2.jpg"
+                      src="https://templates.hibootstrap.com/maxon/default/assets/img/categories/categories-2.jpg"
                       alt="image"
                     />
                   </a>
@@ -54,7 +54,7 @@ function Categories() {
                 <div className="categories-image">
                   <a href="products-details.html">
                     <img
-                      src="	https://theme.partlinks.com.au/assets/img/categories/categories-3.jpg"
+                      src="https://templates.hibootstrap.com/maxon/default/assets/img/categories/categories-3.jpg"
                       alt="image"
                     />
                   </a>
@@ -73,7 +73,7 @@ function Categories() {
                 <div className="categories-image">
                   <a href="products-details.html">
                     <img
-                      src="	https://theme.partlinks.com.au/assets/img/categories/categories-4.jpg"
+                      src="https://templates.hibootstrap.com/maxon/default/assets/img/categories/categories-4.jpg"
                       alt="image"
                     />
                   </a>
@@ -92,7 +92,7 @@ function Categories() {
                 <div className="categories-image">
                   <a href="products-details.html">
                     <img
-                      src="	https://theme.partlinks.com.au/assets/img/categories/categories-5.jpg"
+                      src="https://templates.hibootstrap.com/maxon/default/assets/img/categories/categories-5.jpg"
                       alt="image"
                     />
                   </a>

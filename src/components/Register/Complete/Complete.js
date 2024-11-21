@@ -17,6 +17,8 @@ function Complete({ memberType }) {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const businessType = location.state.info.business_type;
+
   console.log("locationState_Complete", location.state);
 
   const memberCategories = location?.state?.info?.member_categories;
@@ -30,6 +32,7 @@ function Complete({ memberType }) {
   const [locResults, setLocResults] = useState();
   const [locReference, setLocReference] = useState();
   const [userData, setUserData] = useState();
+  const [isLocSelected, setLocSelected] = useState(false);
 
   const {
     register,
@@ -66,17 +69,19 @@ function Complete({ memberType }) {
           }}
           htmlFor="companyName"
         >
-          Business/Company Name
+          {businessType == "business" ? "Business/Company Name" : "Alias Name"}
         </InputLabel>
         <TextInput
           {...register("companyName", {
-            required: memberType == "business",
+            required: true,
           })}
           fullWidth
           id="companyName"
         />
       </div>
-      <div className="mb-4">
+      <div
+        className={` ${businessType == "business" ? "d-block" : "d-none"} mb-4`}
+      >
         <InputLabel
           required
           sx={{
@@ -88,7 +93,7 @@ function Complete({ memberType }) {
         </InputLabel>
         <TextInput
           {...register("companyAbnAcn", {
-            required: memberType == "business",
+            required: businessType == "business",
           })}
           fullWidth
           id="companyAbnAcn"
@@ -96,7 +101,6 @@ function Complete({ memberType }) {
       </div>
       <div className="mb-4">
         <InputLabel
-          required
           sx={{
             "& .MuiFormLabel-asterisk": { color: "red" },
           }}
@@ -171,7 +175,7 @@ function Complete({ memberType }) {
                         )}
                       />
                     )}
-                    rules={{ required: memberType == "business" }} // Add validation rules if needed
+                    rules={{ required: true }} // Add validation rules if needed
                   />
                 </div>
               </div>
@@ -218,11 +222,7 @@ function Complete({ memberType }) {
                     autocomplete="off"
                   ></textarea>
                 </div>
-                <div
-                  className={` ${
-                    locReference == null ? "d-block" : "d-none"
-                  } shadow`}
-                >
+                <div className={`  shadow`}>
                   <ul className="list-group">
                     {locResults?.map((item) => {
                       return (
@@ -231,7 +231,7 @@ function Complete({ memberType }) {
                             setLocReference(item.reference);
                             setValue("address", item.description);
                             setLocResults(null);
-                            setLocReference(null);
+                            setLocSelected(true);
                           }}
                           className="list-group-item"
                         >
@@ -272,33 +272,33 @@ function Complete({ memberType }) {
       <div className="mb-10 row">
         <div className="col-12">
           <span className="form-label mb-3 ">Full Name:</span>
-          <b className="ms-2">Test1 n Test1 f</b>
+          <b className="ms-2">{userData?.base_info?.full_name}</b>
         </div>
         <div className="col-12 ">
           <span className="form-label mb-3 ">Mobile:</span>
-          <b className="ms-2">61444488890</b>
+          <b className="ms-2">{userData?.base_info?.mobile}</b>
         </div>
         <div className="col-12 ">
           <span className="form-label mb-3 ">Email:</span>
-          <b className="ms-2">hosseinansari6@gmail.com</b>
+          <b className="ms-2">{userData?.base_info?.email}</b>
         </div>
         <br />
         <br />
         <div className="col-12  ">
           <span className="form-label mb-3 ">Business/Company Name:</span>
-          <b className="ms-2">sdfs</b>
+          <b className="ms-2">{userData?.business_info?.company_name}</b>
         </div>
         <div className="col-12 ">
           <span className="form-label mb-3 ">ABN/ACN:</span>
-          <b className="ms-2">31665398381</b>
+          <b className="ms-2">{userData?.business_info?.company_abn_acn}</b>
         </div>
         <div className="col-12 ">
           <span className="form-label mb-3 ">Selected Category:</span>
-          <b className="ms-2">Panel Beater</b>
+          <b className="ms-2">{userData?.business_info?.category?.title}</b>
         </div>
         <div className="col-12">
           <span className="form-label mb-3 ">Address:</span>
-          <b className="ms-2">4 Scott St, Willoughby NSW 2068, Australia</b>
+          <b className="ms-2">{userData?.address_info.address}</b>
         </div>
       </div>
     </div>
@@ -343,6 +343,7 @@ function Complete({ memberType }) {
             name: companyName,
             abn_acn: companyAbnAcn,
             category_id: category.id,
+            email: email,
           },
           {
             headers: {
@@ -419,10 +420,14 @@ function Complete({ memberType }) {
   useEffect(() => {
     console.log("locReference", locReference);
 
-    if (locReference == null || locReference == undefined) {
+    if (
+      !isLocSelected &&
+      (address !== null || address !== undefined) &&
+      step == STEPS.STEP2
+    ) {
       onSearch();
     } else {
-      setLocReference(null);
+      setLocSelected(false);
     }
   }, [address]);
 

@@ -12,7 +12,6 @@ const steps = {
   STEP_PHONE: "STEP_PHONE",
   STEP_PASSWORD: "STEP_PASSWORD",
   STEP_OTP: "SPET_OTP",
-  STEP_REGISTER: "STEP_REGISTER",
 };
 
 function Login() {
@@ -150,60 +149,45 @@ function Login() {
   );
 
   const stepPhone = (
-    <div
-      className={` ${
-        responseData?.result?.exists ? "d-none" : "d-block"
-      } mb-3 fv-plugins-icon-container`}
-    >
-      <div
-        id="mobile"
-        className={`${
-          !isNaN(userName) && !isNaN(parseFloat(userName))
-            ? "d-block"
-            : "d-none"
-        } mb-2`}
+    <div className={` mb-3 fv-plugins-icon-container`}>
+      <InputLabel
+        sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+        required
+        id="phone"
       >
-        <img
-          className=""
-          width="20px"
-          src="https://partlinks.com.au/panel/media/flags/australia.svg"
-          alt="australia"
-        />
-        <span className="fw-bold p-2 text-warning">+61</span>
-      </div>
-      <div
-        id="email"
-        className={`${
-          (!isNaN(userName) && !isNaN(parseFloat(userName))) || userName == ""
-            ? "d-none"
-            : "d-block"
-        } mb-2`}
-      >
-        <i class="bx bx-envelope"></i>
-        <span className="fw-bold p-2 text-warning" style={{ width: "40px" }}>
-          Email Address
-        </span>
-      </div>
+        Enter your phone number
+      </InputLabel>
       <TextInput
         {...register("userName", { required: true })}
         fullWidth
-        placeholder="enter email or phone number"
+        placeholder="enter phone number"
       />
       <div
         className={`${
           errors?.userName && "d-block"
         } fv-plugins-message-container invalid-feedback`}
       >
-        Email or Phone number address is required
+        Phone number address is required
       </div>
     </div>
   );
 
   const stepOTP = (
-    <OtpInput length={6} onComplete={onCheckOTP} setOtpNumber={setOtpNumber} />
+    <div>
+      <div className="d-flex justify-content-center mb-2">
+        <InputLabel
+          sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}
+          required
+          id="otp"
+        >
+          Enter code sent to your phone
+        </InputLabel>
+      </div>
+      <OtpInput onComplete={() => {}} length={6} setOtpNumber={setOtpNumber} />
+    </div>
   );
 
-  const formContent =
+  let formContent =
     step == steps.STEP_PHONE
       ? stepPhone
       : step == steps.STEP_PASSWORD
@@ -240,17 +224,23 @@ function Login() {
                   value="uN7gYwMmJKf58ryRhT5OlgEbvguPj3Z7TMbbx2sz"
                 />
                 <div className="text-center mb-5">
-                  <h1 className="text-dark fw-bolder mb-3">Sign In</h1>
+                  <div
+                    className={`d-flex justify-content-center align-items-center`}
+                  >
+                    <i
+                      onClick={() => setStep(steps.STEP_PHONE)}
+                      class={` ${
+                        step == steps.STEP_PHONE && "d-none"
+                      } bx bx-arrow-back back-btn`}
+                    ></i>
+                    <h1 className="text-dark fw-bolder mb-3">
+                      Sing in|Sign up
+                    </h1>
+                  </div>
 
                   <div className="text-gray-500 fw-normal fs-6">
-                    Login to your account
+                    Login to your account or create one
                   </div>
-                </div>
-
-                <div className="separator separator-content my-5">
-                  <span className="w-100 mw-300px text-gray-500 fw-normal fs-6">
-                    with email or phone number
-                  </span>
                 </div>
 
                 {formContent}
@@ -290,7 +280,11 @@ function Login() {
                         loading ? "d-none" : "d-block"
                       } indicator-label`}
                     >
-                      Sign In
+                      {step == steps.STEP_PHONE
+                        ? "check"
+                        : step == steps.STEP_PASSWORD
+                        ? "login"
+                        : "submit"}
                     </span>
 
                     <span

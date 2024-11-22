@@ -16,6 +16,7 @@ import PrivateRegister from "./pages/Register/Private/PrivateRegister";
 import VendorRegister from "./pages/Register/Vendor/VendorRegister";
 import BusinessComplete from "./pages/Register/Business/BusinessComplete";
 import PrivateComplete from "./pages/Register/Private/PrivateComplete";
+import Panel from "./pages/Panel";
 
 function App() {
   const location = useLocation();
@@ -57,6 +58,7 @@ function App() {
           path="auth/member/private/complete"
           element={<PrivateComplete />}
         />
+        <Route path="member/" element={<Panel />} />
       </Routes>
       {location.pathname !== "/login" &&
       !location.pathname.includes("/auth") ? (

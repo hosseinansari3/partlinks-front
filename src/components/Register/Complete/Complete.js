@@ -17,12 +17,45 @@ function Complete({ memberType }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const businessType = location.state.info.business_type;
+  const businessType = location?.state?.info?.business_info?.business_type;
+  const registerStep = location?.state?.info?.register_info?.register_step;
 
   console.log("locationState_Complete", location.state);
 
-  const memberCategories = location?.state?.info?.member_categories;
-  const memberCategoriesTitles = memberCategories.map((item) => {
+  const memberCategories = [
+    {
+      id: 1,
+      title: "Mechanic Workshop",
+      image:
+        "/files/upload/categories/members/1/image/1713291944icon-1-order.png",
+      priority: 1,
+    },
+
+    {
+      id: 3,
+      title: "Mobile mechanic",
+      image:
+        "/files/upload/categories/members/3/image/1713291975icon-1-order.png",
+      priority: 5,
+    },
+
+    {
+      id: 2,
+      title: "Panel Beater",
+      image:
+        "/files/upload/categories/members/2/image/1713291959icon-1-order.png",
+      priority: 10,
+    },
+
+    { id: 4, title: "Tyre Shop", image: null, priority: 20 },
+
+    { id: 5, title: "Mobile Tyre Service", image: null, priority: 25 },
+
+    { id: 6, title: "Used Car Dealer", image: null, priority: 30 },
+    { id: 7, title: "New & Used Car Dealer", image: null, priority: 35 },
+  ];
+
+  const memberCategoriesTitles = memberCategories?.map((item) => {
     return { label: item.title, id: item.id };
   });
 
@@ -33,15 +66,41 @@ function Complete({ memberType }) {
   const [locReference, setLocReference] = useState();
   const [userData, setUserData] = useState();
   const [isLocSelected, setLocSelected] = useState(false);
+  const [isAddressChanged, setAddressChanged] = useState(false);
+
+  useEffect(() => {
+    registerStep == 3 && setStep(STEPS.STEP1);
+    registerStep == 4 && setStep(STEPS.STEP2);
+    registerStep == -1 && setStep(STEPS.STEP3);
+    setUserData(location?.state?.info);
+  }, []);
+
+  useEffect(() => {
+    console.log("userData", userData);
+    if (userData) {
+      let defaultValues = {};
+      defaultValues.companyName = userData?.business_info?.company_name;
+      defaultValues.companyAbnAcn = userData?.business_info?.company_abn_acn;
+      defaultValues.email = userData?.base_info?.email;
+      if (userData?.business_info?.category) {
+        defaultValues.category = {
+          label: userData?.business_info?.category?.title,
+          id: userData?.business_info?.category?.id,
+        };
+      }
+      defaultValues.address = userData?.address_info?.address;
+
+      reset({ ...defaultValues });
+    }
+  }, [userData]);
 
   const {
     register,
     handleSubmit,
     control,
     watch,
-    setError,
+    reset,
     setValue,
-    clearErrors,
     formState: { errors },
   } = useForm();
 
@@ -298,7 +357,7 @@ function Complete({ memberType }) {
         </div>
         <div className="col-12">
           <span className="form-label mb-3 ">Address:</span>
-          <b className="ms-2">{userData?.address_info.address}</b>
+          <b className="ms-2">{userData?.address_info?.address}</b>
         </div>
       </div>
     </div>
@@ -364,30 +423,37 @@ function Complete({ memberType }) {
       }
     }
     if (step == STEPS.STEP2) {
-      try {
-        const response = await axios.post(
-          "https://partlinks.com.au/api/v1/member/register/address_info",
-          {
-            reference: locReference,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${location?.state?.token}`,
+      if (!isAddressChanged && userData?.address_info?.address) {
+        onNext();
+      } else {
+        try {
+          const response = await axios.post(
+            "https://partlinks.com.au/api/v1/member/register/address_info",
+            {
+              reference: locReference,
             },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${location?.state?.token}`,
+              },
+            }
+          );
+          console.log(response);
+
+          if (response?.data?.done) {
+            onNext();
+            setUserData(response?.data?.result.user_data);
           }
-        );
-        console.log(response);
 
-        if (response?.data?.done) {
-          onNext();
-          setUserData(response?.data?.result.user_data);
+          response?.data?.error && toast.error(response?.data?.error?.message);
+        } catch (error) {
+          console.log(error);
         }
-
-        response?.data?.error && toast.error(response?.data?.error?.message);
-      } catch (error) {
-        console.log(error);
       }
+    }
+    if (step == STEPS.STEP3) {
+      navigate("/member");
     }
   };
 
@@ -440,6 +506,11 @@ function Complete({ memberType }) {
   }, [locReference]);
 
   useEffect(() => {
+    console.log("address", address);
+    if (address != userData?.address_info?.address) {
+      setAddressChanged(true);
+    }
+
     if (address == "") {
       setLocResults(null);
     }

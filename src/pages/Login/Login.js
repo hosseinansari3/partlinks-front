@@ -115,6 +115,55 @@ function Login() {
       }
     }
 
+    if (step == steps.STEP_PASSWORD) {
+      try {
+        setLoading(true);
+        const response = await axios.post(
+          "https://partlinks.com.au/api/v1/member/auth/login_with_phone_number",
+          { phone_number: userName, password: password }
+        );
+        console.log(response);
+        if (response?.data?.done && response?.data?.result?.match) {
+          if (
+            response?.data?.result?.user_data?.app_open?.register_step == -1
+          ) {
+            navigate("/member");
+          } else {
+            if (
+              response?.data?.result?.user_data?.business_info?.business_type ==
+              "business"
+            ) {
+              navigate("/auth/member/business/complete", {
+                state: {
+                  token: response?.data?.result?.auth_info?.token,
+                  info: response?.data?.result?.user_data,
+                },
+              });
+            }
+            if (
+              response?.data?.result?.user_data?.business_info?.business_type ==
+              "private"
+            ) {
+              navigate("/auth/member/private/complete", {
+                state: {
+                  token: response?.data?.result?.auth_info?.token,
+                  info: response?.data?.result?.user_data,
+                },
+              });
+            }
+          }
+        }
+
+        setLoading(false);
+
+        response?.data?.error && toast.error(response?.data?.error?.message);
+      } catch (error) {
+        setLoading(false);
+
+        console.log(error);
+      }
+    }
+
     if (step == steps.STEP_OTP) {
       onCheckOTP();
     }
@@ -167,7 +216,7 @@ function Login() {
           errors?.userName && "d-block"
         } fv-plugins-message-container invalid-feedback`}
       >
-        Phone number address is required
+        Phone number is required
       </div>
     </div>
   );

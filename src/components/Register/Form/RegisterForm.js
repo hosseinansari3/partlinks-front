@@ -107,7 +107,11 @@ function RegisterForm({ accountType }) {
         if (response?.data?.result?.business_type == "private") {
           navigate("/auth/member/private/complete", {
             state: {
-              info: response?.data?.result,
+              info: {
+                business_info: {
+                  business_type: response?.data?.result?.business_type,
+                },
+              },
               token: location?.state?.token,
             },
           });
@@ -115,7 +119,11 @@ function RegisterForm({ accountType }) {
         if (response?.data?.result?.business_type == "business") {
           navigate("/auth/member/business/complete", {
             state: {
-              info: response?.data?.result,
+              info: {
+                business_info: {
+                  business_type: response?.data?.result?.business_type,
+                },
+              },
               token: location?.state?.token,
             },
           });

@@ -124,6 +124,15 @@ function Login() {
         );
         console.log(response);
         if (response?.data?.done && response?.data?.result?.match) {
+          localStorage.setItem(
+            "authToken",
+            response?.data?.result?.auth_info?.token
+          );
+          localStorage.setItem(
+            "userData",
+            JSON.stringify(response?.data?.result?.user_data)
+          );
+
           if (
             response?.data?.result?.user_data?.app_open?.register_step == -1
           ) {

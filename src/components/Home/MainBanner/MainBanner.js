@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import OwlCarousel from "react-owl-carousel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -10,6 +10,8 @@ import "./MainBanner.css";
 
 import { InputBase } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { fetchHomeData } from "../../../Redux/homeDataSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -55,265 +57,36 @@ const options = {
   smartSpeed: 100,
   autoplay: false,
   navText: [
-    "<i className='bx bx-chevrons-left'></i>",
-    "<i className='bx bx-chevrons-right'></i>",
+    "<i class='bx bx-chevrons-left'></i>",
+    "<i class='bx bx-chevrons-right'></i>",
   ],
 };
 
 function MainBanner() {
+  const dispatch = useDispatch();
+  const { homeData, status, error } = useSelector((state) => state.homeData);
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchHomeData()); // Fetch data on component mount
+    }
+  }, [status, dispatch]);
+
+  useEffect(() => {
+    console.log("homeData", homeData);
+  }, [homeData]);
+
   return (
     <div className="main-banner-with-form">
       <OwlCarousel className="hero-slides owl-theme" {...options}>
-        <div className="hero-banner">
-          <img
-            src="https://templates.hibootstrap.com/maxon/default/assets/img/main-banner1.jpg"
-            alt="Slide 1"
-          />
-        </div>
-        <div className="hero-banner">
-          <img
-            src="https://templates.hibootstrap.com/maxon/default/assets/img/main-banner2.jpg"
-            alt="Slide 2"
-          />
-        </div>
-        <div className="hero-banner">
-          <img
-            src="https://templates.hibootstrap.com/maxon/default/assets/img/main-banner3.jpg"
-            alt="Slide 3"
-          />
-        </div>
-      </OwlCarousel>
-      <div className="main-banner-content">
-        <h1>Search Parts For Your Vehicle</h1>
-        <b>Best Automobile Parts Shop</b>
-
-        <div className="main-search-wrap">
-          <form>
-            <div className="row justify-content-center">
-              <div className="col-lg-3 col-md-6">
-                <FormControl sx={{ marginBottom: "10px" }} fullWidth>
-                  <Select
-                    MenuProps={{
-                      PaperProps: {
-                        sx: {
-                          borderRadius: 0, // Customize border-radius here
-                        },
-                      },
-                      MenuListProps: {
-                        sx: {
-                          p: 0, // Customize padding here; `p` sets padding on all sides
-                        },
-                      },
-                    }}
-                    input={<BootstrapInput />}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    defaultValue={20}
-                    //value={age}
-                    //onChange={handleChange}
-                  >
-                    <MenuItem
-                      sx={{
-                        minHeight: 40,
-                        "&.Mui-selected": {
-                          backgroundColor: "#d31531", // Background color for selected item
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "#d31531", // Optional hover color when selected
-                          },
-                        },
-                      }}
-                      value={10}
-                    >
-                      Ten
-                    </MenuItem>
-                    <MenuItem
-                      sx={{
-                        minHeight: 40,
-                        "&.Mui-selected": {
-                          backgroundColor: "#d31531", // Background color for selected item
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "#d31531", // Optional hover color when selected
-                          },
-                        },
-                      }}
-                      value={20}
-                    >
-                      Twenty
-                    </MenuItem>
-                    <MenuItem
-                      sx={{
-                        minHeight: 40,
-                        "&.Mui-selected": {
-                          backgroundColor: "#d31531", // Background color for selected item
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "#d31531", // Optional hover color when selected
-                          },
-                        },
-                      }}
-                      value={30}
-                    >
-                      Thirty
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-
-              <div className="col-lg-3 col-md-6">
-                <FormControl sx={{ marginBottom: "10px" }} fullWidth>
-                  <Select
-                    MenuProps={{
-                      PaperProps: {
-                        sx: {
-                          borderRadius: 0, // Customize border-radius here
-                        },
-                      },
-                      MenuListProps: {
-                        sx: {
-                          p: 0, // Customize padding here; `p` sets padding on all sides
-                        },
-                      },
-                    }}
-                    input={<BootstrapInput />}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    defaultValue={20}
-                    //value={age}
-                    //onChange={handleChange}
-                  >
-                    <MenuItem
-                      sx={{
-                        minHeight: 40,
-                        "&.Mui-selected": {
-                          backgroundColor: "#d31531", // Background color for selected item
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "#d31531", // Optional hover color when selected
-                          },
-                        },
-                      }}
-                      value={10}
-                    >
-                      Ten
-                    </MenuItem>
-                    <MenuItem
-                      sx={{
-                        minHeight: 40,
-                        "&.Mui-selected": {
-                          backgroundColor: "#d31531", // Background color for selected item
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "#d31531", // Optional hover color when selected
-                          },
-                        },
-                      }}
-                      value={20}
-                    >
-                      Twenty
-                    </MenuItem>
-                    <MenuItem
-                      sx={{
-                        minHeight: 40,
-                        "&.Mui-selected": {
-                          backgroundColor: "#d31531", // Background color for selected item
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "#d31531", // Optional hover color when selected
-                          },
-                        },
-                      }}
-                      value={30}
-                    >
-                      Thirty
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-
-              <div className="col-lg-3 col-md-6">
-                <FormControl sx={{ marginBottom: "10px" }} fullWidth>
-                  <Select
-                    MenuProps={{
-                      PaperProps: {
-                        sx: {
-                          borderRadius: 0, // Customize border-radius here
-                        },
-                      },
-                      MenuListProps: {
-                        sx: {
-                          p: 0, // Customize padding here; `p` sets padding on all sides
-                        },
-                      },
-                    }}
-                    input={<BootstrapInput />}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    defaultValue={20}
-                    //value={age}
-                    //onChange={handleChange}
-                  >
-                    <MenuItem
-                      sx={{
-                        minHeight: 40,
-                        "&.Mui-selected": {
-                          backgroundColor: "#d31531", // Background color for selected item
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "#d31531", // Optional hover color when selected
-                          },
-                        },
-                      }}
-                      value={10}
-                    >
-                      Ten
-                    </MenuItem>
-                    <MenuItem
-                      sx={{
-                        minHeight: 40,
-                        "&.Mui-selected": {
-                          backgroundColor: "#d31531", // Background color for selected item
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "#d31531", // Optional hover color when selected
-                          },
-                        },
-                      }}
-                      value={20}
-                    >
-                      Twenty
-                    </MenuItem>
-                    <MenuItem
-                      sx={{
-                        minHeight: 40,
-                        "&.Mui-selected": {
-                          backgroundColor: "#d31531", // Background color for selected item
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "#d31531", // Optional hover color when selected
-                          },
-                        },
-                      }}
-                      value={30}
-                    >
-                      Thirty
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-
-              <div className="col-lg-3 col-md-6">
-                <div className="main-search-btn">
-                  <button type="submit" className="search-btn">
-                    Search
-                  </button>
-                </div>
-              </div>
+        {homeData?.result?.sliders.map((item) => {
+          return (
+            <div className="hero-banner">
+              <img src={`https://partlinks.com.au/${item}`} alt="image" />
             </div>
-          </form>
-        </div>
-      </div>
+          );
+        })}
+      </OwlCarousel>
     </div>
   );
 }

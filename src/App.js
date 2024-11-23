@@ -24,10 +24,7 @@ function App() {
   return (
     <div>
       <ToastContainer toastClassName="custom-toast" />
-      {window.location.pathname !== "/login" &&
-      !window.location.pathname.includes("/auth") ? (
-        <Header />
-      ) : null}
+
       {location.pathname !== "/login" &&
       !location.pathname.includes("/auth") ? (
         <Navbar />

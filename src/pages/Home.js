@@ -19,7 +19,6 @@ function Home() {
       <Overview />
       <PartnerArea />
       <Categories />
-      <NewsLetter />
     </div>
   );
 }

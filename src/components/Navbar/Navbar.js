@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
 function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
+  const [isLoggedin, setLoggedin] = useState(false);
+
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  useEffect(() => {
+    if (userData) {
+      setLoggedin(true);
+    }
+  }, [userData]);
 
   const toggleNav = () => {
     setNavOpen(!navOpen);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("userData");
+    localStorage.removeItem("authToken");
+    setLoggedin(false);
   };
   return (
     <div className="navbar-area navbar-two">
@@ -29,20 +44,19 @@ function Navbar() {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a href="sellcar.html" className="nav-link">
+                    <Link to={"sell-car"} className="nav-link">
                       Sell Car
-                    </a>
+                    </Link>
                   </li>
-
                   <li className="nav-item">
-                    <a href="about.html" className="nav-link">
+                    <Link to="about" className="nav-link">
                       About Us
-                    </a>
+                    </Link>
                   </li>
-                  <li className="nav-item mean-last">
-                    <a href="contact.html" className="nav-link">
+                  <li className="nav-item">
+                    <Link to="contact" className="nav-link">
                       Contact
-                    </a>
+                    </Link>
                   </li>
                 </ul>
 
@@ -101,38 +115,27 @@ function Navbar() {
               </ul>
               <div className="others-option d-flex align-items-center">
                 <div className="option-item">
-                  <Link to="login" className="user-btn">
-                    <i className="bx bx-log-in-circle"></i>
-                    Login / Register
-                  </Link>
+                  {isLoggedin ? (
+                    <>
+                      <Link to="member" className="user-btn">
+                        <i class="bx bxs-user"></i>
+                        Your Panel
+                      </Link>
+                      <div onClick={logout} className="ms-2 user-btn">
+                        <i class="bx bx-log-out-circle"></i>
+                        Logout
+                      </div>
+                    </>
+                  ) : (
+                    <Link to="login" className="user-btn">
+                      <i className="bx bx-log-in-circle"></i>
+                      Login / Register
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
           </nav>
-        </div>
-      </div>
-      <div className="others-option-for-responsive">
-        <div className="container">
-          <div className="dot-menu">
-            <div className="inner">
-              <div className="circle circle-one"></div>
-              <div className="circle circle-two"></div>
-              <div className="circle circle-three"></div>
-            </div>
-          </div>
-
-          <div className="container">
-            <div className="option-inner">
-              <div className="others-option d-flex align-items-center">
-                <div className="option-item">
-                  <span>
-                    Hotline:
-                    <a href="tel:882563789966">(+882) 563 789 966</a>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

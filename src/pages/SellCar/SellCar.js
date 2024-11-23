@@ -15,6 +15,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import "./SellCar.css";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const STEPS = {
   STEP_CAR: 0,
@@ -34,13 +35,17 @@ function SellCar() {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const [step, setStep] = useState(STEPS.STEP_CAR);
   const [data, setdata] = useState();
   const [models, setModels] = useState();
 
   const userData = JSON.parse(localStorage.getItem("userData"));
+  const authToken = localStorage.getItem("authToken");
+
   console.log("userData", userData);
-  console.log("NUM", userData);
+  console.log("authToken", authToken);
 
   useEffect(() => {
     if (userData) {
@@ -245,7 +250,7 @@ function SellCar() {
             render={({ field, fieldState }) => (
               <Autocomplete
                 {...field}
-                disabled={make == null}
+                disabled={make == null && !models}
                 options={models}
                 sx={{
                   "label + &": {
@@ -665,27 +670,69 @@ function SellCar() {
   const handleSendData = async () => {
     console.log("year.name", year.label);
     try {
-      const response = await axios.post(
-        "https://partlinks.com.au/api/v1/member/selling/set_data",
-        {
-          make: make.id,
-          model: model.id,
-          transmission: transmission,
-          kilometres: kilometres,
-          number_of_keys: numberOfKeys,
-          body_type: bodyType,
-          series: series,
-          owners_manual: ownersManual,
-          service_history: serviceHistory,
-          cylinders: cylinders,
-          year: year.id,
-          fuel: fuel,
-          vin: vinNumber, // or required state
-          color: color,
-          mobile: mobile,
-        }
-      );
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
+
+      let response = {};
+
+      if (userData && authToken) {
+        response = await axios.post(
+          "https://partlinks.com.au/api/v1/member/selling/set_data",
+          {
+            make: make.id,
+            model: model.id,
+            transmission: transmission,
+            kilometres: kilometres,
+            number_of_keys: numberOfKeys,
+            body_type: bodyType,
+            series: series,
+            owners_manual: ownersManual,
+            service_history: serviceHistory,
+            cylinders: cylinders,
+            year: year.id,
+            fuel: fuel,
+            vin: vinNumber, // or required state
+            color: color,
+            mobile: mobile,
+          },
+          config
+        );
+      } else {
+        response = await axios.post(
+          "https://partlinks.com.au/api/v1/member/selling/set_data",
+          {
+            make: make.id,
+            model: model.id,
+            transmission: transmission,
+            kilometres: kilometres,
+            number_of_keys: numberOfKeys,
+            body_type: bodyType,
+            series: series,
+            owners_manual: ownersManual,
+            service_history: serviceHistory,
+            cylinders: cylinders,
+            year: year.id,
+            fuel: fuel,
+            vin: vinNumber, // or required state
+            color: color,
+            mobile: mobile,
+          }
+        );
+      }
+
       console.log("FinalStepREs", response);
+
+      if (response?.data?.done) {
+        if (!response?.data?.result?.create_new_user && userData && authToken) {
+          navigate("/sell-car/success", {
+            state: { sellingToken: response?.data?.result?.selling_token },
+          });
+        }
+      }
 
       response?.data?.error && toast.error(response?.data?.error?.message);
     } catch (error) {

@@ -101,9 +101,10 @@ function Navbar() {
               </ul>
               <div className="others-option d-flex align-items-center">
                 <div className="option-item">
-                  <span>
-                    Hotline: <a href="tel:882563789966">(+882) 563 789 966</a>
-                  </span>
+                  <Link to="login" className="user-btn">
+                    <i className="bx bx-log-in-circle"></i>
+                    Login / Register
+                  </Link>
                 </div>
               </div>
             </div>

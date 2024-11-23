@@ -14,6 +14,7 @@ import { Controller, useForm } from "react-hook-form";
 import Autocomplete from "@mui/material/Autocomplete";
 import "./SellCar.css";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const STEPS = {
   STEP_CAR: 0,
@@ -27,12 +28,35 @@ function SellCar() {
     handleSubmit,
     control,
     watch,
+    reset,
     setError,
     clearErrors,
     formState: { errors },
   } = useForm();
 
   const [step, setStep] = useState(STEPS.STEP_CAR);
+  const [data, setdata] = useState();
+  const [models, setModels] = useState();
+
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  console.log("userData", userData);
+  console.log("NUM", userData);
+
+  useEffect(() => {
+    if (userData) {
+      let defaultValues = {};
+      defaultValues.mobile = userData?.base_info?.mobile;
+
+      reset({ ...defaultValues });
+    }
+  }, []);
+
+  const makes = data?.makes?.map((item) => {
+    return { label: item?.name, id: item?.id };
+  });
+  const years = data?.years?.map((item) => {
+    return { label: item?.name, id: item?.id };
+  });
 
   const plateNumber = watch("plateNumber", "");
   const state = watch("state", "");
@@ -46,7 +70,7 @@ function SellCar() {
   const cylinders = watch("cylinders", "");
   const series = watch("series", "");
   const color = watch("color", "");
-  const Kilometres = watch("Kilometres", "");
+  const kilometres = watch("kilometres", "");
   const numberOfKeys = watch("numberOfKeys", "");
   const ownersManual = watch("ownersManual", "");
   const serviceHistory = watch("serviceHistory", "");
@@ -55,6 +79,47 @@ function SellCar() {
   const tyresRate = watch("tyresRate");
   const mobile = watch("mobile", "");
   const description = watch("TyresRate", "");
+
+  const onGetData = async () => {
+    try {
+      const response = await axios.get(
+        "https://partlinks.com.au/api/v1/member/selling/get_data"
+      );
+      setdata(response?.data?.result);
+
+      response?.data?.error && toast.error(response?.data?.error?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onGetModels = async () => {
+    try {
+      const response = await axios.post(
+        "https://partlinks.com.au/api/v1/member/selling/get_models",
+        { make_id: make?.id }
+      );
+
+      const models = response?.data?.result?.models?.map((item) => {
+        return { label: item?.name, id: item?.id };
+      });
+      setModels(models);
+
+      response?.data?.error && toast.error(response?.data?.error?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (make != null || make != undefined) {
+      onGetModels();
+    }
+  }, [make]);
+
+  useEffect(() => {
+    onGetData();
+  }, []);
 
   useEffect(() => {
     console.log("interiorRate", interiorRate);
@@ -90,9 +155,9 @@ function SellCar() {
                 <MenuItem hidden value="">
                   <span className="custom-placeholder">Select State</span>
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {data?.states?.map((state) => {
+                  return <MenuItem value={state?.id}>{state?.name}</MenuItem>;
+                })}
               </Select>
             </div>
           </div>
@@ -135,7 +200,7 @@ function SellCar() {
             render={({ field, fieldState }) => (
               <Autocomplete
                 {...field}
-                options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
+                options={makes}
                 sx={{
                   "label + &": {
                     marginTop: "8px",
@@ -181,7 +246,7 @@ function SellCar() {
               <Autocomplete
                 {...field}
                 disabled={make == null}
-                options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
+                options={models}
                 sx={{
                   "label + &": {
                     marginTop: "8px",
@@ -226,7 +291,7 @@ function SellCar() {
             render={({ field, fieldState }) => (
               <Autocomplete
                 {...field}
-                options={["aaa", "rrrr", "www", "oooo", "nnnn"]}
+                options={years}
                 sx={{
                   "label + &": {
                     marginTop: "8px",
@@ -278,9 +343,9 @@ function SellCar() {
             <MenuItem hidden value="">
               Select Body Type
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {data?.body_types?.map((type) => {
+              return <MenuItem value={type?.id}>{type?.name}</MenuItem>;
+            })}
           </Select>
         </div>
         <div className="col-6 mb-3">
@@ -307,9 +372,9 @@ function SellCar() {
             <MenuItem hidden value="">
               Select Transmission
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {data?.transmissions?.map((item) => {
+              return <MenuItem value={item?.id}>{item?.name}</MenuItem>;
+            })}
           </Select>
         </div>
         <div className="col-6 mb-3">
@@ -334,6 +399,9 @@ function SellCar() {
             <MenuItem hidden value="">
               Select Fuel
             </MenuItem>
+            {data?.fuels?.map((item) => {
+              return <MenuItem value={item?.id}>{item?.name}</MenuItem>;
+            })}
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
             <MenuItem value={30}>Thirty</MenuItem>
@@ -429,9 +497,9 @@ function SellCar() {
             <MenuItem hidden value="">
               <span className="text-secondary">Select...</span>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {data?.number_of_keys?.map((item) => {
+              return <MenuItem value={item?.id}>{item?.name}</MenuItem>;
+            })}
           </Select>
         </div>
         <div className="col-6 mb-3">
@@ -456,9 +524,9 @@ function SellCar() {
             <MenuItem hidden value="">
               <span className="text-secondary">Select...</span>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {data?.owners_manual?.map((item) => {
+              return <MenuItem value={item?.id}>{item?.name}</MenuItem>;
+            })}
           </Select>
         </div>
         <div className="col-6 mb-3">
@@ -485,9 +553,9 @@ function SellCar() {
             <MenuItem hidden value="">
               <span className="text-secondary">Select...</span>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {data?.service_history?.map((item) => {
+              return <MenuItem value={item?.id}>{item?.name}</MenuItem>;
+            })}
           </Select>
         </div>
       </div>
@@ -560,6 +628,7 @@ function SellCar() {
             {...register("mobile", { required: step == STEPS.STEP_USER })}
             type="number"
             fullWidth
+            disabled={userData}
             placeholder="Mobile"
             id="mobile"
           />
@@ -593,6 +662,37 @@ function SellCar() {
     setStep((value) => value + 1);
   }, []);
 
+  const handleSendData = async () => {
+    console.log("year.name", year.label);
+    try {
+      const response = await axios.post(
+        "https://partlinks.com.au/api/v1/member/selling/set_data",
+        {
+          make: make.id,
+          model: model.id,
+          transmission: transmission,
+          kilometres: kilometres,
+          number_of_keys: numberOfKeys,
+          body_type: bodyType,
+          series: series,
+          owners_manual: ownersManual,
+          service_history: serviceHistory,
+          cylinders: cylinders,
+          year: year.id,
+          fuel: fuel,
+          vin: vinNumber, // or required state
+          color: color,
+          mobile: mobile,
+        }
+      );
+      console.log("FinalStepREs", response);
+
+      response?.data?.error && toast.error(response?.data?.error?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const onError = (e) => {
     let plateNumberErr = false;
     let vinNumberErr = false;
@@ -620,6 +720,8 @@ function SellCar() {
 
     if (step !== STEPS.STEP_USER) {
       return onNext();
+    } else {
+      handleSendData();
     }
   };
 

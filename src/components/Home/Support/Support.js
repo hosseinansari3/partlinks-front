@@ -57,19 +57,6 @@ function Support() {
               </div>
             </div>
           </div>
-
-          <div className="custom-item">
-            <div className="single-support">
-              <div className="icon">
-                <i className="flaticon-award"></i>
-              </div>
-
-              <div className="support-content">
-                <h3>Quality Product</h3>
-                <span>World Wide</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

@@ -11,7 +11,43 @@ function SellCarSuccess() {
 
   const [selectedImgs, setSelectedImgs] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
+  const [images, setImages] = useState([]);
 
+  const [imgUploadPrc, setImgUploadPrc] = useState([]);
+
+  const deleteImg = (index) => {
+    setImages((previews) => {
+      const newArray = [...previews];
+      newArray.splice(index, 1);
+      return newArray;
+    });
+    setSelectedImgs((selected) => {
+      const newArray = [...selected];
+      newArray.splice(index, 1);
+      return newArray;
+    });
+  };
+
+  useEffect(() => {
+    console.log("previws", images);
+  }, [images]);
+
+  useEffect(() => {
+    let imgsPreviewUrls = [];
+
+    if (selectedImgs.length > 0) {
+      for (let i = 0; i < selectedImgs.length; i++) {
+        imgsPreviewUrls.push({
+          previewUrl: URL.createObjectURL(selectedImgs[i]),
+          uploaded: false,
+        });
+      }
+
+      setImages(imgsPreviewUrls);
+    }
+  }, [selectedImgs]);
+
+  /*
   useEffect(() => {
     console.log("selectedImgs", selectedImgs);
     const selected = [];
@@ -21,19 +57,39 @@ function SellCarSuccess() {
     handleImgUpload();
   }, [selectedImgs]);
 
+  */
+
+  useEffect(() => {
+    console.log("uploadedImgs", uploadedImgs);
+  }, [uploadedImgs]);
+
+  useEffect(() => {
+    console.log("imgUploadPrc", imgUploadPrc);
+  }, [imgUploadPrc]);
+
   const formData = new FormData(); // Create a FormData object
   formData.append("selling_token", location?.state?.sellingToken);
 
   const handleImgUpload = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${authToken}`,
-      },
-    };
     selectedImgs.length > 0 &&
       [...selectedImgs]?.forEach(async (img, index) => {
         formData.append("file", img);
+
+        let progressPrc = 0;
+        const myUploadProgress = (myFileId) => (progressEvent) => {
+          const progress = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setImgUploadPrc([...imgUploadPrc, progress]);
+          progressPrc = progress;
+        };
+        const config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${authToken}`,
+          },
+          onUploadProgress: myUploadProgress(img.name),
+        };
 
         try {
           const response = await axios.post(
@@ -45,6 +101,13 @@ function SellCarSuccess() {
           console.log("imgFile", img);
 
           console.log("imgUploadResponse", response);
+          if (response.data.done) {
+            setImages((previews) => {
+              const newArray = [...previews];
+              newArray[index].uploaded = true;
+              return newArray;
+            });
+          }
         } catch (error) {
           console.log("Error", error);
         }
@@ -60,31 +123,42 @@ function SellCarSuccess() {
       <h4>please upload your car image for best result</h4>
 
       <div className="image-upload border border-primary mx-auto my-4">
-        <label for="carImages" className="w-100 h-100">
-          {selectedImgs.length > 0 ? (
-            <div className="d-flex">
-              {[...selectedImgs]?.map((img) => {
-                return (
-                  <div className="img-thumb border border-secondary m-3 p-3">
-                    <span>Uploading...</span>
+        {selectedImgs.length > 0 ? (
+          <div className="d-flex">
+            {images?.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="img-thumb border border-secondary m-3 p-3"
+                >
+                  <img src={item.previewUrl} />
+                  <div>
+                    {item.uploaded && "uploded"}
+                    <i onClick={() => deleteImg(index)} class="bx bx-x"></i>
                   </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-              <span>please upload photos of your car</span>
-            </div>
-          )}
-          <input
-            onChange={(e) => setSelectedImgs(e.target.files)}
-            className="d-none"
-            id="carImages"
-            type="file"
-            accept="image/*"
-            multiple
-          />
-        </label>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+            <span>please upload photos of your car</span>
+          </div>
+        )}
+        <input
+          onChange={(e) => setSelectedImgs(e.target.files)}
+          className="d-none"
+          id="carImages"
+          type="file"
+          accept="image/*"
+          multiple
+        />
+        <button className="">
+          <label for="carImages">select</label>
+        </button>
+        <button onClick={handleImgUpload} className="">
+          <span>start uploading</span>
+        </button>
       </div>
     </div>
   );

@@ -17,6 +17,8 @@ import VendorRegister from "./pages/Register/Vendor/VendorRegister";
 import BusinessComplete from "./pages/Register/Business/BusinessComplete";
 import PrivateComplete from "./pages/Register/Private/PrivateComplete";
 import Panel from "./pages/Panel";
+import SellCarSuccess from "./pages/SellCar/SellCarSuccess";
+import SellCarVerify from "./pages/SellCar/SellCarVerify/SellCarVerify";
 
 function App() {
   const location = useLocation();
@@ -35,6 +37,9 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route path="sell-car" element={<SellCar />} />
+        <Route path="sell-car/success" element={<SellCarSuccess />} />
+        <Route path="sell-car/verify" element={<SellCarVerify />} />
+
         <Route path="login" element={<Login />} />
         <Route path="auth/register" element={<Register />} />
         <Route

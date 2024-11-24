@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHomeData } from "../../Redux/homeDataSlice";
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const { homeData, status, error } = useSelector((state) => state.homeData);
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchHomeData()); // Fetch data on component mount
+    }
+  }, [status, dispatch]);
+
   const [navOpen, setNavOpen] = useState(false);
   const [isLoggedin, setLoggedin] = useState(false);
 
@@ -71,12 +82,12 @@ function Navbar() {
               </nav>
             </div>
             <div className="logo">
-              <a href="index.html">
+              <Link to="/">
                 <img
-                  src="https://theme.partlinks.com.au/assets/img/logo.png"
-                  alt="image"
+                  src={`https://partlinks.com.au/${homeData?.result?.logo_dark}`}
+                  alt="partlinks"
                 />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -86,7 +97,7 @@ function Navbar() {
           <nav className="navbar navbar-expand-md navbar-light">
             <a className="navbar-brand" href="#">
               <img
-                src="https://theme.partlinks.com.au/assets/img/logo.png"
+                src={`https://partlinks.com.au/${homeData?.result?.logo_dark}`}
                 alt="partlinks-logo"
               />
             </a>

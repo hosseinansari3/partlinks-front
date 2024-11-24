@@ -14,9 +14,9 @@ function Home() {
     <div>
       <MainBanner />
       <Support />
+      <Overview />
       <WorkArea />
       <NewProducts />
-      <Overview />
       <PartnerArea />
       <Categories />
     </div>

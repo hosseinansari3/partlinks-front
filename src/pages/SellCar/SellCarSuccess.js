@@ -6,9 +6,11 @@ import { styled } from "@mui/material/styles";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
+import { toast } from "react-toastify";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
+  height: 30,
+  width: 150,
   borderRadius: 5,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor: theme.palette.grey[200],
@@ -29,13 +31,13 @@ function SellCarSuccess() {
   const authToken = localStorage.getItem("authToken");
 
   const location = useLocation();
-  console.log("token", location.state.sellingToken);
+  console.log("token", location?.state?.sellingToken);
 
   const [selectedImgs, setSelectedImgs] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
   const [images, setImages] = useState([]);
 
-  const [imgUploadPrc, setImgUploadPrc] = useState(0);
+  const [imgUploadPrc, setImgUploadPrc] = useState();
 
   const deleteImg = (index) => {
     setImages((previews) => {
@@ -68,18 +70,6 @@ function SellCarSuccess() {
       setImages(imgsPreviewUrls);
     }
   }, [selectedImgs]);
-
-  /*
-  useEffect(() => {
-    console.log("selectedImgs", selectedImgs);
-    const selected = [];
-    [...selectedImgs].forEach((img, index) => {
-      selected.push({ file: img, status: "uploading" });
-    });
-    handleImgUpload();
-  }, [selectedImgs]);
-
-  */
 
   useEffect(() => {
     console.log("images", images);
@@ -138,8 +128,9 @@ function SellCarSuccess() {
               return newArray;
             });
           }
+          response?.data?.error && toast.error(response?.data?.error?.message);
         } catch (error) {
-          console.log("Error", error);
+          toast.error(error);
         }
       });
   };
@@ -152,19 +143,28 @@ function SellCarSuccess() {
       </h3>
       <h4>please upload your car image for best result</h4>
 
-      <div className="image-upload border border-primary mx-auto my-4">
+      <div className="position-relative image-upload border border-primary mx-auto my-4">
         {selectedImgs.length > 0 ? (
           <div className="d-flex">
             {images?.map((item, index) => {
               return (
                 <div
                   key={index}
-                  className="img-thumb border border-secondary m-3 p-3"
+                  className="img-thumb border border-secondary m-3 pt-1"
                 >
-                  <img src={item.previewUrl} />
-                  <div>
-                    {item.uploaded && "uploded"}
-                    <i onClick={() => deleteImg(index)} class="bx bx-x"></i>
+                  <img
+                    className="w-100 h-100 object-fit-contain"
+                    src={item.previewUrl}
+                  />
+                  <div className="text-end">
+                    {item.uploaded ? (
+                      <i class="bx bx-check text-success"></i>
+                    ) : (
+                      <i
+                        onClick={() => deleteImg(index)}
+                        class="delete bx bx-x text-danger"
+                      ></i>
+                    )}
                   </div>
                 </div>
               );
@@ -175,22 +175,36 @@ function SellCarSuccess() {
             <span>please upload photos of your car</span>
           </div>
         )}
-        <input
-          onChange={(e) => setSelectedImgs(e.target.files)}
-          className="d-none"
-          id="carImages"
-          type="file"
-          accept="image/*"
-          multiple
-        />
-        <button className="">
-          <label for="carImages">select</label>
-        </button>
-        <button onClick={handleImgUpload} className="">
-          <span>start uploading</span>
-        </button>
-        <span>{imgUploadPrc}</span>
-        <BorderLinearProgress variant="determinate" value={imgUploadPrc} />
+        <div className="d-flex position-absolute bottom-0 mb-2 w-100 px-2 justify-content-between">
+          <div>
+            <input
+              onChange={(e) => setSelectedImgs(e.target.files)}
+              className="d-none"
+              id="carImages"
+              type="file"
+              accept="image/*"
+              multiple
+            />
+            <button className="btn btn-secondary">
+              <label className="upload-label" for="carImages">
+                select
+              </label>
+            </button>
+            <button
+              onClick={handleImgUpload}
+              className="btn btn-secondary ms-1"
+            >
+              <span>start uploading</span>
+            </button>
+          </div>
+          <div
+            className={` ${
+              imgUploadPrc ? "d-flex" : "d-none"
+            }  justify-content-center align-items-center`}
+          >
+            <BorderLinearProgress variant="determinate" value={imgUploadPrc} />
+          </div>
+        </div>
       </div>
     </div>
   );

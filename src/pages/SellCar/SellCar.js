@@ -734,6 +734,12 @@ function SellCar() {
         }
       }
 
+      if (!userData || !authToken || response?.data?.result?.create_new_user) {
+        navigate("/sell-car/verify", {
+          state: { sellingToken: response?.data?.result?.selling_token },
+        });
+      }
+
       response?.data?.error && toast.error(response?.data?.error?.message);
     } catch (error) {
       console.log(error);

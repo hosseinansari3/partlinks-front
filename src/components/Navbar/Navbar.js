@@ -95,12 +95,12 @@ function Navbar() {
       <div className="main-navbar">
         <div className="container">
           <nav className="navbar navbar-expand-md navbar-light">
-            <a className="navbar-brand" href="#">
+            <Link className="navbar-brand" to="/">
               <img
                 src={`https://partlinks.com.au/${homeData?.result?.logo_dark}`}
                 alt="partlinks-logo"
               />
-            </a>
+            </Link>
             <div className="collapse navbar-collapse mean-menu">
               <ul className="navbar-nav m-auto">
                 <li className="nav-item">

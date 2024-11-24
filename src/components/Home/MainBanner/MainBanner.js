@@ -82,7 +82,11 @@ function MainBanner() {
         {homeData?.result?.sliders.map((item) => {
           return (
             <div className="hero-banner">
-              <img src={`https://partlinks.com.au/${item}`} alt="image" />
+              <img
+                className="object-fit-cover"
+                src={`https://partlinks.com.au/${item}`}
+                alt="image"
+              />
             </div>
           );
         })}

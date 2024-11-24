@@ -1,0 +1,25 @@
+@media (min-width: 768px) {
+  .w-md-550px {
+    width: 550px !important;
+  }
+}
+
+.separator {
+  display: block;
+  height: 0;
+  border-bottom: 1px solid #eff2f5;
+}
+
+.back-btn {
+  cursor: pointer;
+  position: absolute;
+  left: 68px;
+  font-size: 25pt;
+}
+
+.separator-content {
+  display: flex;
+  align-items: center;
+  border-bottom: 0;
+  text-align: center;
+}

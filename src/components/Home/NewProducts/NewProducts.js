@@ -32,7 +32,7 @@ function NewProducts() {
         <div className="row justify-content-center">
           {homeData?.result?.new_products.map((item) => {
             return (
-              <div className="col-lg-4 col-sm-6">
+              <div className="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div className="single-top-products">
                   <div className="top-products-image">
                     <a href="products-details.html">

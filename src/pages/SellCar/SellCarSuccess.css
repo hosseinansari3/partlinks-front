@@ -6,4 +6,13 @@
 .img-thumb {
   width: 110px;
   height: 140px;
+  padding-bottom: 30px !important;
+}
+
+.delete {
+  cursor: pointer;
+}
+
+.upload-label {
+  cursor: pointer;
 }

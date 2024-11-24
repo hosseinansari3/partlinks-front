@@ -2,6 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./SellCarSuccess.css";
 import axios from "axios";
+import { styled } from "@mui/material/styles";
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 10,
+  borderRadius: 5,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor: theme.palette.grey[200],
+    ...theme.applyStyles("dark", {
+      backgroundColor: theme.palette.grey[800],
+    }),
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    backgroundColor: "#1a90ff",
+    ...theme.applyStyles("dark", {
+      backgroundColor: "#308fe8",
+    }),
+  },
+}));
 
 function SellCarSuccess() {
   const authToken = localStorage.getItem("authToken");
@@ -13,7 +35,7 @@ function SellCarSuccess() {
   const [uploadedImgs, setUploadedImgs] = useState([]);
   const [images, setImages] = useState([]);
 
-  const [imgUploadPrc, setImgUploadPrc] = useState([]);
+  const [imgUploadPrc, setImgUploadPrc] = useState(0);
 
   const deleteImg = (index) => {
     setImages((previews) => {
@@ -60,8 +82,17 @@ function SellCarSuccess() {
   */
 
   useEffect(() => {
-    console.log("uploadedImgs", uploadedImgs);
-  }, [uploadedImgs]);
+    console.log("images", images);
+    const uploaded = [];
+
+    images.forEach((item, index) => {
+      if (item.uploaded) {
+        uploaded.push(item);
+        const prc = (uploaded.length / selectedImgs.length) * 100;
+        setImgUploadPrc(prc);
+      }
+    });
+  }, [images]);
 
   useEffect(() => {
     console.log("imgUploadPrc", imgUploadPrc);
@@ -80,7 +111,6 @@ function SellCarSuccess() {
           const progress = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
           );
-          setImgUploadPrc([...imgUploadPrc, progress]);
           progressPrc = progress;
         };
         const config = {
@@ -159,6 +189,8 @@ function SellCarSuccess() {
         <button onClick={handleImgUpload} className="">
           <span>start uploading</span>
         </button>
+        <span>{imgUploadPrc}</span>
+        <BorderLinearProgress variant="determinate" value={imgUploadPrc} />
       </div>
     </div>
   );

@@ -310,7 +310,10 @@ function Login() {
                   >
                     <div className="d-flex align-items-center justify-content-center">
                       <i
-                        onClick={() => setStep(steps.STEP_PHONE)}
+                        onClick={() => {
+                          setStep(steps.STEP_PHONE);
+                          clearErrors("otp");
+                        }}
                         class={` ${
                           step == steps.STEP_PHONE && "d-none"
                         } bx bx-arrow-back back-btn`}

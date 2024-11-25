@@ -4,13 +4,16 @@ Page Banner CSS
 .page-banner-area {
   position: relative;
   z-index: 1;
-  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/page-banner/page-banner-1.jpg);
+  background-image: var(--dynamic-bg) !important;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   padding-top: 120px;
   padding-bottom: 120px;
   background-attachment: fixed;
+}
+
+.background {
 }
 
 .page-banner-area::before {
@@ -79,7 +82,7 @@ Page Banner CSS
   Story Area CSS
   =================================================*/
 .story-image {
-  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/story.jpg);
+  background-image: var(--story-img);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -173,7 +176,7 @@ Page Banner CSS
 }
 
 .mission-image {
-  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/mission.jpg);
+  background-image: var(--mission-img);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -221,7 +224,7 @@ Page Banner CSS
 }
 
 .vision-image {
-  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/vision.jpg);
+  background-image: var(--vision-img);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;

@@ -27,7 +27,7 @@ Page Banner CSS
 }
 
 .page-banner-area.item-bg2 {
-  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/page-banner/page-banner-3.jpg);
+  background-image: url(https://templates.hibootstrap.com/maxon/default/assets/img/page-banner/page-banner-3.jpg) !important;
 }
 
 .page-banner-content {

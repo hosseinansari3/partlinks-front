@@ -136,73 +136,88 @@ function SellCarSuccess() {
   };
 
   return (
-    <div className="container">
-      <h3>
-        {" "}
-        Great, your inquiry has been submitted, we'll get back to you shortly
-      </h3>
-      <h4>please upload your car image for best result</h4>
-
-      <div className="position-relative image-upload border border-primary mx-auto my-4">
-        {selectedImgs.length > 0 ? (
-          <div className="d-flex">
-            {images?.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="img-thumb border border-secondary m-3 pt-1"
-                >
-                  <img
-                    className="w-100 h-100 object-fit-contain"
-                    src={item.previewUrl}
-                  />
-                  <div className="text-end">
-                    {item.uploaded ? (
-                      <i class="bx bx-check text-success"></i>
-                    ) : (
-                      <i
-                        onClick={() => deleteImg(index)}
-                        class="delete bx bx-x text-danger"
-                      ></i>
-                    )}
+    <div className="d-flex justify-content-center align-items-center  flex-column flex-column-fluid">
+      <div className="w-100 mw-400px mw-sm-500px mw-md-700px mw-lg-800px mt-20 p-5">
+        <div className="w-100">
+          <div className="row">
+            <div className="col-sm-12 mb-20 text-center">
+              <h3>
+                {" "}
+                Great, your inquiry has been submitted, we'll get back to you
+                shortly
+              </h3>
+            </div>
+            <div className="col-12">
+              <h4>please upload your car image for best result</h4>
+              <div className="position-relative w-100 border border-primary mx-auto my-4">
+                <div className="image-upload w-100 ">
+                  {selectedImgs.length > 0 ? (
+                    <div className="d-flex row justify-content-center">
+                      {images?.map((item, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="col-sm-6 col-md-4 col-lg-3 img-thumb border border-secondary m-3 pt-1"
+                          >
+                            <img
+                              className="w-100 h-100 object-fit-contain"
+                              src={item.previewUrl}
+                            />
+                            <div className="text-end">
+                              {item.uploaded ? (
+                                <i class="bx bx-check text-success"></i>
+                              ) : (
+                                <i
+                                  onClick={() => deleteImg(index)}
+                                  class="delete bx bx-x text-danger"
+                                ></i>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+                      <span>please upload photos of your car</span>
+                    </div>
+                  )}
+                </div>
+                <div className="d-flex position-absolute bottom-0 mb-2 w-100 px-2 justify-content-between">
+                  <div>
+                    <input
+                      onChange={(e) => setSelectedImgs(e.target.files)}
+                      className="d-none"
+                      id="carImages"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                    />
+                    <button className="btn btn-secondary">
+                      <label className="upload-label" for="carImages">
+                        select
+                      </label>
+                    </button>
+                    <button
+                      onClick={handleImgUpload}
+                      className="btn btn-secondary ms-1"
+                    >
+                      <span>start uploading</span>
+                    </button>
+                  </div>
+                  <div
+                    className={` ${
+                      imgUploadPrc ? "d-flex" : "d-none"
+                    }  justify-content-center align-items-center`}
+                  >
+                    <BorderLinearProgress
+                      variant="determinate"
+                      value={imgUploadPrc}
+                    />
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-            <span>please upload photos of your car</span>
-          </div>
-        )}
-        <div className="d-flex position-absolute bottom-0 mb-2 w-100 px-2 justify-content-between">
-          <div>
-            <input
-              onChange={(e) => setSelectedImgs(e.target.files)}
-              className="d-none"
-              id="carImages"
-              type="file"
-              accept="image/*"
-              multiple
-            />
-            <button className="btn btn-secondary">
-              <label className="upload-label" for="carImages">
-                select
-              </label>
-            </button>
-            <button
-              onClick={handleImgUpload}
-              className="btn btn-secondary ms-1"
-            >
-              <span>start uploading</span>
-            </button>
-          </div>
-          <div
-            className={` ${
-              imgUploadPrc ? "d-flex" : "d-none"
-            }  justify-content-center align-items-center`}
-          >
-            <BorderLinearProgress variant="determinate" value={imgUploadPrc} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

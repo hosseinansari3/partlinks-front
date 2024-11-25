@@ -36,8 +36,8 @@ function SellCarSuccess() {
   const [selectedImgs, setSelectedImgs] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
   const [images, setImages] = useState([]);
-
-  const [imgUploadPrc, setImgUploadPrc] = useState();
+  const [imgUploadPrc, setImgUploadPrc] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const deleteImg = (index) => {
     setImages((previews) => {
@@ -88,11 +88,18 @@ function SellCarSuccess() {
     console.log("imgUploadPrc", imgUploadPrc);
   }, [imgUploadPrc]);
 
+  useEffect(() => {
+    console.log("loading", loading);
+  }, [loading]);
+
   const formData = new FormData(); // Create a FormData object
   formData.append("selling_token", location?.state?.sellingToken);
 
   const handleImgUpload = async () => {
-    selectedImgs.length > 0 &&
+    if (selectedImgs.length > 0) {
+      setLoading(true); // Start loading
+      setImgUploadPrc(0);
+      let uploadsInProgress = selectedImgs.length;
       [...selectedImgs]?.forEach(async (img, index) => {
         formData.append("file", img);
 
@@ -131,8 +138,15 @@ function SellCarSuccess() {
           response?.data?.error && toast.error(response?.data?.error?.message);
         } catch (error) {
           toast.error(error);
+        } finally {
+          // Decrement uploadsInProgress and update loading state
+          uploadsInProgress -= 1;
+          if (uploadsInProgress === 0) {
+            setLoading(false); // End loading when all uploads are done
+          }
         }
       });
+    }
   };
 
   return (
@@ -184,7 +198,7 @@ function SellCarSuccess() {
                   )}
                 </div>
                 <div className="d-flex position-absolute bottom-0 mb-2 w-100 px-2 justify-content-between">
-                  <div>
+                  <div className="d-flex">
                     <input
                       onChange={(e) => setSelectedImgs(e.target.files)}
                       className="d-none"
@@ -198,14 +212,28 @@ function SellCarSuccess() {
                         select
                       </label>
                     </button>
-                    <button
-                      onClick={handleImgUpload}
-                      className="btn btn-secondary ms-1"
-                    >
-                      <span>start uploading</span>
-                    </button>
+                    <div className="position-relative d-flex justify-content-center align-items-center">
+                      <button
+                        onClick={() => {
+                          handleImgUpload();
+                        }}
+                        className="btn btn-secondary ms-1 d-flex justify-content-center align-items-center"
+                      >
+                        <span className="z-3">start uploading</span>
+                        <span
+                          className={`${
+                            loading ? "d-block" : "d-none"
+                          } z-3 spinner-border spinner-border-sm align-middle ms-2`}
+                        ></span>
+
+                        <div
+                          className="progress bg-success left-0 rounded h-100 position-absolute"
+                          style={{ width: `${imgUploadPrc}%` }}
+                        ></div>
+                      </button>
+                    </div>
                   </div>
-                  <div
+                  {/*<div
                     className={` ${
                       imgUploadPrc ? "d-flex" : "d-none"
                     }  justify-content-center align-items-center`}
@@ -214,7 +242,7 @@ function SellCarSuccess() {
                       variant="determinate"
                       value={imgUploadPrc}
                     />
-                  </div>
+                  </div>*/}
                 </div>
               </div>
             </div>

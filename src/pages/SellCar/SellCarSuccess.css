@@ -4,7 +4,10 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-
+.progress {
+  transition: all 1s ease-out;
+  left: 0;
+}
 .img-thumb {
   width: 110px;
   height: 140px;

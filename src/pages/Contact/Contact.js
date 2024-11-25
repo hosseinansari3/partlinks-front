@@ -3,9 +3,31 @@ import "./Contact.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHomeData } from "../../Redux/homeDataSlice";
 import { fetchContactData } from "../../Redux/contactDataSlice";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { setLoading } from "../../Redux/preloaderSlice";
+import axios from "axios";
 
 function Contact() {
   const dispatch = useDispatch();
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange", // Validate on each keystroke
+  });
+
+  const name = watch("name");
+  const email = watch("email");
+  const subject = watch("subject");
+  const message = watch("message");
+
   const { contactData, status, error } = useSelector(
     (state) => state.contactData
   );
@@ -16,6 +38,35 @@ function Contact() {
     }
     console.log("contactData", contactData);
   }, [status, dispatch]);
+
+  const onError = (e) => {
+    if (errors) {
+      toast.error("Please complete required items and try again.");
+      console.log("errors", errors);
+    }
+  };
+
+  const onSubmit = async (e) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.post(
+        "https://partlinks.com.au/api/v1/member/contact_us_Store",
+        { name: name, email: email, subject: subject, message: message }
+      );
+      dispatch(setLoading(false));
+
+      console.log(response);
+      if (response?.data?.done) {
+        toast.success("Your message sent successfully");
+      }
+
+      response?.data?.error && toast.error(response?.data?.error?.message);
+    } catch (error) {
+      dispatch(setLoading(false));
+
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -104,19 +155,26 @@ function Contact() {
           </div>
 
           <div class="contact-form">
-            <form id="contactForm" novalidate="true">
+            <form id="contactForm" onSubmit={handleSubmit(onSubmit, onError)}>
               <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-6">
                   <div class="form-group">
                     <label>Name</label>
                     <input
+                      {...register("name", { required: true })}
                       type="text"
                       name="name"
                       class="form-control"
                       required=""
                       data-error="Please enter your name"
                     />
-                    <div class="help-block with-errors"></div>
+                    <div
+                      className={`${
+                        errors?.name && "d-block"
+                      } fv-plugins-message-container invalid-feedback`}
+                    >
+                      name is required
+                    </div>
                   </div>
                 </div>
 
@@ -124,6 +182,7 @@ function Contact() {
                   <div class="form-group">
                     <label>Email</label>
                     <input
+                      {...register("email", { required: true })}
                       type="email"
                       name="email"
                       id="email"
@@ -131,37 +190,35 @@ function Contact() {
                       required=""
                       data-error="Please enter your email"
                     />
-                    <div class="help-block with-errors"></div>
+                    <div
+                      className={`${
+                        errors?.email && "d-block"
+                      } fv-plugins-message-container invalid-feedback`}
+                    >
+                      email is required
+                    </div>
                   </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <label>Phone</label>
-                    <input
-                      type="text"
-                      name="phone_number"
-                      id="phone_number"
-                      required=""
-                      data-error="Please enter your number"
-                      class="form-control"
-                    />
-                    <div class="help-block with-errors"></div>
-                  </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6">
+                <div class="">
                   <div class="form-group">
                     <label>Subject</label>
                     <input
+                      {...register("subject", { required: true })}
                       type="text"
-                      name="msg_subject"
+                      name="subject"
                       id="msg_subject"
                       class="form-control"
                       required=""
                       data-error="Please enter your subject"
                     />
-                    <div class="help-block with-errors"></div>
+                    <div
+                      className={`${
+                        errors?.subject && "d-block"
+                      } fv-plugins-message-container invalid-feedback`}
+                    >
+                      subject is required
+                    </div>
                   </div>
                 </div>
 
@@ -169,6 +226,7 @@ function Contact() {
                   <div class="form-group has-error has-danger">
                     <label>Message</label>
                     <textarea
+                      {...register("message", { required: true })}
                       name="message"
                       class="form-control"
                       id="message"
@@ -177,10 +235,12 @@ function Contact() {
                       required=""
                       data-error="Write your message"
                     ></textarea>
-                    <div class="help-block with-errors">
-                      <ul class="list-unstyled">
-                        <li>Write your message</li>
-                      </ul>
+                    <div
+                      className={`${
+                        errors?.message && "d-block"
+                      } fv-plugins-message-container invalid-feedback`}
+                    >
+                      message is required
                     </div>
                   </div>
                 </div>

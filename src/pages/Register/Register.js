@@ -3,17 +3,20 @@ import "./Register.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../Redux/preloaderSlice";
 
 function Register() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const [selectedType, setSelectedType] = useState();
   console.log("locationState", location.state);
 
   const sendAccountType = async () => {
     try {
-      setLoading(true);
+      dispatch(setLoading(true));
+
       const response = await axios.post(
         "https://partlinks.com.au/api/v1/member/register/account_info",
         { business_type: selectedType },
@@ -25,6 +28,7 @@ function Register() {
         }
       );
       console.log(response);
+      dispatch(setLoading(false));
 
       if (response?.data?.done) {
         if (selectedType == "private") {
@@ -39,12 +43,8 @@ function Register() {
         }
       }
 
-      setLoading(false);
-
       response?.data?.error && toast.error(response?.data?.error?.message);
     } catch (error) {
-      setLoading(false);
-
       console.log(error);
     }
   };

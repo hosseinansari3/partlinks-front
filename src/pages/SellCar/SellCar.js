@@ -16,6 +16,8 @@ import "./SellCar.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../Redux/preloaderSlice";
 
 const STEPS = {
   STEP_CAR: 0,
@@ -36,6 +38,7 @@ function SellCar() {
   } = useForm();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [step, setStep] = useState(STEPS.STEP_CAR);
   const [data, setdata] = useState();
@@ -87,23 +90,31 @@ function SellCar() {
 
   const onGetData = async () => {
     try {
+      dispatch(setLoading(true));
+
       const response = await axios.get(
         "https://partlinks.com.au/api/v1/member/selling/get_data"
       );
       setdata(response?.data?.result);
+      dispatch(setLoading(false));
 
       response?.data?.error && toast.error(response?.data?.error?.message);
     } catch (error) {
+      dispatch(setLoading(false));
+
       console.log(error);
     }
   };
 
   const onGetModels = async () => {
     try {
+      dispatch(setLoading(true));
+
       const response = await axios.post(
         "https://partlinks.com.au/api/v1/member/selling/get_models",
         { make_id: make?.id }
       );
+      dispatch(setLoading(false));
 
       const models = response?.data?.result?.models?.map((item) => {
         return { label: item?.name, id: item?.id };
@@ -112,6 +123,8 @@ function SellCar() {
 
       response?.data?.error && toast.error(response?.data?.error?.message);
     } catch (error) {
+      dispatch(setLoading(true));
+
       console.log(error);
     }
   };
@@ -250,7 +263,7 @@ function SellCar() {
             render={({ field, fieldState }) => (
               <Autocomplete
                 {...field}
-                disabled={make == null && !models}
+                disabled={make == null || !models}
                 options={models}
                 sx={{
                   "label + &": {
@@ -678,6 +691,7 @@ function SellCar() {
       };
 
       let response = {};
+      dispatch(setLoading(true));
 
       if (userData && authToken) {
         response = await axios.post(
@@ -723,6 +737,7 @@ function SellCar() {
           }
         );
       }
+      dispatch(setLoading(false));
 
       console.log("FinalStepREs", response);
 

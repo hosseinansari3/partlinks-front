@@ -1,15 +1,21 @@
 // src/features/dataSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { setLoading } from "./preloaderSlice";
 
 // Async thunk to fetch data
 export const fetchHomeData = createAsyncThunk(
   "data/fetchHomeData",
-  async () => {
+  async (_, thunkAPI) => {
+    const { dispatch } = thunkAPI;
     try {
+      dispatch(setLoading(true));
+
       const response = await axios.get(
         "https://partlinks.com.au/api/v1/member/get_web_home_data"
       );
+      dispatch(setLoading(false));
+
       return response.data; // Return the API response
     } catch (error) {
       console.log(error);

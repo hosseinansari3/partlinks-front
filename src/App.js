@@ -19,12 +19,14 @@ import PrivateComplete from "./pages/Register/Private/PrivateComplete";
 import Panel from "./pages/Panel";
 import SellCarSuccess from "./pages/SellCar/SellCarSuccess";
 import SellCarVerify from "./pages/SellCar/SellCarVerify/SellCarVerify";
+import Preloader from "./components/Preloader";
 
 function App() {
   const location = useLocation();
 
   return (
     <div>
+      <Preloader />
       <ToastContainer toastClassName="custom-toast" />
 
       {location.pathname !== "/login" &&

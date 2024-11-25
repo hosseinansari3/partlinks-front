@@ -6,6 +6,8 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../../Redux/preloaderSlice";
 
 const STEPS = {
   STEP1: 1,
@@ -16,6 +18,7 @@ const STEPS = {
 function Complete({ memberType }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const businessType = location?.state?.info?.business_info?.business_type;
   const registerStep = location?.state?.info?.register_info?.register_step;
@@ -396,6 +399,8 @@ function Complete({ memberType }) {
   const onSubmit = async (e) => {
     if (step == STEPS.STEP1) {
       try {
+        dispatch(setLoading(true));
+
         const response = await axios.post(
           "https://partlinks.com.au/api/v1/member/register/business_info",
           {
@@ -412,6 +417,7 @@ function Complete({ memberType }) {
           }
         );
         console.log(response);
+        dispatch(setLoading(false));
 
         if (response?.data?.done) {
           onNext();
@@ -420,6 +426,7 @@ function Complete({ memberType }) {
         response?.data?.error && toast.error(response?.data?.error?.message);
       } catch (error) {
         console.log(error);
+        dispatch(setLoading(false));
       }
     }
     if (step == STEPS.STEP2) {
@@ -427,6 +434,8 @@ function Complete({ memberType }) {
         onNext();
       } else {
         try {
+          dispatch(setLoading(true));
+
           const response = await axios.post(
             "https://partlinks.com.au/api/v1/member/register/address_info",
             {
@@ -440,6 +449,7 @@ function Complete({ memberType }) {
             }
           );
           console.log(response);
+          dispatch(setLoading(false));
 
           if (response?.data?.done) {
             onNext();
@@ -448,6 +458,8 @@ function Complete({ memberType }) {
 
           response?.data?.error && toast.error(response?.data?.error?.message);
         } catch (error) {
+          dispatch(setLoading(false));
+
           console.log(error);
         }
       }
@@ -459,6 +471,8 @@ function Complete({ memberType }) {
 
   const onSearch = async () => {
     try {
+      dispatch(setLoading(true));
+
       const response = await axios.post(
         "https://partlinks.com.au/api/v1/member/search_location",
         {
@@ -472,6 +486,7 @@ function Complete({ memberType }) {
         }
       );
       console.log(response);
+      dispatch(setLoading(false));
 
       if (response?.data?.done) {
         setLocResults(response?.data?.result?.response);
@@ -479,6 +494,8 @@ function Complete({ memberType }) {
 
       response?.data?.error && toast.error(response?.data?.error?.message);
     } catch (error) {
+      dispatch(setLoading(false));
+
       console.log(error);
     }
   };

@@ -50,6 +50,11 @@ function Login() {
   }, [userName]);
 
   const onError = (e) => {
+    if (otpNumber == null || otpNumber == undefined) {
+      setError("otp", { type: "required" });
+    } else {
+      clearErrors("otp");
+    }
     if (errors) {
       toast.error("Please complete required items and try again.");
       console.log("errors", errors);
@@ -174,6 +179,11 @@ function Login() {
     }
 
     if (step == steps.STEP_OTP) {
+      if (otpNumber == null || otpNumber == undefined) {
+        setError("otp", { type: "required" });
+      } else {
+        clearErrors("otp");
+      }
       onCheckOTP();
     }
   };
@@ -189,10 +199,11 @@ function Login() {
       </InputLabel>
       <TextInput
         {...register("password", {
-          required: responseData?.result?.exist,
+          required: step == steps.STEP_PASSWORD,
         })}
         fullWidth
         type="password"
+        name="password"
         placeholder="password"
       />
 
@@ -241,7 +252,15 @@ function Login() {
           Enter code sent to your phone
         </InputLabel>
       </div>
+
       <OtpInput onComplete={() => {}} length={6} setOtpNumber={setOtpNumber} />
+      <div
+        className={`${
+          errors?.otp && "d-block"
+        } fv-plugins-message-container mx-auto mb-2 invalid-feedback`}
+      >
+        please enter code
+      </div>
     </div>
   );
 

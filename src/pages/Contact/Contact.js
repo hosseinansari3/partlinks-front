@@ -90,41 +90,39 @@ function Contact() {
       <section class="contact-info-area pt-100 pb-70">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="contact-info-box">
                 <div class="icon">
                   <i class="bx bx-envelope"></i>
                 </div>
 
-                <h3>Email Here</h3>
-                <p>
-                  <a href="mailto:hello@maxon.com">hello@maxon.com</a>
-                </p>
-                <p>
-                  <a href="mailto:support@maxon.com">support@maxon.com</a>
+                <h3>Email</h3>
+                <p className="mt-5">
+                  <a href="mailto:info[@]partlinks.com.au">
+                    info[@]partlinks.com.au
+                  </a>
                 </p>
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="contact-info-box">
                 <div class="icon">
                   <i class="bx bx-map"></i>
                 </div>
 
-                <h3>Location Here</h3>
+                <h3>Address</h3>
                 <p>{contactData?.result?.contact_info?.primary_address}</p>
-                <p>{contactData?.result?.contact_info?.secondary_address}</p>
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="contact-info-box">
                 <div class="icon">
                   <i class="bx bxs-phone-call"></i>
                 </div>
 
-                <h3>Call Here</h3>
+                <h3>Phone</h3>
                 <p>
                   <a
                     href={`tel:${contactData?.result?.contact_info?.primary_phone_number}`}
@@ -139,6 +137,29 @@ function Contact() {
                     {contactData?.result?.contact_info?.other_phone_numbers[0]}
                   </a>
                 </p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="contact-info-box">
+                <div class="icon">
+                  <i class="bx bxl-facebook-circle"></i>
+                </div>
+
+                <h3>Social media</h3>
+                <div className="d-flex mt-5 justify-content-center align-items-center">
+                  {contactData?.result?.social_media_list?.map((item) => {
+                    return (
+                      <div className="">
+                        <a href={item.company_url} target="_blank">
+                          <img
+                            className="social-icon"
+                            src={`https://partlinks.com.au/${item.icon}`}
+                          />
+                        </a>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>

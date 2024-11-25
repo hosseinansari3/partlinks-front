@@ -661,18 +661,6 @@ function SellCar() {
       </div>
       <div className="row mb-2 mx-auto">
         <div className="col-12 mb-2">
-          <div class="mb-2">
-            <img
-              class="me-1"
-              width="20px"
-              src="https://partlinks.com.au/panel/media/flags/australia.svg"
-              alt="australia"
-            />
-            <span class="fw-bold p-2" style={{ width: "40px" }}>
-              +61
-            </span>
-            <input type="hidden" name="country" value="61" />
-          </div>
           <TextInput
             {...register("mobile", { required: step == STEPS.STEP_USER })}
             type="number"

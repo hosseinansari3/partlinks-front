@@ -86,7 +86,7 @@ function SellCar() {
   const exteriorRate = watch("exteriorRate");
   const tyresRate = watch("tyresRate");
   const mobile = watch("mobile", "");
-  const description = watch("TyresRate", "");
+  const description = watch("description", "");
 
   const onGetData = async () => {
     try {
@@ -138,6 +138,37 @@ function SellCar() {
   useEffect(() => {
     onGetData();
   }, []);
+
+  useEffect(() => {
+    if (step == STEPS.STEP_CAR_1) {
+      if (!/^[a-zA-Z]+$/u.test(color) && color) {
+        setError("colorNotValid", {
+          type: "custom",
+          message: "entered color is not valid",
+        });
+      } else {
+        clearErrors("colorNotValid");
+      }
+    }
+  }, [color, step]);
+
+  useEffect(() => {
+    if (step == STEPS.STEP_USER) {
+      if (
+        !/^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$/.test(
+          mobile
+        ) &&
+        mobile
+      ) {
+        setError("phoneNotValid", {
+          type: "custom",
+          message: "entered Phone is not valid",
+        });
+      } else {
+        clearErrors("phoneNotValid");
+      }
+    }
+  }, [mobile, step]);
 
   useEffect(() => {
     console.log("interiorRate", interiorRate);
@@ -658,7 +689,11 @@ function SellCar() {
               <small class="ms-2 text-muted">(Optional)</small>
             </InputLabel>
 
-            <TextField id="description" multiline />
+            <TextField
+              {...register("description", { required: false })}
+              id="description"
+              multiline
+            />
           </div>
         </div>
       </div>
@@ -712,6 +747,10 @@ function SellCar() {
             vin: vinNumber, // or required state
             color: color,
             mobile: mobile,
+            description: description,
+            tyres_star: tyresRate,
+            exterior_star: exteriorRate,
+            interior_star: interiorRate,
           },
           config
         );
@@ -770,6 +809,10 @@ function SellCar() {
         plateNumberErr = true;
       } else if (field == "vinNumber") {
         vinNumberErr = true;
+      } else if (field == "colorNotValid") {
+        toast.error("entered color is not valid");
+      } else if (field == "phoneNotValid") {
+        toast.error("entered phone is not valid");
       } else {
         toast.error(`${field} is required`);
       }
@@ -779,7 +822,7 @@ function SellCar() {
       }
     }
 
-    //console.log("Errors", errors);
+    console.log("errors", errors);
   };
 
   const onSubmit = (e) => {

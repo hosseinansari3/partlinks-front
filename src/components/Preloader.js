@@ -1,9 +1,9 @@
 import React from "react";
 import "./Preloader.css";
 
-function Preloader({ diplay }) {
+function Preloader({ display }) {
   return (
-    <div className={`${diplay ? "d-block" : "d-none"} preloader`}>
+    <div className={`${display ? "d-block" : "d-none"} preloader`}>
       <div className="loader">
         <div className="sbl-half-circle-spin">
           <div></div>

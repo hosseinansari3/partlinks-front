@@ -149,6 +149,39 @@ function Navbar() {
           </nav>
         </div>
       </div>
+      <div class="others-option-for-responsive">
+        <div class="container">
+          <div class="dot-menu">
+            {isLoggedin ? (
+              <>
+                <Link to="member" className="user-btn-mobile">
+                  <i class="bx bxs-user"></i>
+                </Link>
+                <div onClick={logout} className="ms-2 user-btn-mobile">
+                  <i class="bx bx-log-out-circle"></i>
+                </div>
+              </>
+            ) : (
+              <Link to="login" className="user-btn-mobile">
+                <i className="bx bx-log-in-circle"></i>
+              </Link>
+            )}
+          </div>
+
+          <div class="container">
+            <div class="option-inner">
+              <div class="others-option d-flex align-items-center">
+                <div class="option-item">
+                  <span>
+                    Hotline:
+                    <a href="tel:882563789966">(+882) 563 789 966</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

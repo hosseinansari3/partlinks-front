@@ -20,13 +20,16 @@ import Panel from "./pages/Panel";
 import SellCarSuccess from "./pages/SellCar/SellCarSuccess";
 import SellCarVerify from "./pages/SellCar/SellCarVerify/SellCarVerify";
 import Preloader from "./components/Preloader";
+import { useSelector } from "react-redux";
+import ResetPassword from "./pages/Login/ResetPassword";
 
 function App() {
   const location = useLocation();
+  const isLoading = useSelector((state) => state?.preloader?.isLoading);
 
   return (
     <div>
-      <Preloader />
+      <Preloader display={isLoading} />
       <ToastContainer toastClassName="custom-toast" />
 
       {location.pathname !== "/login" &&
@@ -43,6 +46,8 @@ function App() {
         <Route path="sell-car/verify" element={<SellCarVerify />} />
 
         <Route path="login" element={<Login />} />
+        <Route path="password/reset" element={<ResetPassword />} />
+
         <Route path="auth/register" element={<Register />} />
         <Route
           path="auth/member/business/register"

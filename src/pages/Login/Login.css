@@ -12,8 +12,7 @@
 
 .back-btn {
   cursor: pointer;
-  position: absolute;
-  left: 68px;
+  left: 6px !important;
   font-size: 25pt;
 }
 

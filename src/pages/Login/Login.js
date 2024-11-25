@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { InputLabel } from "@mui/material";
 import OtpInput from "../../components/Common/OtpInput";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const steps = {
   STEP_PHONE: "STEP_PHONE",
@@ -283,17 +283,25 @@ function Login() {
                 />
                 <div className="text-center mb-5">
                   <div
-                    className={`d-flex justify-content-center align-items-center`}
+                    className={`d-flex position-relative ${
+                      step == steps.STEP_PHONE
+                        ? "justify-content-center"
+                        : "justify-content-between"
+                    } align-items-center`}
                   >
-                    <i
-                      onClick={() => setStep(steps.STEP_PHONE)}
-                      class={` ${
-                        step == steps.STEP_PHONE && "d-none"
-                      } bx bx-arrow-back back-btn`}
-                    ></i>
-                    <h1 className="text-dark fw-bolder mb-3">
-                      Sing in|Sign up
-                    </h1>
+                    <div className="d-flex align-items-center justify-content-center">
+                      <i
+                        onClick={() => setStep(steps.STEP_PHONE)}
+                        class={` ${
+                          step == steps.STEP_PHONE && "d-none"
+                        } bx bx-arrow-back back-btn`}
+                      ></i>
+                    </div>
+                    <div className="d-flex align-items-center justify-content-center">
+                      <h1 className="text-dark fw-bolder mb-3">
+                        Sing in|Sign up
+                      </h1>
+                    </div>
                   </div>
 
                   <div className="text-gray-500 fw-normal fs-6">
@@ -319,12 +327,9 @@ function Login() {
 
                 <div className="d-flex justify-content-between align-items-center flex-wrap gap-3  mb-4">
                   <div></div>
-                  <a
-                    href="https://partlinks.com.au/password/reset"
-                    className="link-primary"
-                  >
+                  <Link to="/password/reset" className="link-primary">
                     Forgot Your Password?
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="d-grid mb-4">
@@ -354,17 +359,6 @@ function Login() {
                       <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
                   </button>
-                </div>
-
-                <div className="text-gray-500 text-start fw-normal fs-6">
-                  Not a Member yet?
-                  <br />
-                  <a
-                    href="https://partlinks.com.au/auth/register"
-                    className="link-primary"
-                  >
-                    Register an account
-                  </a>
                 </div>
               </form>
             </div>

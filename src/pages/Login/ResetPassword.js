@@ -280,15 +280,25 @@ function ResetPassword() {
                 />
                 <div className="text-center mb-5">
                   <div
-                    className={`d-flex justify-content-center align-items-center`}
+                    className={`d-flex position-relative ${
+                      step == steps.STEP_PHONE
+                        ? "justify-content-center"
+                        : "justify-content-between"
+                    } align-items-center`}
                   >
-                    <i
-                      onClick={() => setStep(steps.STEP_PHONE)}
-                      class={` ${
-                        step == steps.STEP_PHONE && "d-none"
-                      } bx bx-arrow-back back-btn`}
-                    ></i>
-                    <h1 className="text-dark fw-bolder mb-3">Reset Password</h1>
+                    <div className="d-flex align-items-center justify-content-center">
+                      <i
+                        onClick={() => setStep(steps.STEP_PHONE)}
+                        class={` ${
+                          step == steps.STEP_PHONE && "d-none"
+                        } bx bx-arrow-back back-btn`}
+                      ></i>
+                    </div>
+                    <div className="d-flex align-items-center justify-content-center">
+                      <h1 className="text-dark fw-bolder mb-3">
+                        Reset Password
+                      </h1>
+                    </div>
                   </div>
                 </div>
 

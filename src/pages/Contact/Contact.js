@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Contact.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHomeData } from "../../Redux/homeDataSlice";
+import { fetchContactData } from "../../Redux/contactDataSlice";
 
 function Contact() {
+  const dispatch = useDispatch();
+  const { contactData, status, error } = useSelector(
+    (state) => state.contactData
+  );
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchContactData()); // Fetch data on component mount
+    }
+    console.log("contactData", contactData);
+  }, [status, dispatch]);
+
   return (
     <div>
       <div class="page-banner-area item-bg2">
@@ -47,9 +62,8 @@ function Contact() {
                 </div>
 
                 <h3>Location Here</h3>
-                <p>
-                  175 5th Ave Premium Area, New York, NY 10010, United States
-                </p>
+                <p>{contactData?.result?.contact_info?.primary_address}</p>
+                <p>{contactData?.result?.contact_info?.secondary_address}</p>
               </div>
             </div>
 
@@ -61,10 +75,18 @@ function Contact() {
 
                 <h3>Call Here</h3>
                 <p>
-                  <a href="tel:1234567890">+123 456 7890</a>
+                  <a
+                    href={`tel:${contactData?.result?.contact_info?.primary_phone_number}`}
+                  >
+                    {contactData?.result?.contact_info?.primary_phone_number}
+                  </a>
                 </p>
                 <p>
-                  <a href="tel:2414524526">+241 452 4526</a>
+                  <a
+                    href={`tel:${contactData?.result?.contact_info?.other_phone_numbers[0]}`}
+                  >
+                    {contactData?.result?.contact_info?.other_phone_numbers[0]}
+                  </a>
                 </p>
               </div>
             </div>

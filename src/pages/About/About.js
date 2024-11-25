@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./About.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAboutData } from "../../Redux/aboutDataSlice";
 
 function About() {
+  const dispatch = useDispatch();
+  const { aboutData, status, error } = useSelector((state) => state.aboutData);
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchAboutData()); // Fetch data on component mount
+    }
+    console.log("aboutData", aboutData);
+  }, [status, dispatch]);
+
   return (
     <div>
-      <div class="page-banner-area">
+      <div
+        style={{
+          "--dynamic-bg": `url(https://partlinks.com.au/${aboutData?.result?.primary_image_url})`,
+        }}
+        class="page-banner-area"
+      >
         <div class="d-table">
           <div class="d-table-cell">
             <div class="container">
@@ -25,7 +42,12 @@ function About() {
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6 col-md-6">
-              <div class="story-image">
+              <div
+                style={{
+                  "--story-img": `url(https://partlinks.com.au/${aboutData?.result?.other_image_url_list[0]})`,
+                }}
+                class="story-image"
+              >
                 <a
                   href="https://www.youtube.com/watch?v=BVMsRltq2yU"
                   class="video-btn popup-youtube"
@@ -95,7 +117,12 @@ function About() {
             </div>
 
             <div class="col-lg-6 col-md-6">
-              <div class="mission-image"></div>
+              <div
+                style={{
+                  "--mission-img": `url(https://partlinks.com.au/${aboutData?.result?.other_image_url_list[1]})`,
+                }}
+                class="mission-image"
+              ></div>
             </div>
           </div>
         </div>
@@ -104,7 +131,12 @@ function About() {
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6 col-md-6">
-              <div class="vision-image"></div>
+              <div
+                style={{
+                  "--vision-img": `url(https://partlinks.com.au/${aboutData?.result?.other_image_url_list[2]})`,
+                }}
+                class="vision-image"
+              ></div>
             </div>
 
             <div class="col-lg-6 col-md-6">

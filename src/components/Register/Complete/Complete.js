@@ -8,11 +8,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../../Redux/preloaderSlice";
+import PasswordStrength from "../../Common/PasswordStrength";
 
 const STEPS = {
   STEP1: 1,
   STEP2: 2,
   STEP3: 3,
+  STEP4: 4,
 };
 
 function Complete({ memberType }) {
@@ -20,61 +22,56 @@ function Complete({ memberType }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const businessType = location?.state?.info?.business_info?.business_type;
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    reset,
+    setError,
+    clearErrors,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange", // Validate on each keystroke
+  });
+
+  const firstName = watch("First Name");
+  const lastName = watch("Last Name");
+  const password = watch("password");
+  const repeatPassword = watch("repeatPassword");
+  const termsAndConditions = watch("termsAndConditions");
+  const companyName = watch("companyName");
+  const companyAbnAcn = watch("companyAbnAcn");
+  const email = watch("email");
+  const category = watch("category");
+  const address = watch("address");
+
   const registerStep = location?.state?.info?.register_info?.register_step;
 
   console.log("locationState_Complete", location.state);
 
-  const memberCategories = [
-    {
-      id: 1,
-      title: "Mechanic Workshop",
-      image:
-        "/files/upload/categories/members/1/image/1713291944icon-1-order.png",
-      priority: 1,
-    },
-
-    {
-      id: 3,
-      title: "Mobile mechanic",
-      image:
-        "/files/upload/categories/members/3/image/1713291975icon-1-order.png",
-      priority: 5,
-    },
-
-    {
-      id: 2,
-      title: "Panel Beater",
-      image:
-        "/files/upload/categories/members/2/image/1713291959icon-1-order.png",
-      priority: 10,
-    },
-
-    { id: 4, title: "Tyre Shop", image: null, priority: 20 },
-
-    { id: 5, title: "Mobile Tyre Service", image: null, priority: 25 },
-
-    { id: 6, title: "Used Car Dealer", image: null, priority: 30 },
-    { id: 7, title: "New & Used Car Dealer", image: null, priority: 35 },
-  ];
-
-  const memberCategoriesTitles = memberCategories?.map((item) => {
-    return { label: item.title, id: item.id };
-  });
-
-  console.log("memberCategoriesTitles", memberCategoriesTitles);
-
   const [step, setStep] = useState(STEPS.STEP1);
+  const [nextStep, setNextStep] = useState();
+
+  const [businessType, setBusinessType] = useState();
+  const [memberCategories, setMemberCategories] = useState();
   const [locResults, setLocResults] = useState();
   const [locReference, setLocReference] = useState();
   const [userData, setUserData] = useState();
   const [isLocSelected, setLocSelected] = useState(false);
   const [isAddressChanged, setAddressChanged] = useState(false);
+  const [passwordStrengthScore, setPasswordStrengthScore] = useState();
+
+  const memberCategoriesTitles = memberCategories?.map((item) => {
+    return { label: item.title, id: item.id };
+  });
 
   useEffect(() => {
-    registerStep == 3 && setStep(STEPS.STEP1);
-    registerStep == 4 && setStep(STEPS.STEP2);
-    registerStep == -1 && setStep(STEPS.STEP3);
+    registerStep == 2 && setStep(STEPS.STEP1);
+    registerStep == 3 && setStep(STEPS.STEP2);
+    registerStep == 4 && setStep(STEPS.STEP3);
+    registerStep == -1 && setStep(STEPS.STEP4);
     setUserData(location?.state?.info);
   }, []);
 
@@ -97,27 +94,202 @@ function Complete({ memberType }) {
     }
   }, [userData]);
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    watch,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  useEffect(() => {
+    if (passwordStrengthScore < 3 && password !== "") {
+      setError("passwordStrengthScore", {
+        type: "custom",
+        message: "Please enter valid password",
+      });
+    } else {
+      clearErrors("passwordStrengthScore");
+    }
+  }, [passwordStrengthScore]);
 
-  const companyName = watch("companyName");
-  const companyAbnAcn = watch("companyAbnAcn");
-  const email = watch("email");
-  const category = watch("category");
-  const address = watch("address");
+  useEffect(() => {
+    if (password !== repeatPassword) {
+      setError("confirmNotSame", {
+        type: "custom",
+        message: "The password and its confirm are not the same",
+      });
+    }
+    if (password == repeatPassword) {
+      clearErrors("confirmNotSame");
+    }
+  }, [repeatPassword]);
 
   useEffect(() => {
     console.log("category", category);
   }, [category]);
 
-  const accountInfo = (
+  const onSearch = async () => {
+    if (
+      !isLocSelected &&
+      (address !== null || address !== undefined) &&
+      step == STEPS.STEP3
+    ) {
+      try {
+        dispatch(setLoading(true));
+
+        const response = await axios.post(
+          "https://partlinks.com.au/api/v1/member/search_location",
+          {
+            location: address,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${location?.state?.token}`,
+            },
+          }
+        );
+        console.log(response);
+        dispatch(setLoading(false));
+
+        if (response?.data?.done) {
+          setLocResults(response?.data?.result?.response);
+        }
+
+        response?.data?.error && toast.error(response?.data?.error?.message);
+      } catch (error) {
+        dispatch(setLoading(false));
+
+        console.log(error);
+      }
+    } else {
+      setLocSelected(false);
+    }
+  };
+
+  const baseInfo = (
+    <div className="w-100">
+      <div className="pb-4 pb-lg-5">
+        <h2 className="fw-bold text-dark">Base Info</h2>
+      </div>
+
+      <div className="mb-4">
+        <InputLabel
+          required
+          sx={{
+            "& .MuiFormLabel-asterisk": { color: "red" },
+          }}
+          htmlFor="firstName"
+        >
+          First Name
+        </InputLabel>
+        <TextInput
+          {...register("First Name", { required: true })}
+          fullWidth
+          name="First Name"
+          placeholder="First Name"
+        />
+      </div>
+      <div className={`mb-4`}>
+        <InputLabel
+          required
+          sx={{
+            "& .MuiFormLabel-asterisk": { color: "red" },
+          }}
+          htmlFor="lastName"
+        >
+          Last Name
+        </InputLabel>
+        <TextInput
+          {...register("Last Name", { required: true })}
+          fullWidth
+          placeholder="Last Name"
+        />
+      </div>
+      <div className="mb-4">
+        <div className="position-relative mb-1">
+          <InputLabel
+            sx={{
+              "& .MuiFormLabel-asterisk": { color: "red" },
+            }}
+            htmlFor="password"
+          >
+            Password
+          </InputLabel>
+          <Controller
+            name="password"
+            control={control}
+            rules={{ required: true }}
+            render={({ field, fieldState }) => (
+              <PasswordStrength
+                setStregthScore={setPasswordStrengthScore}
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
+        </div>
+        <div className="text-muted">
+          Use 8 or more characters with a mix of uppercase and lowercase
+          letters, numbers &amp; symbols.
+        </div>
+        <div
+          className={` ${
+            errors?.passwordStrengthScore && "d-block"
+          } fv-plugins-message-container invalid-feedback`}
+        >
+          {errors?.passwordStrengthScore?.message}
+        </div>
+      </div>
+      <div className="mb-4">
+        <InputLabel
+          sx={{
+            "& .MuiFormLabel-asterisk": { color: "red" },
+          }}
+          htmlFor="repeatPassword"
+        >
+          Repeat Password
+        </InputLabel>
+        <TextInput
+          {...register("repeatPassword", { required: true })}
+          type="password"
+          fullWidth
+          placeholder="Repreat Password"
+        />
+        <div
+          className={` ${
+            errors?.confirmNotSame && "d-block"
+          } fv-plugins-message-container invalid-feedback`}
+        >
+          {errors?.confirmNotSame?.message}
+        </div>
+      </div>
+      <div className="mb-4">
+        <label className="form-check form-check-inline">
+          <input
+            {...register("termsAndConditions", { required: true })}
+            className="form-check-input"
+            type="checkbox"
+            name="termsAndConditions"
+          />
+          <span className="form-check-label fw-semibold text-gray-700 fs-base ms-1">
+            I have read, understand and agree to the PartLinks{" "}
+            <a
+              target="_blank"
+              href="https://partlinks.com.au/terms-conditions"
+              className="ms-1 link-primary"
+            >
+              Terms and Conditions
+            </a>
+            , including the{" "}
+            <a
+              target="_blank"
+              href="https://partlinks.com.au/privacy-policy"
+              className="ms-1 link-primary"
+            >
+              Privacy Policy
+            </a>
+            .
+          </span>
+        </label>
+      </div>
+    </div>
+  );
+
+  const businessInfo = (
     <div className="w-100">
       <div className="pb-4 pb-lg-5">
         <h2 className="fw-bold text-dark">Account Info</h2>
@@ -135,7 +307,7 @@ function Complete({ memberType }) {
         </InputLabel>
         <TextInput
           {...register("companyName", {
-            required: true,
+            required: step == STEPS.STEP2,
           })}
           fullWidth
           id="companyName"
@@ -155,7 +327,7 @@ function Complete({ memberType }) {
         </InputLabel>
         <TextInput
           {...register("companyAbnAcn", {
-            required: businessType == "business",
+            required: businessType == "business" && step == STEPS.STEP2,
           })}
           fullWidth
           id="companyAbnAcn"
@@ -237,7 +409,7 @@ function Complete({ memberType }) {
                         )}
                       />
                     )}
-                    rules={{ required: true }} // Add validation rules if needed
+                    rules={{ required: step == STEPS.STEP2 }} // Add validation rules if needed
                   />
                 </div>
               </div>
@@ -271,18 +443,25 @@ function Complete({ memberType }) {
                   >
                     Enter location
                   </InputLabel>
-
-                  <textarea
-                    {...register("address", {
-                      required: step == STEPS.STEP2,
-                    })}
-                    name="address"
-                    id="address"
-                    placeholder=""
-                    className="form-control form-control-lg pac-target-input"
-                    rows="3"
-                    autocomplete="off"
-                  ></textarea>
+                  <div className="position-relative">
+                    <textarea
+                      {...register("address", {
+                        required: step == STEPS.STEP3,
+                      })}
+                      name="address"
+                      id="address"
+                      placeholder=""
+                      className="form-control form-control-lg pac-target-input"
+                      rows="3"
+                      autocomplete="off"
+                    ></textarea>
+                    <button
+                      className="btn btn-secondary position-absolute bottom-0 end-0 m-2"
+                      onClick={onSearch}
+                    >
+                      search
+                    </button>
+                  </div>
                 </div>
                 <div className={`  shadow`}>
                   <ul className="list-group">
@@ -368,17 +547,12 @@ function Complete({ memberType }) {
 
   const formContentBusiness =
     step == STEPS.STEP1
-      ? accountInfo
+      ? baseInfo
       : step == STEPS.STEP2
-      ? addressDetails
+      ? businessInfo
       : step == STEPS.STEP3
-      ? completed
-      : null;
-
-  const formContentPrivate =
-    step == STEPS.STEP1
       ? addressDetails
-      : step == STEPS.STEP2
+      : step == STEPS.STEP4
       ? completed
       : null;
 
@@ -398,6 +572,41 @@ function Complete({ memberType }) {
 
   const onSubmit = async (e) => {
     if (step == STEPS.STEP1) {
+      try {
+        dispatch(setLoading(true));
+
+        const response = await axios.post(
+          "https://partlinks.com.au/api/v1/member/register/base_info",
+          {
+            name: firstName,
+            family: lastName,
+            password: password,
+            password_confirmation: repeatPassword,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${location?.state?.token}`,
+            },
+          }
+        );
+        console.log(response);
+        dispatch(setLoading(false));
+
+        if (response?.data?.done) {
+          setBusinessType(response?.data?.result?.business_type);
+          setMemberCategories(response?.data?.result?.member_categories);
+
+          onNext();
+        }
+
+        response?.data?.error && toast.error(response?.data?.error?.message);
+      } catch (error) {
+        console.log(error);
+        dispatch(setLoading(false));
+      }
+    }
+    if (step == STEPS.STEP2) {
       try {
         dispatch(setLoading(true));
 
@@ -429,7 +638,7 @@ function Complete({ memberType }) {
         dispatch(setLoading(false));
       }
     }
-    if (step == STEPS.STEP2) {
+    if (step == STEPS.STEP3) {
       if (!isAddressChanged && userData?.address_info?.address) {
         onNext();
       } else {
@@ -464,55 +673,25 @@ function Complete({ memberType }) {
         }
       }
     }
-    if (step == STEPS.STEP3) {
+    if (step == STEPS.STEP4) {
       navigate("/member");
     }
   };
 
-  const onSearch = async () => {
-    try {
-      dispatch(setLoading(true));
-
-      const response = await axios.post(
-        "https://partlinks.com.au/api/v1/member/search_location",
-        {
-          location: address,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${location?.state?.token}`,
-          },
-        }
-      );
-      console.log(response);
-      dispatch(setLoading(false));
-
-      if (response?.data?.done) {
-        setLocResults(response?.data?.result?.response);
-      }
-
-      response?.data?.error && toast.error(response?.data?.error?.message);
-    } catch (error) {
-      dispatch(setLoading(false));
-
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
+  /* useEffect(() => {
     console.log("locReference", locReference);
 
     if (
       !isLocSelected &&
       (address !== null || address !== undefined) &&
-      step == STEPS.STEP2
+      step == STEPS.STEP3
     ) {
       onSearch();
     } else {
       setLocSelected(false);
     }
   }, [address]);
+  */
 
   useEffect(() => {
     console.log("locResults", locResults);
@@ -565,6 +744,26 @@ function Complete({ memberType }) {
                   </div>
 
                   <div className="stepper-label">
+                    <h3 className="stepper-title fs-4">Base Info</h3>
+                    <div className="stepper-desc fw-normal">
+                      insert your base info
+                    </div>
+                  </div>
+                </div>
+
+                <div className="stepper-line h-40px"></div>
+              </div>
+              <div
+                className={`stepper-item ${step == STEPS.STEP2 && "current"} `}
+                data-kt-stepper-element="nav"
+              >
+                <div className="stepper-wrapper">
+                  <div className="stepper-icon rounded-3">
+                    <i className="stepper-check fas fa-check"></i>
+                    <span className="stepper-number">2</span>
+                  </div>
+
+                  <div className="stepper-label">
                     <h3 className="stepper-title fs-4">Account Info</h3>
                     <div className="stepper-desc fw-normal">
                       Setup your account settings
@@ -575,12 +774,12 @@ function Complete({ memberType }) {
                 <div className="stepper-line h-40px"></div>
               </div>
               <div
-                className={`stepper-item ${step == STEPS.STEP2 && "current"} `}
+                className={`stepper-item ${step == STEPS.STEP3 && "current"} `}
               >
                 <div className="stepper-wrapper">
                   <div className="stepper-icon">
                     <i className="stepper-check fas fa-check"></i>
-                    <span className="stepper-number">2</span>
+                    <span className="stepper-number">3</span>
                   </div>
 
                   <div className="stepper-label">
@@ -594,13 +793,13 @@ function Complete({ memberType }) {
                 <div className="stepper-line h-40px"></div>
               </div>
               <div
-                className={`stepper-item ${step == STEPS.STEP3 && "current"} `}
+                className={`stepper-item ${step == STEPS.STEP4 && "current"} `}
                 data-kt-stepper-element="nav"
               >
                 <div className="stepper-wrapper">
                   <div className="stepper-icon">
                     <i className="stepper-check fas fa-check"></i>
-                    <span className="stepper-number">3</span>
+                    <span className="stepper-number">4</span>
                   </div>
 
                   <div className="stepper-label">

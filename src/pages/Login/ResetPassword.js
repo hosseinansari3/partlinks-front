@@ -252,7 +252,7 @@ function ResetPassword() {
       : null;
 
   return (
-    <div className="d-flex flex-column flex-root bg-dark ">
+    <div className="d-flex flex-column flex-root bg-dark w-100 h-100 position-fixed ">
       <div className="d-flex flex-column flex-column-fluid flex-lg-row">
         <div className="d-flex flex-center col-lg-6 justify-content-center align-items-center w-lg-50 pt-5 pt-lg-0 px-4">
           <div className="d-flex flex-center flex-lg-start flex-column">

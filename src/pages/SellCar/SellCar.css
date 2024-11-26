@@ -1,3 +1,46 @@
 .custom-placeholder {
   color: rgb(170 170 170) !important;
 }
+
+.mw-900px {
+  max-width: 900px !important;
+}
+.mw-200px {
+  max-width: 200px !important;
+}
+.mw-300px {
+  max-width: 300px !important;
+}
+.mw-500px {
+  max-width: 500px !important;
+}
+
+.mw-600px {
+  max-width: 600px !important;
+}
+.h-60px {
+  height: 60px !important;
+}
+.w-60px {
+  width: 60px !important;
+}
+.fs-7 {
+  font-size: 14px !important;
+}
+
+.font-serif {
+  font-family: sans-serif !important;
+}
+
+@media (min-width: 576px) {
+  .mw-sm-300px {
+    max-width: 300px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .my-slider {
+    margin-top: -150px !important;
+    padding: 30px !important;
+  }
+}

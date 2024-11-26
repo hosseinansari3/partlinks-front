@@ -210,8 +210,8 @@ function SellCar() {
               </Select>
             </div>
           </div>
-          <div class="d-flex flex-column mb-2">
-            <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
+          <div className="d-flex flex-column mb-2">
+            <label className="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
               <b>OR</b>
             </label>
           </div>
@@ -609,7 +609,7 @@ function SellCar() {
         </div>
       </div>
       <div className="row mb-2 mt-5 mx-auto">
-        <div class="col-12 mb-2">
+        <div className="col-12 mb-2">
           <h6>Rate the condition of the</h6>
         </div>
         <div className="col-12 mb-2 d-flex flex-column flex-start">
@@ -673,8 +673,8 @@ function SellCar() {
         <div className="col-12">
           <div className="row mb-2">
             <InputLabel htmlFor="description">
-              <span class="">Description</span>
-              <small class="ms-2 text-muted">(Optional)</small>
+              <span className="">Description</span>
+              <small className="ms-2 text-muted">(Optional)</small>
             </InputLabel>
 
             <TextField
@@ -830,12 +830,12 @@ function SellCar() {
         <div className="row flex-wrap-reverse flex-md-wrap mb-5">
           <div className="col-12 col-sm-12 col-md-6 mt-5 my-slider">
             <div className="card">
-              <div class="card-header">
-                <div class="mt-5">
+              <div className="card-header">
+                <div className="mt-5">
                   <h1>Receive Multiple Offers</h1>
                   <h1>
                     <span>From</span>
-                    <span class="text-warning ms-2">Dealers Aus-Wide</span>
+                    <span className="text-warning ms-2">Dealers Aus-Wide</span>
                   </h1>
                 </div>
               </div>
@@ -845,7 +845,7 @@ function SellCar() {
                     <div className="mt-2 mb-2">
                       {cardContent}
                       <div
-                        class="d-flex justify-content-between align-items-center pt-2"
+                        className="d-flex justify-content-between align-items-center pt-2"
                         id="info-content"
                       >
                         <div className="mr-2">
@@ -857,7 +857,7 @@ function SellCar() {
                             } btn btn-sm btn-warning me-3`}
                             onclick="backToShowSellingCarForm()"
                           >
-                            <span class="svg-icon svg-icon-4 me-1">
+                            <span className="svg-icon svg-icon-4 me-1">
                               <svg
                                 width="24"
                                 height="24"
@@ -886,12 +886,12 @@ function SellCar() {
                         <div>
                           <button
                             type="submit"
-                            class="btn btn-sm btn-primary"
+                            className="btn btn-sm btn-primary"
                             id="continue-selling-car-btn"
                           >
-                            <span class="indicator-label">
+                            <span className="indicator-label">
                               Continue
-                              <span class="svg-icon svg-icon-4 ms-2">
+                              <span className="svg-icon svg-icon-4 ms-2">
                                 <svg
                                   width="24"
                                   height="24"
@@ -916,9 +916,9 @@ function SellCar() {
                                 </svg>
                               </span>
                             </span>
-                            <span class="indicator-progress d-none">
+                            <span className="indicator-progress d-none">
                               Please wait...
-                              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                              <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                             </span>
                           </button>
                         </div>
@@ -928,10 +928,10 @@ function SellCar() {
                 </div>
               </div>
             </div>
-            <div class="row mt-3">
-              <div class="col-12 text-center">
+            <div className="row mt-3">
+              <div className="col-12 text-center">
                 <img
-                  class="w-100 mw-300px"
+                  className="w-100 mw-300px"
                   src="https://partlinks.com.au/files/upload/sellCar/sell-car-3.png"
                   alt="sell car"
                 />
@@ -940,34 +940,34 @@ function SellCar() {
           </div>
           <div className="col-12 col-sm-12 col-md-6 text-center mt-5">
             <img
-              class="mw-100"
+              className="mw-100"
               src="https://partlinks.com.au/files/upload/sellCar/sell-car-1.png"
               alt="sell car"
             />
           </div>
         </div>
       </div>
-      <div class="bg-white">
-        <div class="container w-100 mw-900px m-auto pt-5 pb-5">
-          <div class="row">
-            <div class="col-12 text-center">
+      <div className="bg-white">
+        <div className="container w-100 mw-900px m-auto pt-5 pb-5">
+          <div className="row">
+            <div className="col-12 text-center">
               <img
-                class="w-100 mw-500px"
+                className="w-100 mw-500px"
                 src="https://partlinks.com.au/files/upload/sellCar/sell-car-banner.png"
                 alt="sell-car-banner"
               />
             </div>
-            <div class="col-12 text-center mt-5">
-              <h1>Simplified process of selling a used car</h1>
+            <div className="col-12 text-center mt-5 mb-1">
+              <h1 className="fs-4">Simplified process of selling a used car</h1>
             </div>
-            <div class="col-12 d-flex flex-column flex-start m-auto mt-5 mw-600px m-auto">
-              <div class="d-flex flex-start mt-5">
+            <div className="fs-7 col-12 d-flex flex-column flex-start  mt-2 mw-600px m-auto">
+              <div className="d-flex flex-start mt-3">
                 <img
-                  class="w-60px h-60px"
+                  className="w-60px h-60px"
                   src="https://partlinks.com.au/files/upload/sellCar/sell-car-icon-1.png"
                   alt="sell-car-icon-1"
                 />
-                <div class="d-flex flex-column">
+                <div className="d-flex flex-column">
                   <b>List and Forget</b>
                   <span>
                     List your car in 2 minutes and forget the rest, we will do
@@ -979,13 +979,13 @@ function SellCar() {
                   </span>
                 </div>
               </div>
-              <div class="d-flex flex-start mt-5">
+              <div className="d-flex flex-start mt-3">
                 <img
-                  class="w-60px h-60px"
+                  className="w-60px h-60px"
                   src="https://partlinks.com.au/files/upload/sellCar/sell-car-icon-2.png"
                   alt="sell-car-icon-1"
                 />
-                <div class="d-flex flex-column">
+                <div className="d-flex flex-column">
                   <b>No more dealing with endless enquiries </b>
                   <span>
                     We know just how time-consuming it is to sell a used car,
@@ -994,13 +994,13 @@ function SellCar() {
                   </span>
                 </div>
               </div>
-              <div class="d-flex flex-start mt-5">
+              <div className="d-flex flex-start mt-3">
                 <img
-                  class="w-60px h-60px"
+                  className="w-60px h-60px"
                   src="https://partlinks.com.au/files/upload/sellCar/sell-car-icon-3.png"
                   alt="sell-car-icon-1"
                 />
-                <div class="d-flex flex-column">
+                <div className="d-flex flex-column">
                   <b>Collect your payment </b>
                   <span>
                     Once we are done with the negotiations, you will receive a
@@ -1013,52 +1013,52 @@ function SellCar() {
           </div>
         </div>
       </div>
-      <div class="bg-light">
-        <div class="container w-100 mw-900px m-auto mt-5 mb-5">
-          <div class="row">
-            <div class="col-12 text-center">
-              <h1>Approved conditions</h1>
+      <div className="bg-light">
+        <div className="container w-100 mw-900px m-auto mt-5 mb-5">
+          <div className="row">
+            <div className="col-12 text-center">
+              <h1 className="fs-4 mb-1">Approved conditions</h1>
             </div>
-            <div class="col-12">
-              <div class="row">
-                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+            <div className="col-12">
+              <div className="row">
+                <div className="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
                   <img
-                    class="w-100 mw-150px bg-white"
+                    className="w-100 mw-150px bg-white"
                     src="https://partlinks.com.au/files/upload/sellCar/car-1.png"
                     alt="car-1"
                   />
                 </div>
-                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                <div className="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
                   <img
-                    class="w-100 mw-150px bg-white"
+                    className="w-100 mw-150px bg-white"
                     src="https://partlinks.com.au/files/upload/sellCar/car-2.png"
                     alt="car-2"
                   />
                 </div>
-                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                <div className="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
                   <img
-                    class="w-100 mw-150px bg-white"
+                    className="w-100 mw-150px bg-white"
                     src="https://partlinks.com.au/files/upload/sellCar/car-3.png"
                     alt="car-3"
                   />
                 </div>
-                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                <div className="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
                   <img
-                    class="w-100 mw-150px bg-white"
+                    className="w-100 mw-150px bg-white"
                     src="https://partlinks.com.au/files/upload/sellCar/car-4.png"
                     alt="car-4"
                   />
                 </div>
-                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                <div className="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
                   <img
-                    class="w-100 mw-150px bg-white"
+                    className="w-100 mw-150px bg-white"
                     src="https://partlinks.com.au/files/upload/sellCar/car-5.png"
                     alt="car-5"
                   />
                 </div>
-                <div class="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
+                <div className="col-4 col-sm-4 col-md-2 col-lg-2 mt-2">
                   <img
-                    class="w-100 mw-150px bg-white"
+                    className="w-100 mw-150px bg-white"
                     src="https://partlinks.com.au/files/upload/sellCar/car-4.png"
                     alt="car-4"
                   />
@@ -1068,19 +1068,19 @@ function SellCar() {
           </div>
         </div>
       </div>
-      <div class="bg-white">
-        <div class="container w-100 mw-900px m-auto pt-5 pb-5">
-          <div class="row">
-            <div class="col-12 col-sm-12 col-md-4 text-center">
+      <div className="bg-white">
+        <div className="container w-100 mw-900px m-auto pt-5 pb-5">
+          <div className="row">
+            <div className="col-12 col-sm-12 col-md-4 text-center">
               <img
-                class="w-100 mw-200px mw-sm-300px"
+                className="w-100 mw-200px mw-sm-300px"
                 src="https://partlinks.com.au/files/upload/sellCar/sell-car-2.png"
                 alt="sell-car-2"
               />
             </div>
-            <div class="col-12 col-sm-12 col-md-8 p-10 p-sm-5">
+            <div className="col-12 col-sm-12 col-md-8 p-4 p-sm-2">
               <h1>Automatic SCAM protection</h1>
-              <h6 class="">
+              <h6 className="font-serif">
                 In the used car market, protecting yourself against scammers is
                 paramount. We understand the risks involved in selling your car
                 and have implemented stringent measures to safeguard your

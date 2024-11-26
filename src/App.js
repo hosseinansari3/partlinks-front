@@ -33,6 +33,8 @@ function App() {
       <ToastContainer toastClassName="custom-toast" />
 
       {location.pathname !== "/login" &&
+      location.pathname !== "/password/reset" &&
+      location.pathname !== "/sell-car/verify" &&
       !location.pathname.includes("/auth") ? (
         <Navbar />
       ) : null}
@@ -70,6 +72,8 @@ function App() {
         <Route path="member/" element={<Panel />} />
       </Routes>
       {location.pathname !== "/login" &&
+      location.pathname !== "/password/reset" &&
+      location.pathname !== "/sell-car/verify" &&
       !location.pathname.includes("/auth") ? (
         <Footer />
       ) : null}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHomeData } from "../../Redux/homeDataSlice";
 
@@ -50,24 +50,44 @@ function Navbar() {
               <nav className="mean-nav">
                 <ul className={`navbar-nav m-auto ${!navOpen && "d-none"}`}>
                   <li className="nav-item">
-                    <a href="index.html" className="nav-link active">
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        isActive ? "nav-link active" : "nav-link"
+                      }
+                    >
                       Home
-                    </a>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link to={"sell-car"} className="nav-link">
+                    <NavLink
+                      to={"sell-car"}
+                      className={({ isActive }) =>
+                        isActive ? "nav-link active" : "nav-link"
+                      }
+                    >
                       Sell Car
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link to="about" className="nav-link">
+                    <NavLink
+                      to="about"
+                      className={({ isActive }) =>
+                        isActive ? "nav-link active" : "nav-link"
+                      }
+                    >
                       About Us
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link to="contact" className="nav-link">
+                    <NavLink
+                      to="contact"
+                      className={({ isActive }) =>
+                        isActive ? "nav-link active" : "nav-link"
+                      }
+                    >
                       Contact
-                    </Link>
+                    </NavLink>
                   </li>
                 </ul>
 
@@ -104,24 +124,44 @@ function Navbar() {
             <div className="collapse navbar-collapse mean-menu">
               <ul className="navbar-nav m-auto">
                 <li className="nav-item">
-                  <a href="#" className="nav-link active">
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                  >
                     Home
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to={"sell-car"} className="nav-link">
+                  <NavLink
+                    to={"sell-car"}
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                  >
                     Sell Car
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to="about" className="nav-link">
+                  <NavLink
+                    to="about"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                  >
                     About Us
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to="contact" className="nav-link">
+                  <NavLink
+                    to="contact"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                  >
                     Contact
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
               <div className="others-option d-flex align-items-center">

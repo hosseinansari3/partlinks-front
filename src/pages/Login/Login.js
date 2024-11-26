@@ -288,7 +288,7 @@ function Login() {
             <h2 className="text-white fw-normal fs-6 m-0">2024 ©Copyright</h2>
           </div>
         </div>
-        <div className="d-flex flex-center col-lg-6 justify-content-center align-items-center w-lg-50 p-5">
+        <div className="d-flex flex-center col-lg-6 justify-content-center align-items-center w-lg-50 p-5 pb-6">
           <div className="card rounded-3 w-md-550px">
             <div className="card-body p-4 p-lg-5">
               <form

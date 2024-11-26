@@ -33,7 +33,7 @@ function NewProducts() {
           {homeData?.result?.new_products.map((item) => {
             return (
               <div className="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div className="single-top-products">
+                <div className="single-top-products position-relative">
                   <div className="top-products-image">
                     <a href="products-details.html">
                       <img
@@ -77,7 +77,18 @@ function NewProducts() {
                         <i className="bx bx-star"></i>
                       </li>
                     </ul>
-                    <span>${item.price}</span>
+
+                    <p className="mb-0">${item.off_price}</p>
+                    <p>
+                      <s>${item.price}</s>
+                    </p>
+                  </div>
+                  <div
+                    className={` ${item?.discount == "0" && "d-none"} discount`}
+                  >
+                    <i class="bx bxs-badge">
+                      <span>{item?.discount}%</span>
+                    </i>
                   </div>
                 </div>
               </div>

@@ -93,7 +93,7 @@ Top Products Area CSS
   font-size: 16px;
 }
 
-.single-top-products .top-products-content span {
+.single-top-products .top-products-content p {
   font-size: 18px;
   color: #d31531;
   font-weight: 600;
@@ -115,6 +115,31 @@ Top Products Area CSS
   bottom: 10px;
   opacity: 1;
   visibility: visible;
+}
+
+.discount {
+  position: absolute;
+  top: -15px;
+  left: -10px;
+}
+
+.discount i {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  font-size: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+}
+
+.discount i span {
+  position: absolute;
+  color: white !important;
+  font-size: 13px !important;
+  font-family: cursive;
+  font-weight: bold;
 }
 
 .overview-item .overview-image {

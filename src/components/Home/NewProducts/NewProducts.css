@@ -16,6 +16,9 @@ Top Products Area CSS
 .single-top-products .top-products-image img {
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  width: 216px;
+  height: 216px;
+  object-fit: cover;
 }
 
 .single-top-products .top-products-image .top-products-action {

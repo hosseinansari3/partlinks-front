@@ -7,6 +7,24 @@ import { fetchHomeData } from "../../Redux/homeDataSlice";
 function Navbar() {
   const dispatch = useDispatch();
   const { homeData, status, error } = useSelector((state) => state.homeData);
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 800) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if (status === "idle") {
@@ -35,7 +53,7 @@ function Navbar() {
     setLoggedin(false);
   };
   return (
-    <div className="navbar-area navbar-two">
+    <div className={` ${isSticky && "is-sticky"} navbar-area navbar-two`}>
       <div className="main-responsive-nav">
         <div className="container">
           <div className="main-responsive-menu mean-container">

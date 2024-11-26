@@ -120,7 +120,7 @@ function ResetPassword() {
           },
         };
         const response = await axios.post(
-          "https://partlinks.com.au/api/v1/buyer/member/reset_password",
+          "https://partlinks.com.au/api/v1/member/reset_password",
           {
             password: password,
             password_confirmation: passwordConfirm,

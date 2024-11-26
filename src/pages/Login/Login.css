@@ -22,3 +22,7 @@
   border-bottom: 0;
   text-align: center;
 }
+
+.card-container {
+  padding-bottom: 90px;
+}

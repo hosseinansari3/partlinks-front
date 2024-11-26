@@ -10,9 +10,7 @@ const calculatePasswordStrength = (password) => {
 
   // Score based on character variety
   if (/[a-z]/.test(password)) score += 1;
-  if (/[A-Z]/.test(password)) score += 1;
   if (/\d/.test(password)) score += 1;
-  if (/[@$!%*?&#]/.test(password)) score += 1;
 
   // Return score as strength level
   return score;
@@ -27,20 +25,8 @@ const PasswordStrength = ({
   setStrengthScore(strength);
 
   // Strength meter color and text
-  const strengthText = [
-    "Very Weak",
-    "Weak",
-    "Moderate",
-    "Strong",
-    "Very Strong",
-  ];
-  const strengthColors = [
-    "#f44336",
-    "#ff9800",
-    "#ffeb3b",
-    "#8bc34a",
-    "#4caf50",
-  ];
+  const strengthText = ["Weak", "Moderate", "Strong"];
+  const strengthColors = ["#ff9800", "#ffeb3b", "#8bc34a"];
 
   return (
     <Box sx={{ margin: "auto", textAlign: "center" }}>
@@ -56,7 +42,7 @@ const PasswordStrength = ({
       {/* Strength Meter Display */}
       <LinearProgress
         variant="determinate"
-        value={(strength / 5) * 100}
+        value={(strength / 3) * 100}
         sx={{
           height: 8,
           borderRadius: 5,

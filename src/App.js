@@ -2,7 +2,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About/About";
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Contact from "./pages/Contact/Contact";
@@ -11,15 +10,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-import BusinessRegister from "./pages/Register/Business/BusinessRegister";
-import PrivateRegister from "./pages/Register/Private/PrivateRegister";
-import VendorRegister from "./pages/Register/Vendor/VendorRegister";
+
 import BusinessComplete from "./pages/Register/Business/BusinessComplete";
 import PrivateComplete from "./pages/Register/Private/PrivateComplete";
 import Panel from "./pages/Panel";
 import SellCarSuccess from "./pages/SellCar/SellCarSuccess";
 import SellCarVerify from "./pages/SellCar/SellCarVerify/SellCarVerify";
-import Preloader from "./components/Preloader";
+import Preloader from "./components/Preloader/Preloader";
 import { useSelector } from "react-redux";
 import ResetPassword from "./pages/Login/ResetPassword";
 
@@ -51,15 +48,6 @@ function App() {
         <Route path="password/reset" element={<ResetPassword />} />
 
         <Route path="auth/register" element={<Register />} />
-        <Route
-          path="auth/member/business/register"
-          element={<BusinessRegister />}
-        />
-        <Route
-          path="auth/member/private/register"
-          element={<PrivateRegister />}
-        />
-        <Route path="auth/vendor/register" element={<VendorRegister />} />
 
         <Route
           path="auth/member/business/complete"

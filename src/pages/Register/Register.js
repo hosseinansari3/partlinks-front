@@ -32,12 +32,12 @@ function Register() {
 
       if (response?.data?.done) {
         if (selectedType == "private") {
-          navigate("/auth/member/private/register", {
+          navigate("/auth/member/private/complete", {
             state: { token: location?.state?.token },
           });
         }
         if (selectedType == "business") {
-          navigate("/auth/member/business/register", {
+          navigate("/auth/member/business/complete", {
             state: { token: location?.state?.token },
           });
         }

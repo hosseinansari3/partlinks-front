@@ -1,0 +1,93 @@
+.bgi-size-cover {
+  background-size: cover;
+}
+.bgi-position-center {
+  background-position: center;
+}
+.flex-column-fluid {
+  flex: 1 0 auto;
+}
+.svg-icon.svg-icon-3x svg {
+  height: 3rem !important;
+  width: 3rem !important;
+}
+
+.member-text {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+.account-text {
+  font-size: 0.75rem !important;
+  color: #a1a5b7;
+  font-weight: 500 !important;
+}
+
+.btn-check:active + .btn.btn-active-light-warning,
+.btn-check:checked + .btn.btn-active-light-warning,
+.btn.btn-active-light-warning.active,
+.btn.btn-active-light-warning.show,
+.btn.btn-active-light-warning:active:not(.btn-active),
+.btn.btn-active-light-warning:focus:not(.btn-active),
+.btn.btn-active-light-warning:hover:not(.btn-active),
+.show > .btn.btn-active-light-warning {
+  color: #ff6600;
+  border-color: #ff6600;
+  background-color: #fff8dd !important;
+}
+
+.btn-check:active + .btn.btn-light-warning,
+.btn-check:checked + .btn.btn-light-warning,
+.btn.btn-light-warning.active,
+.btn.btn-light-warning.show,
+.btn.btn-light-warning:active:not(.btn-active),
+.btn.btn-light-warning:focus:not(.btn-active),
+.btn.btn-light-warning:hover:not(.btn-active),
+.show > .btn.btn-light-warning {
+  color: #ffffff;
+  border-color: #ff6600;
+  background-color: #ff6600 !important;
+}
+
+.btn.btn-light-warning {
+  color: #ff6600;
+  border-color: #fff8dd;
+  background-color: #fff8dd;
+}
+
+.account-type-description {
+  font-size: 10pt;
+}
+
+@media (min-width: 768px) {
+  .w-md-700px {
+    width: 700px !important;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .w-lg-250px {
+    width: 250px !important;
+  }
+  .w-lg-700px {
+    width: 700px !important;
+  }
+  .position-lg-fixed {
+    position: fixed !important;
+  }
+  .flex-lg-row-auto {
+    flex: 0 0 auto;
+  }
+  .flex-lg-row-fluid {
+    flex: 1 auto;
+    min-width: 0;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .w-xl-350px {
+    width: 350px !important;
+  }
+  .w-xl-850px {
+    width: 850px !important;
+  }
+}

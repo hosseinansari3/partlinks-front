@@ -68,12 +68,8 @@ function ResetPassword() {
       console.log(response);
       setResponseData(response.data);
       if (response?.data?.result?.match) {
-        if (response?.data?.result?.need_registration) {
-          toast.error("you dont have an account");
-        } else {
-          setAuthToken(response?.data?.result?.auth_info?.token);
-          setStep(steps.STEP_PASSWORD);
-        }
+        setAuthToken(response?.data?.result?.auth_info?.token);
+        setStep(steps.STEP_PASSWORD);
       }
 
       setLoading(false);

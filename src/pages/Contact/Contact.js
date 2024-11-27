@@ -17,6 +17,7 @@ function Contact() {
     control,
     watch,
     setError,
+    reset,
     clearErrors,
     formState: { errors },
   } = useForm({
@@ -57,6 +58,7 @@ function Contact() {
 
       console.log(response);
       if (response?.data?.done) {
+        reset();
         toast.success("Your message sent successfully");
       }
 

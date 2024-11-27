@@ -252,92 +252,95 @@ function ResetPassword() {
       : null;
 
   return (
-    <div className="d-flex flex-column flex-root bg-dark w-100 h-100 position-fixed ">
-      <div className="d-flex flex-column flex-column-fluid flex-lg-row">
-        <div className="d-flex flex-center col-lg-6 justify-content-center align-items-center w-lg-50 pt-5 pt-lg-0 px-4">
-          <div className="d-flex flex-center flex-lg-start flex-column">
-            <a href="https://partlinks.com.au" className="mb-7">
-              <img
-                alt="Logo"
-                src="https://partlinks.com.au/panel/media/logos/custom-1.png"
-              />
-            </a>
-
-            <h2 className="text-white fw-normal fs-6 m-0">2024 ©Copyright</h2>
-          </div>
-        </div>
-        <div className="d-flex flex-center col-lg-6 justify-content-center align-items-center w-lg-50 p-5">
-          <div className="card rounded-3 w-md-550px">
-            <div className="card-body p-4 p-lg-5">
-              <form
-                className="form w-100 fv-plugins-bootstrap5 fv-plugins-framework"
-                onSubmit={handleSubmit(onSubmit, onError)}
-              >
-                <input
-                  type="hidden"
-                  name="_token"
-                  value="uN7gYwMmJKf58ryRhT5OlgEbvguPj3Z7TMbbx2sz"
+    <>
+      <div className="bg-dark w-100 h-100 position-absolute"></div>
+      <div className="d-flex flex-column flex-root z-3  ">
+        <div className="d-flex flex-column flex-column-fluid flex-lg-row">
+          <div className="d-flex flex-center col-lg-6 justify-content-center align-items-center w-lg-50 pt-5 pt-lg-0 px-4">
+            <div className="d-flex flex-center flex-lg-start flex-column">
+              <a href="https://partlinks.com.au" className="mb-7">
+                <img
+                  alt="Logo"
+                  src="https://partlinks.com.au/panel/media/logos/custom-1.png"
                 />
-                <div className="text-center mb-5">
-                  <div
-                    className={`d-flex position-relative ${
-                      step == steps.STEP_PHONE
-                        ? "justify-content-center"
-                        : "justify-content-between"
-                    } align-items-center`}
-                  >
-                    <div className="d-flex align-items-center justify-content-center">
-                      <i
-                        onClick={() => setStep(steps.STEP_PHONE)}
-                        class={` ${
-                          step == steps.STEP_PHONE && "d-none"
-                        } bx bx-arrow-back back-btn`}
-                      ></i>
-                    </div>
-                    <div className="d-flex align-items-center justify-content-center">
-                      <h1 className="text-dark fw-bolder mb-3">
-                        Reset Password
-                      </h1>
+              </a>
+
+              <h2 className="text-white fw-normal fs-6 m-0">2024 ©Copyright</h2>
+            </div>
+          </div>
+          <div className="d-flex flex-center col-lg-6 justify-content-center align-items-center w-lg-50 p-5">
+            <div className="card rounded-3 w-md-550px">
+              <div className="card-body p-4 p-lg-5">
+                <form
+                  className="form w-100 fv-plugins-bootstrap5 fv-plugins-framework"
+                  onSubmit={handleSubmit(onSubmit, onError)}
+                >
+                  <input
+                    type="hidden"
+                    name="_token"
+                    value="uN7gYwMmJKf58ryRhT5OlgEbvguPj3Z7TMbbx2sz"
+                  />
+                  <div className="text-center mb-5">
+                    <div
+                      className={`d-flex position-relative ${
+                        step == steps.STEP_PHONE
+                          ? "justify-content-center"
+                          : "justify-content-between"
+                      } align-items-center`}
+                    >
+                      <div className="d-flex align-items-center justify-content-center">
+                        <i
+                          onClick={() => setStep(steps.STEP_PHONE)}
+                          class={` ${
+                            step == steps.STEP_PHONE && "d-none"
+                          } bx bx-arrow-back back-btn`}
+                        ></i>
+                      </div>
+                      <div className="d-flex align-items-center justify-content-center">
+                        <h1 className="text-dark fw-bolder mb-3">
+                          Reset Password
+                        </h1>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {formContent}
+                  {formContent}
 
-                <div className="d-grid mb-4">
-                  <button
-                    type="submit"
-                    id="kt_sign_in_submit"
-                    className="btn btn-primary"
-                  >
-                    <span
-                      className={`${
-                        loading ? "d-none" : "d-block"
-                      } indicator-label`}
+                  <div className="d-grid mb-4">
+                    <button
+                      type="submit"
+                      id="kt_sign_in_submit"
+                      className="btn btn-primary"
                     >
-                      {step == steps.STEP_PHONE
-                        ? "send code"
-                        : step == steps.STEP_PASSWORD
-                        ? "reset password"
-                        : "submit"}
-                    </span>
+                      <span
+                        className={`${
+                          loading ? "d-none" : "d-block"
+                        } indicator-label`}
+                      >
+                        {step == steps.STEP_PHONE
+                          ? "send code"
+                          : step == steps.STEP_PASSWORD
+                          ? "reset password"
+                          : "submit"}
+                      </span>
 
-                    <span
-                      className={`${
-                        loading ? "d-block" : "d-none"
-                      } indicator-progress`}
-                    >
-                      Please wait...
-                      <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                    </span>
-                  </button>
-                </div>
-              </form>
+                      <span
+                        className={`${
+                          loading ? "d-block" : "d-none"
+                        } indicator-progress`}
+                      >
+                        Please wait...
+                        <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+                      </span>
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

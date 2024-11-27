@@ -9,10 +9,10 @@ import SellCar from "./pages/SellCar/SellCar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
+import ChooseAcountType from "./pages/Register/ChooseAcountType/ChooseAcountType";
 
-import BusinessComplete from "./pages/Register/Business/BusinessComplete";
-import PrivateComplete from "./pages/Register/Private/PrivateComplete";
+import BusinessComplete from "./pages/Register/BusinessComplete/BusinessComplete";
+import PrivateComplete from "./pages/Register/PrivateComplete/PrivateComplete";
 import Panel from "./pages/Panel";
 import SellCarSuccess from "./pages/SellCar/SellCarSuccess";
 import SellCarVerify from "./pages/SellCar/SellCarVerify/SellCarVerify";
@@ -47,7 +47,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="password/reset" element={<ResetPassword />} />
 
-        <Route path="auth/register" element={<Register />} />
+        <Route path="auth/register" element={<ChooseAcountType />} />
 
         <Route
           path="auth/member/business/complete"

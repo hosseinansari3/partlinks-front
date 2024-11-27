@@ -95,11 +95,16 @@ function Footer() {
                     {homeData?.result?.contact_info?.primary_phone_number}
                   </a>
                 </li>
-                <li>
-                  <i className="bx bx-envelope"></i>
-                  <span>Email</span>
-                  <a href="mailto:hello@maxon.com">hello@maxon.com</a>
-                </li>
+                {homeData?.result?.contact_info?.email && (
+                  <li>
+                    <i className="bx bx-envelope"></i>
+                    <span>Email</span>
+                    <a href={`mailto:${homeData?.result?.contact_info?.email}`}>
+                      {homeData?.result?.contact_info?.email}
+                    </a>
+                  </li>
+                )}
+
                 <li>
                   <i className="bx bx-map"></i>
                   <span>Address</span>

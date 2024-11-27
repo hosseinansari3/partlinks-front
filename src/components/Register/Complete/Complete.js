@@ -68,7 +68,7 @@ function Complete({ memberType }) {
   });
 
   useEffect(() => {
-    registerStep == 2 && setStep(STEPS.STEP1);
+    registerStep == 2 && setStep(STEPS.STEP2);
     registerStep == 3 && setStep(STEPS.STEP2);
     registerStep == 4 && setStep(STEPS.STEP3);
     registerStep == -1 && setStep(STEPS.STEP4);

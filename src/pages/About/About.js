@@ -38,7 +38,11 @@ function About() {
           </div>
         </div>
       </div>
-      <section class="story-area ptb-100">
+      <div className=" p-4 py-5">
+        <h1 className="mb-2 text-center">{aboutData?.result?.title}</h1>
+        <p className="px-5 text-justify">{aboutData?.result?.description}</p>
+      </div>
+      <section class="story-area pb-100 pt-4">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6 col-md-6">
@@ -173,6 +177,22 @@ function About() {
           </div>
         </div>
       </section>
+
+      <h5 className="text-center">Partlinks on social media</h5>
+      <div className="d-flex justify-content-center align-items-center mb-4">
+        {aboutData?.result?.social_media_list?.map((item) => {
+          return (
+            <div className="px-2">
+              <a href={item.company_url} target="_blank">
+                <img
+                  className="social-icon"
+                  src={`https://partlinks.com.au/${item.icon}`}
+                />
+              </a>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

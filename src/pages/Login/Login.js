@@ -103,10 +103,7 @@ function Login() {
           response?.data?.result !== null
         ) {
           setStep(steps.STEP_OTP);
-          const response = await axios.post(
-            "https://partlinks.com.au/api/v1/member/auth/resend_otp",
-            { phone_number: userName }
-          );
+
           toast("a code sent to your phone");
         }
 

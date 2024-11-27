@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import TextInput from "../../components/Common/TextInput";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { InputLabel } from "@mui/material";
 import OtpInput from "../../components/Common/OtpInput";
 import { useNavigate } from "react-router-dom";
+import PasswordStrength from "../../components/Common/PasswordStrength";
 
 const steps = {
   STEP_PHONE: "STEP_PHONE",
@@ -22,6 +23,7 @@ function ResetPassword() {
   const [step, setStep] = useState(steps.STEP_PHONE);
   const [otpNumber, setOtpNumber] = useState(null); // State to store OTP as a number
   const [authToken, setAuthToken] = useState();
+  const [passwordStrengthScore, setPasswordStrengthScore] = useState();
 
   useEffect(() => {
     console.log("authToken", authToken);
@@ -48,8 +50,27 @@ function ResetPassword() {
   const passwordConfirm = watch("passwordConfirm");
 
   useEffect(() => {
-    console.log("number", phone);
-  }, [phone]);
+    if (passwordStrengthScore < 3 && password !== "") {
+      setError("passwordStrengthScore", {
+        type: "custom",
+        message: "Please enter valid password",
+      });
+    } else {
+      clearErrors("passwordStrengthScore");
+    }
+  }, [passwordStrengthScore]);
+
+  useEffect(() => {
+    if (password !== passwordConfirm) {
+      setError("confirmNotSame", {
+        type: "custom",
+        message: "The password and its confirm are not the same",
+      });
+    }
+    if (password == passwordConfirm) {
+      clearErrors("confirmNotSame");
+    }
+  }, [passwordConfirm]);
 
   const onError = (e) => {
     if (errors) {
@@ -154,21 +175,28 @@ function ResetPassword() {
         >
           Enter your new password
         </InputLabel>
-        <TextInput
-          {...register("password", {
-            required: step == steps.STEP_PASSWORD,
-          })}
-          fullWidth
-          type="password"
-          placeholder="new password"
+        <Controller
+          name="password"
+          control={control}
+          rules={{ required: true }}
+          render={({ field, fieldState }) => (
+            <PasswordStrength
+              setStregthScore={setPasswordStrengthScore}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
 
+        <div className="text-muted">
+          Use 8 or more characters with a mix of letters &amp; numbers.
+        </div>
         <div
-          className={`${
-            errors?.password && "d-block"
+          className={` ${
+            errors?.passwordStrengthScore && "d-block"
           } fv-plugins-message-container invalid-feedback`}
         >
-          password is required
+          {errors?.passwordStrengthScore?.message}
         </div>
       </div>
       <div className={` mb-3 fv-plugins-icon-container`}>
@@ -189,11 +217,11 @@ function ResetPassword() {
         />
 
         <div
-          className={`${
-            errors?.password && "d-block"
+          className={` ${
+            errors?.confirmNotSame && "d-block"
           } fv-plugins-message-container invalid-feedback`}
         >
-          password confirmation is required
+          {errors?.confirmNotSame?.message}
         </div>
       </div>
     </div>

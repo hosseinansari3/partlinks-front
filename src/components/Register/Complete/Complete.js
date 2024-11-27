@@ -223,8 +223,7 @@ function Complete({ memberType }) {
           />
         </div>
         <div className="text-muted">
-          Use 8 or more characters with a mix of uppercase and lowercase
-          letters, numbers &amp; symbols.
+          Use 8 or more characters with a mix of letters &amp; numbers.
         </div>
         <div
           className={` ${

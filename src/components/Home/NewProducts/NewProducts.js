@@ -35,30 +35,17 @@ function NewProducts() {
               <div className="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div className="single-top-products position-relative">
                   <div className="top-products-image">
-                    <a href="products-details.html">
+                    <a href="#">
                       <img
                         src={`https://partlinks.com.au/${item.image}`}
                         alt="image"
                       />
                     </a>
-
-                    <ul className="top-products-action">
-                      <li>
-                        <a href="cart.html">
-                          <i className="flaticon-shopping-cart"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="wishlist.html">
-                          <i className="flaticon-heart"></i>
-                        </a>
-                      </li>
-                    </ul>
                   </div>
 
                   <div className="top-products-content">
                     <h3>
-                      <a href="products-details.html">{item.title}</a>
+                      <a href="#">{item.title}</a>
                     </h3>
                     <ul className="rating">
                       <li>
@@ -78,9 +65,15 @@ function NewProducts() {
                       </li>
                     </ul>
 
-                    <p className="mb-0">${item.off_price}</p>
-                    <p>
-                      <s>${item.price}</s>
+                    <p className="mb-0">
+                      {item.discount == "0" ? (
+                        <p>${item.price}</p>
+                      ) : (
+                        <s>${item.price}</s>
+                      )}
+                    </p>
+                    <p className={`${item.discount == "0" && "d-none"}`}>
+                      ${item.off_price}
                     </p>
                   </div>
                   <div
